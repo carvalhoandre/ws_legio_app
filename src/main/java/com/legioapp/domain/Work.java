@@ -32,7 +32,7 @@ public class Work implements Serializable{
 		inverseJoinColumns = @JoinColumn(name = "legios_id")
 	)
 	@CollectionTable(name="LEGIONARIOS")
-	private List<Legios> legios = new ArrayList<>();
+	private List<Legio> legio = new ArrayList<>();
 	
 	@CollectionTable(name="TRABALHO")
 	private Integer work;
@@ -49,7 +49,7 @@ public class Work implements Serializable{
 	public Work() {
 	}
 
-	public Work(Integer id, Legios legio, WorkType work, PersonType person, Integer quantContact, Float hours) {
+	public Work(Integer id, Legio legio, WorkType work, PersonType person, Integer quantContact, Float hours) {
 		this.id = id;
 		this.work = (work==null) ? null : work.getCod();
 		this.person = (person==null) ? null : person.getCod();
@@ -65,12 +65,12 @@ public class Work implements Serializable{
 		this.id = id;
 	}
 
-	public List<Legios> getLegios() {
-		return legios;
+	public List<Legio> getLegios() {
+		return legio;
 	}
 
-	public void setLegios(List<Legios> legios) {
-		this.legios = legios;
+	public void setLegios(List<Legio> legio) {
+		this.legio = legio;
 	}
 
 	public WorkType getWork() {

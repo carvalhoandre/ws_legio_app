@@ -1,14 +1,18 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.legioapp.domain.enums.ChargeType;
+
 @Entity
-public class Legios implements Serializable{
+public class Legio implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -16,14 +20,21 @@ public class Legios implements Serializable{
 	private Integer id;
 	
 	private String name;
+	
+	private Integer charge;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date birthday;
 
-	public Legios() {
+	public Legio() {
 		
 	}
 
-	public Legios(Integer id, String name) {
+	public Legio(Integer id, String name, ChargeType charge, Date birthday) {
 		this.id = id;
 		this.name = name;
+		this.charge = (charge==null) ? null : charge.getCod();
+		this.birthday = birthday;
 	}
 
 	public Integer getId() {
@@ -40,6 +51,22 @@ public class Legios implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public ChargeType getCharge() {
+		return ChargeType.toEnum(charge);
+	}
+
+	public void setCharge(ChargeType charge) {
+		this.charge = charge.getCod();
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	@Override
@@ -58,7 +85,7 @@ public class Legios implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Legios other = (Legios) obj;
+		Legio other = (Legio) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
