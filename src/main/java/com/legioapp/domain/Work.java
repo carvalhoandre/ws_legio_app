@@ -31,7 +31,6 @@ public class Work implements Serializable{
 		joinColumns = @JoinColumn(name = "work_id"),
 		inverseJoinColumns = @JoinColumn(name = "legios_id")
 	)
-	@CollectionTable(name="LEGIONARIOS")
 	private List<Legio> legio = new ArrayList<>();
 	
 	@CollectionTable(name="TRABALHO")
