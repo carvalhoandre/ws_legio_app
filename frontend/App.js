@@ -1,21 +1,76 @@
+import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
+import * as Font from 'expo-font';
+import Routes from './Routes';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends Component {
+
+  state = {
+    fontsLoaded: false
+  };
+
+  async loadFonts() {
+    await Font.loadAsync({
+
+      'Old English Text MT': {
+        uri: require('./assets/fonts/OldEnglishTextMT.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-Bold': {
+        uri: require('./assets/fonts/WorkSans-Bold.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-ExtraLight': {
+        uri: require('./assets/fonts/WorkSans-ExtraLight.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-Italic': {
+        uri: require('./assets/fonts/WorkSans-Italic.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-Light': {
+        uri: require('./assets/fonts/WorkSans-Light.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-Medium': {
+        uri: require('./assets/fonts/WorkSans-Medium.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-Regular': {
+        uri: require('./assets/fonts/WorkSans-Regular.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+
+      'WorkSans-SemiBold': {
+        uri: require('./assets/fonts/WorkSans-SemiBold.ttf'),
+        display: Font.FontDisplay.FALLBACK,
+      },
+    })
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this.loadFonts();
+  }
+
+  render() {
+    if (this.state.fontsLoaded) {
+      return (
+        <>
+          <Routes />
+          <StatusBar style="auto" />
+        </>
+      );
+    } else {
+      return <AppLoading />
+    }
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
