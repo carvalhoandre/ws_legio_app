@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
-import Routes from './Routes';
+import Routes from './src/routes/Routes';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 export default class App extends Component {
 
@@ -63,10 +64,10 @@ export default class App extends Component {
   render() {
     if (this.state.fontsLoaded) {
       return (
-        <>
+        <PaperProvider>
           <Routes />
           <StatusBar style="auto" />
-        </>
+        </PaperProvider>
       );
     } else {
       return <AppLoading />

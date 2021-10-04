@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import commonStyles from './src/styles/commonStyles';
+import commonStyles from '../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 /* screens */
-import Home from './src/screens/home'
-
+import Home from '../screens/home'
+import PrayersRoute from './prayersRoute'
 
 const Tab = createBottomTabNavigator();
 
@@ -15,14 +15,6 @@ const Settings = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Configurações</Text>
-        </View>
-    )
-}
-
-const Prayers = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Orações</Text>
         </View>
     )
 }
@@ -50,6 +42,9 @@ export default class Routes extends Component {
             <NavigationContainer>
                 <Tab.Navigator
                     initialRouteName="Home"
+                    options={{
+                        headerShown: false,
+                    }}
                     screenOptions={({ route }) => ({
                         tabBarActiveTintColor: commonStyles.colors.primaryHoverColor,
                         tabBarInactiveTintColor: "#4b4d53",
@@ -63,7 +58,7 @@ export default class Routes extends Component {
                                 case 'Settings':
                                     iconName = 'settings-outline';
                                     break;
-                                case 'Prayers':
+                                case 'PrayersRoute':
                                     iconName = 'flame-outline';
                                     break;
                                 case 'Readings':
@@ -81,7 +76,7 @@ export default class Routes extends Component {
                     })}
                 >
                     <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="Prayers" component={Prayers} />
+                    <Tab.Screen name="PrayersRoute" component={PrayersRoute} />
                     <Tab.Screen
                         name="Database"
                         component={Database}
