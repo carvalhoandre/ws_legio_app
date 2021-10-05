@@ -87,18 +87,42 @@ function PrayersRoute() {
             <Stack.Screen
                 name="Dolorosos"
                 component={Dolorosos}
+                options={{
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
+                }}
             />
             <Stack.Screen
                 name="Gloriosos"
                 component={Gloriosos}
+                options={{
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
+                }}
             />
             <Stack.Screen
                 name="Gozosos"
                 component={Gozosos}
+                options={{
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
+                }}
             />
             <Stack.Screen
                 name="Luminosos"
                 component={Luminosos}
+                options={{
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
+                }}
             />
         </Stack.Navigator>
     )

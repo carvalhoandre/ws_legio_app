@@ -47,7 +47,7 @@ export default class Routes extends Component {
                     }}
                     screenOptions={({ route }) => ({
                         tabBarActiveTintColor: commonStyles.colors.primaryHoverColor,
-                        tabBarInactiveTintColor: "#4b4d53",
+                        tabBarInactiveTintColor: "#c1c3c7",
                         tabBarShowLabel: false,
                         tabBarIcon: ({ color, size }) => {
                             let iconName;
@@ -122,7 +122,6 @@ export default class Routes extends Component {
                             headerShown: false,
                         }} 
                     />
-
                 </Tab.Navigator>
             </NavigationContainer>
         )
