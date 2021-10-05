@@ -9,7 +9,6 @@ export default class Catena extends Component {
             <ScrollView
                 contentContainerStyle={styles.scrollView}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Catena Legionis</Text>
 
                     <Text style={styles.paragraph}>
                         <Text style={styles.bold}>Ant.</Text> Quem é esta que avança como a aurora, formosa como a lua, brilhante como o sol, terrível como um exército em ordem de batalha?
@@ -58,25 +57,21 @@ export default class Catena extends Component {
                     </Text>
 
                     <Text style={styles.paragraph}>
-                        <Text style={styles.jaculatory}>
-                            Glória ao Pai e ao Filho e ao Espírito Santo, *
-                        </Text>
-                        <Text style={styles.jaculatory}>
-                            Como era no princípio, agora e sempre. Amém.
-                        </Text>
+                        Glória ao Pai e ao Filho e ao Espírito Santo, *
+                    </Text>
+                    <Text style={styles.paragraph}>
+                        Como era no princípio, agora e sempre. Amém.
                     </Text>
 
                     <Text style={styles.paragraph}>
                         <Text style={styles.bold}>Ant.</Text> Quem é esta que avança como a aurora, formosa como a lua, brilhante como o sol, terrível como um exército em ordem de batalha?
                     </Text>
 
-                    <Text style={styles.paragraph}>
-                        <Text style={styles.jaculatory}>
-                            P. Ó Maria concebida sem pecado,
-                        </Text>
-                        <Text style={styles.jaculatory}>
-                            R. Rogai por nós que recorremos a Vós.
-                        </Text>
+                    <Text style={styles.jaculatory}>
+                        P. Ó Maria concebida sem pecado,
+                    </Text>
+                    <Text style={styles.repply}>
+                        R. Rogai por nós que recorremos a Vós.
                     </Text>
 
                     <Text style={styles.paragraph}>
@@ -94,16 +89,32 @@ export default class Catena extends Component {
 const styles = StyleSheet.create({
     scrollView: {
         marginHorizontal: 0,
-        marginBottom: 20,
     },
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        padding: 25,
     },
-    title: {
-        fontFamily: commonStyles.fontFamily.LegioTitle,
-        color: commonStyles.colors.primaryColor,
-        fontSize: commonStyles.fontSize.title,
-    }
+    paragraph: {
+        lineHeight: 22,
+        textAlign: "justify",
+        fontFamily: commonStyles.fontFamily.body,
+        marginBottom: 15,
+        fontSize: commonStyles.fontSize.normal,
+    },
+    jaculatory: {
+        lineHeight: 20,
+        textAlign: "auto",
+        fontFamily: commonStyles.fontFamily.body,
+        fontSize: commonStyles.fontSize.normal,
+    },
+    repply: {
+        marginBottom: 15,
+        lineHeight: 20,
+        textAlign: "auto",
+        fontFamily: commonStyles.fontFamily.italic,
+        fontSize: commonStyles.fontSize.normal,
+    },
+    bold: {
+        fontFamily: commonStyles.fontFamily.semiBold,
+        color: commonStyles.colors.textColor,
+    },
 })

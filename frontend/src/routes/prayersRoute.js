@@ -14,6 +14,7 @@ import Dolorosos from '../screens/mysteries/dolorosos'
 import Gloriosos from '../screens/mysteries/gloriosos'
 import Gozosos from '../screens/mysteries/gozosos'
 import Luminosos from '../screens/mysteries/luminosos'
+import commonStyles from '../styles/commonStyles';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,10 @@ function PrayersRoute() {
                 component={Catena}
                 options={{
                     headerTitle: "Catena Legionis",
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
                 }}
             />
             <Stack.Screen
@@ -34,6 +39,10 @@ function PrayersRoute() {
                 component={Final}
                 options={{
                     headerTitle: "Orações Finais",
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
                 }}
             />
             <Stack.Screen
@@ -41,8 +50,12 @@ function PrayersRoute() {
                 component={Opening}
                 options={{
                     headerTitle: "Orações Iniciais",
+                    headerTitleStyle: {
+                        fontFamily: commonStyles.fontFamily.LegioTitle,
+                        color: commonStyles.colors.primaryHoverColor,
+                    }
                 }}
-                />
+            />
             <Stack.Screen
                 name="Prayers"
                 component={Prayers}
@@ -54,21 +67,21 @@ function PrayersRoute() {
                 name="Frank"
                 component={Frank}
                 options={{
-                    headerTitle: "Frank Duff",
+                    headerShown: false,
                 }}
             />
             <Stack.Screen
                 name="Edel"
                 component={Edel}
                 options={{
-                    headerTitle: "Edel Quinn",
+                    headerShown: false,
                 }}
             />
             <Stack.Screen
                 name="Afonso"
                 component={Afonso}
                 options={{
-                    headerTitle: "Afonso Lambe",
+                    headerShown: false,
                 }}
             />
             <Stack.Screen

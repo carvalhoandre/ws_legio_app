@@ -20,6 +20,8 @@ const Prayers = () => {
             <View style={styles.container}>
                 <Text style={styles.title}>Orações da Legião</Text>
 
+                <Text style={styles.subtitle}>Capítulo 22 página 129</Text>
+
                 <Text style={styles.paragraph}>
                     Damos a seguir as orações da Legião de Maria, conforme devem ser rezadas nas
                     reuniões. Rezadas em particular, dispensam tal ordem.
@@ -39,45 +41,47 @@ const Prayers = () => {
                 <Portal>
                     <FAB.Group
                         open={open}
-                        icon={open ? 'calendar-today' : 'plus'}
+                        icon={open ? 'close' : 'check'}
+                        fabStyle={styles.button}
+                        color={"#FFF"}
                         actions={[
                             {
-                                
+                                icon: 'chevron-right',                                
                                 label: 'Orações Iniciais',
                                 onPress: (() => {
                                     navigation.navigate('Opening');
                                 }),
                             },
                             {
-                                
+                                icon: 'chevron-right',        
                                 label: 'Catena',
                                 onPress: (() => {
                                     navigation.navigate('Catena');
                                 }),
                             },
                             {
-                               
+                                icon: 'chevron-right',        
                                 label: 'Orações Finais',
                                 onPress: (() => {
                                     navigation.navigate('Final');
                                 }),
                             },
                             {
-                                
+                                icon: 'chevron-right',        
                                 label: 'Frank Duff',
                                 onPress: (() => {
                                     navigation.navigate('Frank');
                                 }),
                             },
                             {
-                                
+                                icon: 'chevron-right',        
                                 label: 'Afonso Lambe',
                                 onPress: (() => {
                                     navigation.navigate('Afonso');
                                 }),
                             },
                             {
-                                
+                                icon: 'chevron-right',        
                                 label: 'Edell Quin',
                                 onPress: (() => {
                                     navigation.navigate('Edel');
@@ -100,19 +104,32 @@ const Prayers = () => {
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        marginHorizontal: 0,
-        marginBottom: 20,
-    },
     container: {
-        flex: 1,
+        flex: 2,
+        padding: 25,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
     },
     title: {
         fontFamily: commonStyles.fontFamily.LegioTitle,
-        color: commonStyles.colors.primaryColor,
-        fontSize: commonStyles.fontSize.title,
+        color: commonStyles.colors.primaryHoverColor,
+        fontSize: commonStyles.fontSize.subtitle,
+    },
+    subtitle: {
+        fontFamily: commonStyles.fontFamily.italic,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.small,
+        marginBottom: 20,
+    },
+    paragraph: {
+        lineHeight: 23,
+        textAlign: 'justify',
+        fontFamily: commonStyles.fontFamily.body,
+        marginBottom: 10,
+        fontSize: commonStyles.fontSize.normal,
+    },
+    button: {
+        backgroundColor: commonStyles.colors.firstColorLight,
     }
 })
 

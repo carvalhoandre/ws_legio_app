@@ -19,7 +19,7 @@ export default class Afonso extends Component {
                         Isto Vos pedimos por Jesus Cristo, Nosso Senhor. Amém.
                     </Text>
 
-                    <Text style={styles.paragraph}>(Com aprovação eclesiástica)</Text>
+                    <Text style={styles.observation}>(Com aprovação eclesiástica)</Text>
                 </View>
             </ScrollView>
         )
@@ -27,18 +27,38 @@ export default class Afonso extends Component {
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        marginHorizontal: 0,
-        marginBottom: 20,
-    },
     container: {
         flex: 1,
+        paddingTop: 80,
+        paddingEnd: 50,
+        paddingLeft: 20,
+        paddingRight: 20,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
     },
     title: {
         fontFamily: commonStyles.fontFamily.LegioTitle,
-        color: commonStyles.colors.primaryColor,
-        fontSize: commonStyles.fontSize.title,
-    }
+        color: commonStyles.colors.primaryHoverColor,
+        fontSize: commonStyles.fontSize.subtitle,
+        marginBottom: 20,
+        textAlign: 'center'
+    },
+    subtitle: {
+        fontFamily: commonStyles.fontFamily.italic,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.small,
+        marginBottom: 20,
+    },
+    paragraph: {
+        lineHeight: 23,
+        textAlign: 'justify',
+        fontFamily: commonStyles.fontFamily.body,
+        marginBottom: 10,
+        fontSize: commonStyles.fontSize.normal,
+    },
+    observation: {
+        fontFamily: commonStyles.fontFamily.light,
+        color: commonStyles.colors.textColorLight,
+        marginBottom: 15,
+    },
 })

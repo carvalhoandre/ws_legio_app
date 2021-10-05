@@ -19,8 +19,8 @@ export default {
     fontSize: {
         title: 48,
         subtitle: 30,
-        medium: 16,
-        normal: 12,
+        medium: 20,
+        normal: 15,
         small: 12,
     },
 
