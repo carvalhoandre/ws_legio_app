@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 import { FAB, Portal, Provider } from 'react-native-paper';
@@ -66,7 +66,7 @@ const Prayers = () => {
                                 
                                 label: 'Frank Duff',
                                 onPress: (() => {
-                                    navigation.navigate('Duff');
+                                    navigation.navigate('Frank');
                                 }),
                             },
                             {

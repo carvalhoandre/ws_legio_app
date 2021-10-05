@@ -75,12 +75,25 @@ export default class Routes extends Component {
                         },
                     })}
                 >
-                    <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="PrayersRoute" component={PrayersRoute} />
+                    <Tab.Screen 
+                        name="Home" 
+                        component={Home}
+                        options={{
+                            headerShown: false,
+                        }} 
+                    />
+                    <Tab.Screen 
+                        name="PrayersRoute" 
+                        component={PrayersRoute} 
+                        options={{
+                            headerShown: false,
+                        }}
+                    />
                     <Tab.Screen
                         name="Database"
                         component={Database}
                         options={() => ({
+                            headerShown: false,
                             tabBarIcon: ({ tintColor }) => (
                                 <View>
                                     <LinearGradient
@@ -95,8 +108,20 @@ export default class Routes extends Component {
                             )
                         })}
                     />
-                    <Tab.Screen name="Readings" component={Readings} />
-                    <Tab.Screen name="Settings" component={Settings} />
+                    <Tab.Screen 
+                        name="Readings" 
+                        component={Readings} 
+                        options={{
+                            headerShown: false,
+                        }}    
+                    />
+                    <Tab.Screen 
+                        name="Settings" 
+                        component={Settings}
+                        options={{
+                            headerShown: false,
+                        }} 
+                    />
 
                 </Tab.Navigator>
             </NavigationContainer>

@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
-import { BottomSheet } from 'react-native-elements'
+import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 const Final = () => {
 
     const navigation = useNavigation();
 
-    const [isVisible, setIsVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
+
     const list = [
         {
             title: 'Frank Duff',
@@ -32,7 +38,7 @@ const Final = () => {
             title: 'Cancelar',
             containerStyle: { backgroundColor: 'red' },
             titleStyle: { color: 'white' },
-            onPress: () => setIsVisible(false),
+            onPress: () => hideModal(),
         },
     ];
 
@@ -105,24 +111,24 @@ const Final = () => {
                 <Text style={styles.paragraph}>
                     Em nome do Pai + e do Filho e do Espírito Santo. Amém.
                 </Text>
-
-
-                <View style={styles.areaButton}>
-                    <BottomSheet
-                        isVisible={isVisible}
-                        containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' }}
-                    >
-                        {list.map((l, i) => (
-                            <ListItem key={i} containerStyle={l.containerStyle} onPress={l.onPress}>
-                                <ListItem.Content>
-                                    <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-                                </ListItem.Content>
-                            </ListItem>
-                        ))}
-                    </BottomSheet>;
-                </View>
-
             </View>
+
+            <Provider>
+                <Portal>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                        {list.map((u, i) => {
+                            return (
+                                <Button key={i} onPress={u.onPress}>
+                                    {u.title}
+                                </Button>
+                            )
+                        })}
+                    </Modal>
+                </Portal>
+                <Button style={{ marginTop: 30 }} onPress={showModal}>
+                    Orações dos Fundadores
+                </Button>
+            </Provider>
         </ScrollView>
     )
 }

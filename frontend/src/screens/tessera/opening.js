@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
-import { BottomSheet } from 'react-native-elements'
+import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 const Opening = () => {
 
     const navigation = useNavigation();
-    const [isVisible, setIsVisible] = useState(false);
+
+    const [visible, setVisible] = useState(false);
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
+
     const list = [
         {
             title: 'Gloriosos (quartas-feiras e domingos)',
@@ -24,7 +31,7 @@ const Opening = () => {
         {
             title: 'Dolosorosos (terças e sextas-feiras)',
             onPress: (() => {
-                navigation.navigate('Dolosorosos');
+                navigation.navigate('Dolorosos');
             }),
         },
         {
@@ -37,7 +44,7 @@ const Opening = () => {
             title: 'Cancelar',
             containerStyle: { backgroundColor: 'red' },
             titleStyle: { color: 'white' },
-            onPress: () => setIsVisible(false),
+            onPress: () => hideModal(),
         },
     ];
 
@@ -99,22 +106,26 @@ const Opening = () => {
                 <Text style={styles.paragraph}>
                     (Segue-se o terço terminado pela Salve Rainha).
                 </Text>
+            </View>
 
-                <View style={styles.areaButton}>
-                    <BottomSheet
-                        isVisible={isVisible}
-                        containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' }}
-                    >
-                        {list.map((l, i) => (
-                            <ListItem key={i} containerStyle={l.containerStyle} onPress={l.onPress}>
-                                <ListItem.Content>
-                                    <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-                                </ListItem.Content>
-                            </ListItem>
-                        ))}
-                    </BottomSheet>;
-                </View>
+            <Provider>
+                <Portal>
+                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                        {list.map((u, i) => {
+                            return(
+                                <Button key={i} onPress={u.onPress}> 
+                                    {u.title}
+                                </Button>
+                            )
+                        })}
+                    </Modal>
+                </Portal>
+                <Button style={{ marginTop: 30 }} onPress={showModal}>
+                    Mistérios
+                </Button>
+            </Provider>
 
+            <View>
                 <Text style={styles.paragraph}>
                     <Text style={styles.jaculatory}>
                         P. Rogai por nós, Santa Mãe de Deus.
@@ -170,6 +181,14 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.LegioTitle,
         color: commonStyles.colors.primaryColor,
         fontSize: commonStyles.fontSize.title,
+    },
+    buttonField: {
+        margin: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#000',
+        width: 50,
+        height: 50,
     }
 })
 

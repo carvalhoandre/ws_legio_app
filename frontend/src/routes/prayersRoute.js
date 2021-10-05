@@ -25,22 +25,24 @@ function PrayersRoute() {
             <Stack.Screen
                 name="Catena"
                 component={Catena}
-               
+                options={{
+                    headerTitle: "Catena Legionis",
+                }}
             />
             <Stack.Screen
                 name="Final"
                 component={Final}
                 options={{
-                    headerShown: false,
+                    headerTitle: "Orações Finais",
                 }}
             />
             <Stack.Screen
                 name="Opening"
                 component={Opening}
                 options={{
-                    headerShown: false,
+                    headerTitle: "Orações Iniciais",
                 }}
-            />
+                />
             <Stack.Screen
                 name="Prayers"
                 component={Prayers}
@@ -52,50 +54,38 @@ function PrayersRoute() {
                 name="Frank"
                 component={Frank}
                 options={{
-                    headerShown: false,
+                    headerTitle: "Frank Duff",
                 }}
             />
             <Stack.Screen
                 name="Edel"
                 component={Edel}
                 options={{
-                    headerShown: false,
+                    headerTitle: "Edel Quinn",
                 }}
             />
             <Stack.Screen
                 name="Afonso"
                 component={Afonso}
                 options={{
-                    headerShown: false,
+                    headerTitle: "Afonso Lambe",
                 }}
             />
             <Stack.Screen
                 name="Dolorosos"
                 component={Dolorosos}
-                options={{
-                    headerShown: false,
-                }}
             />
             <Stack.Screen
                 name="Gloriosos"
                 component={Gloriosos}
-                options={{
-                    headerShown: false,
-                }}
             />
             <Stack.Screen
                 name="Gozosos"
                 component={Gozosos}
-                options={{
-                    headerShown: false,
-                }}
             />
             <Stack.Screen
                 name="Luminosos"
                 component={Luminosos}
-                options={{
-                    headerShown: false,
-                }}
             />
         </Stack.Navigator>
     )
