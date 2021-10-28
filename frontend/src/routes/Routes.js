@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 /* screens */
 import Home from '../screens/home'
 import PrayersRoute from './prayersRoute'
+import ReadingRoute from "../routes/readingRoute";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,14 +16,6 @@ const Settings = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Configurações</Text>
-        </View>
-    )
-}
-
-const Readings = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Leituras</Text>
         </View>
     )
 }
@@ -110,7 +103,7 @@ export default class Routes extends Component {
                     />
                     <Tab.Screen 
                         name="Readings" 
-                        component={Readings} 
+                        component={ReadingRoute} 
                         options={{
                             headerShown: false,
                         }}    
