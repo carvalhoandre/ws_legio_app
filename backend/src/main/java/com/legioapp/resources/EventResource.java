@@ -16,18 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.legioapp.domain.Work;
-import com.legioapp.services.WorkService;
+import com.legioapp.domain.Event;
+import com.legioapp.services.EventService;
 
 @RestController
-@RequestMapping(value="/works")
-public class WorkResource {
-	
+@RequestMapping(value="/event")
+public class EventResource {
+
 	@Autowired
-	private WorkService service;
+	private EventService service;
+	
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Work obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Event obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -40,15 +41,14 @@ public class WorkResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Work> findById(@PathVariable Integer id){
-		Work obj = service.findAllById(id);
+	public ResponseEntity<Event> findById(@PathVariable Integer id){
+		Event obj = service.findAllById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Work>> findAll(){
-		List<Work> list = service.findAll();
+	public ResponseEntity<List<Event>> findAll(){
+		List<Event> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
-	
 }

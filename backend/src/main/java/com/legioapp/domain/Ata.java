@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Ata implements Serializable {
@@ -17,10 +18,18 @@ public class Ata implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@OneToMany(mappedBy="ata")
 	private List<Legio> legionarios = new ArrayList<>();
+	
+	@OneToMany(mappedBy="ata")
 	private List<Event> eventos = new ArrayList<>();
+	
+	@OneToMany(mappedBy="ata")
 	private List<Work> trabalhos = new ArrayList<>();
+	
+	@OneToMany(mappedBy="ata")
 	private List<Recruitment> recrutamentos = new ArrayList<>();
+	
 	private Treasury tesouraria;
 	
 	public Ata() {

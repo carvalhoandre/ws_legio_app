@@ -23,11 +23,10 @@ public class Legio implements Serializable{
 	
 	private Integer charge;
 	
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="dd/MM/")
 	private Date birthday;
 
 	public Legio() {
-		
 	}
 
 	public Legio(Integer id, String name, ChargeType charge, Date birthday) {

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -28,11 +30,15 @@ public class Treasury implements Serializable{
 	private Float subTotal;
 	private Float totalEmCaixa;
 	
+	@ManyToOne
+	@JoinColumn(name="ata_id")
+	private Ata ata;
+	
 	public Treasury() {
 	}
 
 	public Treasury(Integer id, Float saldoAnterior, Float coletaDoDia, Date diaDaColeta, Float despesas,
-			Float subTotal, Float totalEmCaixa) {
+			Float subTotal, Float totalEmCaixa, Ata ata) {
 		this.id = id;
 		this.saldoAnterior = saldoAnterior;
 		this.coletaDoDia = coletaDoDia;
@@ -40,6 +46,7 @@ public class Treasury implements Serializable{
 		this.despesas = despesas;
 		this.subTotal = subTotal;
 		this.totalEmCaixa = totalEmCaixa;
+		this.ata = ata;
 	}
 
 	public Integer getId() {
@@ -96,6 +103,14 @@ public class Treasury implements Serializable{
 
 	public void setTotalEmCaixa(Float totalEmCaixa) {
 		this.totalEmCaixa = totalEmCaixa;
+	}
+
+	public Ata getAta() {
+		return ata;
+	}
+
+	public void setAta(Ata ata) {
+		this.ata = ata;
 	}
 
 	@Override

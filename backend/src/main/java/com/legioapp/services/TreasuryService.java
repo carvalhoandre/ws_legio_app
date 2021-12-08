@@ -8,33 +8,33 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.legioapp.domain.Work;
-import com.legioapp.repositories.WorkRepository;
+import com.legioapp.domain.Treasury;
+import com.legioapp.repositories.TreasuryRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class WorkService {
-	
+public class TreasuryService {
+
 	@Autowired
-	private WorkRepository repo;
+	private TreasuryRepository repo;
 	
-	public Work find(Integer  id) {
+	public Treasury find(Integer  id) {
 		
-		Optional<Work> obj = repo.findById(id);
+		Optional<Treasury> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Work.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Treasury.class.getName()));
 	}
 	
 	@Transactional
-	public Work insert(Work obj) {
+	public Treasury insert(Treasury obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 	
-	public Work Update(Work obj) {
-		Work newObj = find(obj.getId());
+	public Treasury Update(Treasury obj) {
+		Treasury newObj = find(obj.getId());
 		UpdateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -48,23 +48,25 @@ public class WorkService {
 		}
 	}
 	
-	public void UpdateData(Work newObj, Work obj) {
+	public void UpdateData(Treasury newObj, Treasury obj) {
 		newObj.setAta(obj.getAta());
-		newObj.setPerson(obj.getPerson());
-		newObj.setHours(obj.getHours());
-		newObj.setLegios(obj.getLegios());
-		newObj.setQuantContact(obj.getQuantContact());
+		newObj.setColetaDoDia(obj.getColetaDoDia());
+		newObj.setDespesas(obj.getDespesas());
+		newObj.setDiaDaColeta(obj.getDiaDaColeta());
+		newObj.setSaldoAnterior(obj.getSaldoAnterior());
+		newObj.setSubTotal(obj.getSubTotal());
+		newObj.setTotalEmCaixa(obj.getTotalEmCaixa());
 	}
 	
-	public List<Work> findAll() {
+	public List<Treasury> findAll() {
 		return repo.findAll();
 	}
 	
-	public Work findAllById(Integer id) {
-		Optional<Work> obj = repo.findById(id);
+	public Treasury findAllById(Integer id) {
+		Optional<Treasury> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Work.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Treasury.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;

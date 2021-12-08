@@ -8,33 +8,34 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.legioapp.domain.Work;
-import com.legioapp.repositories.WorkRepository;
+import com.legioapp.domain.Event;
+import com.legioapp.domain.Legio;
+import com.legioapp.repositories.EventRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class WorkService {
-	
+public class EventService {
+
 	@Autowired
-	private WorkRepository repo;
+	private EventRepository repo;
 	
-	public Work find(Integer  id) {
+	public Event find(Integer  id) {
 		
-		Optional<Work> obj = repo.findById(id);
+		Optional<Event> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Work.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Legio.class.getName()));
 	}
 	
 	@Transactional
-	public Work insert(Work obj) {
+	public Event insert(Event obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 	
-	public Work Update(Work obj) {
-		Work newObj = find(obj.getId());
+	public Event Update(Event obj) {
+		Event newObj = find(obj.getId());
 		UpdateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -48,23 +49,21 @@ public class WorkService {
 		}
 	}
 	
-	public void UpdateData(Work newObj, Work obj) {
+	public void UpdateData(Event newObj, Event obj) {
+		newObj.setName(obj.getName());
 		newObj.setAta(obj.getAta());
-		newObj.setPerson(obj.getPerson());
-		newObj.setHours(obj.getHours());
 		newObj.setLegios(obj.getLegios());
-		newObj.setQuantContact(obj.getQuantContact());
 	}
 	
-	public List<Work> findAll() {
+	public List<Event> findAll() {
 		return repo.findAll();
 	}
 	
-	public Work findAllById(Integer id) {
-		Optional<Work> obj = repo.findById(id);
+	public Event findAllById(Integer id) {
+		Optional<Event> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Work.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Event.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;

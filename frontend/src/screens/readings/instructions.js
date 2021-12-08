@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: commonStyles.fontSize.normal,
         color: commonStyles.colors.titleColor,
+        lineHeight: 23
     },
     observation: {
         fontFamily: commonStyles.fontFamily.italic,

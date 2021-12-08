@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,14 +27,19 @@ public class Event implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy="event")
 	private List<Legio> legios = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name="ata_id")
+	private Ata ata;
 
 	public Event() {
 	}
 
-	public Event(Integer id, String name, List<Legio> legios) {
+	public Event(Integer id, String name, List<Legio> legios, Ata ata) {
 		this.id = id;
 		this.name = name;
 		this.legios = legios;
+		this.ata = ata;
 	}
 
 	public Integer getId() {
@@ -57,6 +64,14 @@ public class Event implements Serializable{
 
 	public void setLegios(List<Legio> legios) {
 		this.legios = legios;
+	}
+
+	public Ata getAta() {
+		return ata;
+	}
+
+	public void setAta(Ata ata) {
+		this.ata = ata;
 	}
 
 	@Override

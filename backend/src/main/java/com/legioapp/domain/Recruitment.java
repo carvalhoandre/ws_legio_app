@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.legioapp.domain.enums.PersonType;
 
@@ -20,14 +22,19 @@ public class Recruitment implements Serializable{
 	private Integer quantidade;
 	
 	private Integer person;
+	
+	@ManyToOne
+	@JoinColumn(name="ata_id")
+	private Ata ata;
 
 	public Recruitment() {
 	}
 
-	public Recruitment(Integer id, Integer quantidade, PersonType person) {
+	public Recruitment(Integer id, Integer quantidade, PersonType person, Ata ata) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.person = (person==null) ? null : person.getCod();
+		this.ata = ata;
 	}
 
 	public Integer getId() {
@@ -52,6 +59,14 @@ public class Recruitment implements Serializable{
 
 	public void setPerson(PersonType person) {
 		this.person = person.getCod();
+	}
+	
+	public Ata getAta() {
+		return ata;
+	}
+
+	public void setAta(Ata ata) {
+		this.ata = ata;
 	}
 
 	@Override

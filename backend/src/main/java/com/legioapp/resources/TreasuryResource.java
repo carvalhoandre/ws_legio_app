@@ -16,18 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.legioapp.domain.Work;
-import com.legioapp.services.WorkService;
+import com.legioapp.domain.Treasury;
+import com.legioapp.services.TreasuryService;
 
 @RestController
-@RequestMapping(value="/works")
-public class WorkResource {
-	
+@RequestMapping(value="/Treasury")
+public class TreasuryResource {
+
 	@Autowired
-	private WorkService service;
+	private TreasuryService service;
+	
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Work obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Treasury obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -40,15 +41,14 @@ public class WorkResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Work> findById(@PathVariable Integer id){
-		Work obj = service.findAllById(id);
+	public ResponseEntity<Treasury> findById(@PathVariable Integer id){
+		Treasury obj = service.findAllById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Work>> findAll(){
-		List<Work> list = service.findAll();
+	public ResponseEntity<List<Treasury>> findAll(){
+		List<Treasury> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
-	
 }

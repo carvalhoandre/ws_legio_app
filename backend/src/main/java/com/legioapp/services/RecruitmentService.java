@@ -8,33 +8,33 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.legioapp.domain.Work;
-import com.legioapp.repositories.WorkRepository;
+import com.legioapp.domain.Recruitment;
+import com.legioapp.repositories.RecruitmentRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class WorkService {
-	
+public class RecruitmentService {
+
 	@Autowired
-	private WorkRepository repo;
+	private RecruitmentRepository repo;
 	
-	public Work find(Integer  id) {
+	public Recruitment find(Integer  id) {
 		
-		Optional<Work> obj = repo.findById(id);
+		Optional<Recruitment> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Work.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Recruitment.class.getName()));
 	}
 	
 	@Transactional
-	public Work insert(Work obj) {
+	public Recruitment insert(Recruitment obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 	
-	public Work Update(Work obj) {
-		Work newObj = find(obj.getId());
+	public Recruitment Update(Recruitment obj) {
+		Recruitment newObj = find(obj.getId());
 		UpdateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -48,23 +48,21 @@ public class WorkService {
 		}
 	}
 	
-	public void UpdateData(Work newObj, Work obj) {
+	public void UpdateData(Recruitment newObj, Recruitment obj) {
 		newObj.setAta(obj.getAta());
 		newObj.setPerson(obj.getPerson());
-		newObj.setHours(obj.getHours());
-		newObj.setLegios(obj.getLegios());
-		newObj.setQuantContact(obj.getQuantContact());
+		newObj.setQuantidade(obj.getQuantidade());
 	}
 	
-	public List<Work> findAll() {
+	public List<Recruitment> findAll() {
 		return repo.findAll();
 	}
 	
-	public Work findAllById(Integer id) {
-		Optional<Work> obj = repo.findById(id);
+	public Recruitment findAllById(Integer id) {
+		Optional<Recruitment> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Work.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Recruitment.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;

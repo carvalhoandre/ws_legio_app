@@ -8,33 +8,33 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.legioapp.domain.Work;
-import com.legioapp.repositories.WorkRepository;
+import com.legioapp.domain.Ata;
+import com.legioapp.repositories.AtaRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class WorkService {
-	
+public class AtaService {
+
 	@Autowired
-	private WorkRepository repo;
+	private AtaRepository repo;
 	
-	public Work find(Integer  id) {
+	public Ata find(Integer  id) {
 		
-		Optional<Work> obj = repo.findById(id);
+		Optional<Ata> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Work.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
 	}
 	
 	@Transactional
-	public Work insert(Work obj) {
+	public Ata insert(Ata obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 	
-	public Work Update(Work obj) {
-		Work newObj = find(obj.getId());
+	public Ata Update(Ata obj) {
+		Ata newObj = find(obj.getId());
 		UpdateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -48,23 +48,23 @@ public class WorkService {
 		}
 	}
 	
-	public void UpdateData(Work newObj, Work obj) {
-		newObj.setAta(obj.getAta());
-		newObj.setPerson(obj.getPerson());
-		newObj.setHours(obj.getHours());
-		newObj.setLegios(obj.getLegios());
-		newObj.setQuantContact(obj.getQuantContact());
+	public void UpdateData(Ata newObj, Ata obj) {
+		newObj.setEventos(obj.getEventos());
+		newObj.setLegionarios(obj.getLegionarios());
+		newObj.setRecrutamentos(obj.getRecrutamentos());
+		newObj.setTesouraria(obj.getTesouraria());
+		newObj.setTrabalhos(obj.getTrabalhos());
 	}
 	
-	public List<Work> findAll() {
+	public List<Ata> findAll() {
 		return repo.findAll();
 	}
 	
-	public Work findAllById(Integer id) {
-		Optional<Work> obj = repo.findById(id);
+	public Ata findAllById(Integer id) {
+		Optional<Ata> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Work.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Ata.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;

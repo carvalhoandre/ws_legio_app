@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.PersonType;
@@ -44,16 +45,21 @@ public class Work implements Serializable{
 	
 	@CollectionTable(name="DURACAO")
 	private Float hours;
+	
+	@ManyToOne
+	@JoinColumn(name="ata_id")
+	private Ata ata;
 
 	public Work() {
 	}
 
-	public Work(Integer id, Legio legio, WorkType work, PersonType person, Integer quantContact, Float hours) {
+	public Work(Integer id, Legio legio, WorkType work, PersonType person, Integer quantContact, Float hours, Ata ata) {
 		this.id = id;
 		this.work = (work==null) ? null : work.getCod();
 		this.person = (person==null) ? null : person.getCod();
 		this.quantContact = quantContact;
 		this.hours = hours;
+		this.ata = ata;
 	}
 
 	public Integer getId() {
@@ -102,6 +108,14 @@ public class Work implements Serializable{
 
 	public void setHours(Float hours) {
 		this.hours = hours;
+	}
+
+	public Ata getAta() {
+		return ata;
+	}
+
+	public void setAta(Ata ata) {
+		this.ata = ata;
 	}
 
 	@Override
