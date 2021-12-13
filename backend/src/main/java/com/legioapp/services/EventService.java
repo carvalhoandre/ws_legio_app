@@ -52,7 +52,9 @@ public class EventService {
 	public void UpdateData(Event newObj, Event obj) {
 		newObj.setName(obj.getName());
 		newObj.setAta(obj.getAta());
-		newObj.setLegios(obj.getLegios());
+		newObj.setAtivos(obj.getAtivos());
+		newObj.setAuxiliares(obj.getAuxiliares());
+		newObj.setGuests(obj.getGuests());
 	}
 	
 	public List<Event> findAll() {

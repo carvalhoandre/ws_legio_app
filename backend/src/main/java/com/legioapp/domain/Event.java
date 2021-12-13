@@ -1,8 +1,6 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Event implements Serializable{
@@ -24,9 +19,11 @@ public class Event implements Serializable{
 	
 	private String name;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="event")
-	private List<Legio> legios = new ArrayList<>();
+	private Integer guests;
+	
+	private Integer ativos;
+	
+	private Integer auxiliares;
 	
 	@ManyToOne
 	@JoinColumn(name="ata_id")
@@ -35,10 +32,13 @@ public class Event implements Serializable{
 	public Event() {
 	}
 
-	public Event(Integer id, String name, List<Legio> legios, Ata ata) {
+	public Event(Integer id, String name, Integer guests, Integer ativos, Integer auxiliares, Ata ata) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.legios = legios;
+		this.guests = guests;
+		this.ativos = ativos;
+		this.auxiliares = auxiliares;
 		this.ata = ata;
 	}
 
@@ -58,12 +58,28 @@ public class Event implements Serializable{
 		this.name = name;
 	}
 
-	public List<Legio> getLegios() {
-		return legios;
+	public Integer getGuests() {
+		return guests;
 	}
 
-	public void setLegios(List<Legio> legios) {
-		this.legios = legios;
+	public void setGuests(Integer guests) {
+		this.guests = guests;
+	}
+
+	public Integer getAtivos() {
+		return ativos;
+	}
+
+	public void setAtivos(Integer ativos) {
+		this.ativos = ativos;
+	}
+
+	public Integer getAuxiliares() {
+		return auxiliares;
+	}
+
+	public void setAuxiliares(Integer auxiliares) {
+		this.auxiliares = auxiliares;
 	}
 
 	public Ata getAta() {

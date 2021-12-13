@@ -30,18 +30,26 @@ public class Ata implements Serializable {
 	@OneToMany(mappedBy="ata")
 	private List<Recruitment> recrutamentos = new ArrayList<>();
 	
+	@OneToMany(mappedBy="ata")
+	private List<Event> event = new ArrayList<>();
+	
 	private Treasury tesouraria;
 	
 	public Ata() {
 	}
 
-	public Ata(Integer id, Integer number, List<Legio> legionarios, List<Event> eventos, List<Work> trabalhos,
-			List<Recruitment> recrutamentos, Treasury tesouraria) {
+	public Ata(Integer id) {
+		this.id = id;
+	}
+
+	public Ata(Integer id, List<Legio> legionarios, List<Event> eventos, List<Work> trabalhos,
+			List<Recruitment> recrutamentos, List<Event> event, Treasury tesouraria) {
 		this.id = id;
 		this.legionarios = legionarios;
 		this.eventos = eventos;
 		this.trabalhos = trabalhos;
 		this.recrutamentos = recrutamentos;
+		this.event = event;
 		this.tesouraria = tesouraria;
 	}
 
@@ -85,16 +93,19 @@ public class Ata implements Serializable {
 		this.recrutamentos = recrutamentos;
 	}
 
+	public List<Event> getEvent() {
+		return event;
+	}
+
+	public void setEvent(List<Event> event) {
+		this.event = event;
+	}
+
 	public Treasury getTesouraria() {
 		return tesouraria;
 	}
 
 	public void setTesouraria(Treasury tesouraria) {
 		this.tesouraria = tesouraria;
-	}
-
-	public Ata(Integer id) {
-		super();
-		this.id = id;
 	}
 }
