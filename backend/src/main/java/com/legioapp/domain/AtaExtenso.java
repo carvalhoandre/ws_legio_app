@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AtaExtenso {
 	
+	private Integer number;
 	private String numero;
 	private String dia;
 	private String mes;
@@ -33,13 +34,13 @@ public class AtaExtenso {
 	public AtaExtenso() {
 	}
 
-	public AtaExtenso(String numero, String dia, String mes, String ano, String hora, List<String> legionarios,
+	public AtaExtenso(Integer number, String numero, String dia, String mes, String ano, String hora, List<String> legionarios,
 			String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
 			List<RecruitmentExtenso> recrutamento, String saldoAnterior, String coletaDoDia, String diaDaColeta,
 			String despesas, String subTotal, String totalEmCaixa, List<WorkExtenso> work, String allocutionAutor,
 			String allocutionAssunto, String paginaEstudo, String paragrafoEstudo, List<EventExtenso> event,
 			String horaFinal, String minutoFinal) {
-		super();
+		this.number = number;
 		this.numero = numero;
 		this.dia = dia;
 		this.mes = mes;
@@ -64,6 +65,14 @@ public class AtaExtenso {
 		this.event = event;
 		this.horaFinal = horaFinal;
 		this.minutoFinal = minutoFinal;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	public String getNumero() {

@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.legioapp.domain.enums.ChargeType;
 
 @Entity
+@Table(name = "tb_legionarios")
 public class Legio implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

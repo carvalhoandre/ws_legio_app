@@ -17,19 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.legioapp.domain.Ata;
+import com.legioapp.domain.AtaExtenso;
 import com.legioapp.services.AtaService;
+import com.legioapp.services.EmailService;
 
 @RestController
-@RequestMapping(value="/ata")
+@RequestMapping("/ata")
 public class AtaResource {
 
 	@Autowired
 	private AtaService service;
 	
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Ata obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Ata obj, @Valid @RequestBody AtaExtenso ata) {
 		obj = service.insert(obj);
+		emailService.sendOrderConfirmationHtmlEmail(ata);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
