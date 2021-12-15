@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "tb_recruitment_extenso")
+@Table(name = "tb_recruitmentExtenso")
 public class RecruitmentExtenso {
 	
 	@Id
@@ -26,16 +26,24 @@ public class RecruitmentExtenso {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ataExtenso_id")
-	private Ata ata;
+	private AtaExtenso ataExtenso;
 
 	public RecruitmentExtenso() {
 	}
 
-	public RecruitmentExtenso(Integer id, String quantidade, String person, Ata ata) {
+	public RecruitmentExtenso(Integer id, String quantidade, String person, AtaExtenso ataExtenso) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.person = person;
-		this.ata = ata;
+		this.ataExtenso = ataExtenso;
+	}
+
+	public AtaExtenso getAtaExtenso() {
+		return ataExtenso;
+	}
+
+	public void setAtaExtenso(AtaExtenso ataExtenso) {
+		this.ataExtenso = ataExtenso;
 	}
 
 	public Integer getId() {
@@ -44,14 +52,6 @@ public class RecruitmentExtenso {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
 	}
 
 	public String getQuantidade() {

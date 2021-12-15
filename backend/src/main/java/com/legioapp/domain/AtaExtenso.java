@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_ata_extenso")
+@Table(name = "tb_ataExtenso")
 public class AtaExtenso implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -48,6 +48,9 @@ public class AtaExtenso implements Serializable {
 	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
 	private List<WorkExtenso> work = new ArrayList<>();
 	
+	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
+	private List<EventExtenso> event = new ArrayList<>();
+	
 	private String allocutionAutor;
 	private String allocutionAssunto;
 	private String paginaEstudo;
@@ -62,10 +65,9 @@ public class AtaExtenso implements Serializable {
 	public AtaExtenso(Integer id, Integer number, String numero, String dia, String mes, String ano, String hora,
 			List<LegioExtenso> legionario, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
 			List<RecruitmentExtenso> recrutamento, String saldoAnterior, String coletaDoDia, String diaDaColeta,
-			String despesas, String subTotal, String totalEmCaixa, List<WorkExtenso> work, String allocutionAutor,
-			String allocutionAssunto, String paginaEstudo, String paragrafoEstudo,
+			String despesas, String subTotal, String totalEmCaixa, List<WorkExtenso> work, List<EventExtenso> event,
+			String allocutionAutor, String allocutionAssunto, String paginaEstudo, String paragrafoEstudo,
 			String horaFinal, String minutoFinal) {
-		super();
 		this.id = id;
 		this.number = number;
 		this.numero = numero;
@@ -85,13 +87,21 @@ public class AtaExtenso implements Serializable {
 		this.subTotal = subTotal;
 		this.totalEmCaixa = totalEmCaixa;
 		this.work = work;
+		this.event = event;
 		this.allocutionAutor = allocutionAutor;
 		this.allocutionAssunto = allocutionAssunto;
 		this.paginaEstudo = paginaEstudo;
 		this.paragrafoEstudo = paragrafoEstudo;
-	
 		this.horaFinal = horaFinal;
 		this.minutoFinal = minutoFinal;
+	}
+
+	public List<EventExtenso> getEvent() {
+		return event;
+	}
+
+	public void setEvent(List<EventExtenso> event) {
+		this.event = event;
 	}
 
 	public Integer getId() {

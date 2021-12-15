@@ -1,8 +1,22 @@
 package com.legioapp.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "tb_eventExtenso")
 public class EventExtenso {
 	
-private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	private String name;
 	
@@ -12,15 +26,30 @@ private Integer id;
 	
 	private Integer auxiliares;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="ataExtenso_id")
+	private AtaExtenso ataExtenso;
+	
 	public EventExtenso() {
 	}
 
-	public EventExtenso(Integer id, String name, Integer guests, Integer ativos, Integer auxiliares) {
+	public EventExtenso(Integer id, String name, Integer guests, Integer ativos, Integer auxiliares,
+			AtaExtenso ataExtenso) {
 		this.id = id;
 		this.name = name;
 		this.guests = guests;
 		this.ativos = ativos;
 		this.auxiliares = auxiliares;
+		this.ataExtenso = ataExtenso;
+	}
+
+	public AtaExtenso getAtaExtenso() {
+		return ataExtenso;
+	}
+
+	public void setAtaExtenso(AtaExtenso ataExtenso) {
+		this.ataExtenso = ataExtenso;
 	}
 
 	public Integer getId() {

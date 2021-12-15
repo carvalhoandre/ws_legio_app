@@ -8,20 +8,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tb_work_extenso")
+@Table(name = "tb_workExtenso")
 public class WorkExtenso {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private List<String> legio = new ArrayList<>();
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "LEGIONARIO_TRABALHO",
+		joinColumns = @JoinColumn(name = "workExtenso_id"),
+		inverseJoinColumns = @JoinColumn(name = "legiosExtenso_id")
+	)
+	private List<LegioExtenso> legio = new ArrayList<>();
+	
 	private String work;
 	private String person;
 	private String quantContact;
@@ -30,20 +39,28 @@ public class WorkExtenso {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ataExtenso_id")
-	private Ata ata;
+	private AtaExtenso ataExtenso;
 	
 	public WorkExtenso() {
 	}
 
-	public WorkExtenso(Integer id, List<String> legio, String work, String person, String quantContact, String hours,
-			Ata ata) {
+	public WorkExtenso(Integer id, List<LegioExtenso> legio, String work, String person, String quantContact, String hours,
+			AtaExtenso ataExtenso) {
 		this.id = id;
 		this.legio = legio;
 		this.work = work;
 		this.person = person;
 		this.quantContact = quantContact;
 		this.hours = hours;
-		this.ata = ata;
+		this.ataExtenso = ataExtenso;
+	}
+
+	public AtaExtenso getAtaExtenso() {
+		return ataExtenso;
+	}
+
+	public void setAtaExtenso(AtaExtenso ataExtenso) {
+		this.ataExtenso = ataExtenso;
 	}
 
 	public Integer getId() {
@@ -54,19 +71,11 @@ public class WorkExtenso {
 		this.id = id;
 	}
 
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
-	}
-
-	public List<String> getLegio() {
+	public List<LegioExtenso> getLegio() {
 		return legio;
 	}
 
-	public void setLegio(List<String> legio) {
+	public void setLegio(List<LegioExtenso> legio) {
 		this.legio = legio;
 	}
 

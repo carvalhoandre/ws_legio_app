@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tb_legio_extenso")
+@Table(name = "tb_legioExtenso")
 public class LegioExtenso {
 
 	@Id
@@ -23,16 +23,15 @@ public class LegioExtenso {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ataExtenso_id")
-	private Ata ata;
+	private AtaExtenso ataExtenso;
 	
 	public LegioExtenso() {
 	}
 
-	public LegioExtenso(Integer id, String name, Ata ata) {
-		super();
+	public LegioExtenso(Integer id, String name, AtaExtenso ataExtenso, EventExtenso eventExtenso) {
 		this.id = id;
 		this.name = name;
-		this.ata = ata;
+		this.ataExtenso = ataExtenso;
 	}
 
 	public Integer getId() {
@@ -51,11 +50,11 @@ public class LegioExtenso {
 		this.name = name;
 	}
 
-	public Ata getAta() {
-		return ata;
+	public AtaExtenso getAtaExtenso() {
+		return ataExtenso;
 	}
 
-	public void setAta(Ata ata) {
-		this.ata = ata;
+	public void setAtaExtenso(AtaExtenso ataExtenso) {
+		this.ataExtenso = ataExtenso;
 	}
 }
