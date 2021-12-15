@@ -1,9 +1,25 @@
 package com.legioapp.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtaExtenso {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_ata_extenso")
+public class AtaExtenso implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	private Integer number;
 	private String numero;
@@ -11,42 +27,53 @@ public class AtaExtenso {
 	private String mes;
 	private String ano;
 	private String hora;
-	private List<String> legionarios = new ArrayList<>();
+	
+	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
+	private List<LegioExtenso> legionario = new ArrayList<>();
+	
 	private String capituloEspiritual;
 	private String paginaEspiritual;
 	private String titleEspiritual;
+	
+	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
 	private List<RecruitmentExtenso> recrutamento = new ArrayList<>();
+	
 	private String saldoAnterior;
 	private String coletaDoDia;
 	private String diaDaColeta;
 	private String despesas;
 	private String subTotal;
 	private String totalEmCaixa;
+	
+	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
 	private List<WorkExtenso> work = new ArrayList<>();
+	
 	private String allocutionAutor;
 	private String allocutionAssunto;
 	private String paginaEstudo;
 	private String paragrafoEstudo;
-	private List<EventExtenso> event = new ArrayList<>();
+	
 	private String horaFinal;
 	private String minutoFinal;
 	
 	public AtaExtenso() {
 	}
 
-	public AtaExtenso(Integer number, String numero, String dia, String mes, String ano, String hora, List<String> legionarios,
-			String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
+	public AtaExtenso(Integer id, Integer number, String numero, String dia, String mes, String ano, String hora,
+			List<LegioExtenso> legionario, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
 			List<RecruitmentExtenso> recrutamento, String saldoAnterior, String coletaDoDia, String diaDaColeta,
 			String despesas, String subTotal, String totalEmCaixa, List<WorkExtenso> work, String allocutionAutor,
-			String allocutionAssunto, String paginaEstudo, String paragrafoEstudo, List<EventExtenso> event,
+			String allocutionAssunto, String paginaEstudo, String paragrafoEstudo,
 			String horaFinal, String minutoFinal) {
+		super();
+		this.id = id;
 		this.number = number;
 		this.numero = numero;
 		this.dia = dia;
 		this.mes = mes;
 		this.ano = ano;
 		this.hora = hora;
-		this.legionarios = legionarios;
+		this.legionario = legionario;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
 		this.titleEspiritual = titleEspiritual;
@@ -62,9 +89,17 @@ public class AtaExtenso {
 		this.allocutionAssunto = allocutionAssunto;
 		this.paginaEstudo = paginaEstudo;
 		this.paragrafoEstudo = paragrafoEstudo;
-		this.event = event;
+	
 		this.horaFinal = horaFinal;
 		this.minutoFinal = minutoFinal;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getNumber() {
@@ -115,12 +150,12 @@ public class AtaExtenso {
 		this.hora = hora;
 	}
 
-	public List<String> getLegionarios() {
-		return legionarios;
+	public List<LegioExtenso> getLegionario() {
+		return legionario;
 	}
 
-	public void setLegionarios(List<String> legionarios) {
-		this.legionarios = legionarios;
+	public void setLegionario(List<LegioExtenso> legionario) {
+		this.legionario = legionario;
 	}
 
 	public String getCapituloEspiritual() {
@@ -241,14 +276,6 @@ public class AtaExtenso {
 
 	public void setParagrafoEstudo(String paragrafoEstudo) {
 		this.paragrafoEstudo = paragrafoEstudo;
-	}
-
-	public List<EventExtenso> getEvent() {
-		return event;
-	}
-
-	public void setEvent(List<EventExtenso> event) {
-		this.event = event;
 	}
 
 	public String getHoraFinal() {

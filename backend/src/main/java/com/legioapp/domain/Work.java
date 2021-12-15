@@ -48,6 +48,7 @@ public class Work implements Serializable{
 	@CollectionTable(name="DURACAO")
 	private Float hours;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata_id")
 	private Ata ata;

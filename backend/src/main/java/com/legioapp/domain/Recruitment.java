@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.PersonType;
 
 @Entity
@@ -25,6 +26,7 @@ public class Recruitment implements Serializable{
 	
 	private Integer person;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata_id")
 	private Ata ata;
@@ -35,7 +37,7 @@ public class Recruitment implements Serializable{
 	public Recruitment(Integer id, Integer quantidade, PersonType person, Ata ata) {
 		this.id = id;
 		this.quantidade = quantidade;
-		this.person = (person==null) ? null : person.getCod();
+		this.person = (person == null) ? null: person.getCod();
 		this.ata = ata;
 	}
 

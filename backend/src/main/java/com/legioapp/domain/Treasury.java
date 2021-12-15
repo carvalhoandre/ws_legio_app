@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_treasury")
@@ -32,8 +34,10 @@ public class Treasury implements Serializable{
 	private Float subTotal;
 	private Float totalEmCaixa;
 	
-	@ManyToOne
+	@JsonIgnore
+	@OneToOne
 	@JoinColumn(name="ata_id")
+	@MapsId  	
 	private Ata ata;
 	
 	public Treasury() {

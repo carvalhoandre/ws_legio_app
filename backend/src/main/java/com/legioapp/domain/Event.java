@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_event")
 public class Event implements Serializable{
@@ -27,6 +29,7 @@ public class Event implements Serializable{
 	
 	private Integer auxiliares;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata_id")
 	private Ata ata;

@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.ChargeType;
 
 @Entity
@@ -23,21 +26,36 @@ public class Legio implements Serializable{
 	
 	private String name;
 	
-	private Integer charge;
+	private Integer type;
 	
 	@JsonFormat(pattern="dd/MM/")
 	private Date birthday;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="ata_id")
+	private Ata ata;
 
 	public Legio() {
-	}
+	}	
 
-	public Legio(Integer id, String name, ChargeType charge, Date birthday) {
+	public Legio(Integer id, String name, ChargeType type, Date birthday, Ata ata) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.charge = (charge==null) ? null : charge.getCod();
+		this.type = (type==null) ? null: type.getCod();
 		this.birthday = birthday;
+		this.ata = ata;
+	}
+	
+	public ChargeType getType() {
+		return ChargeType.toEnum(type);
 	}
 
+	public void setType(ChargeType type) {
+		this.type = type.getCod();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,14 +71,6 @@ public class Legio implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public ChargeType getCharge() {
-		return ChargeType.toEnum(charge);
-	}
-
-	public void setCharge(ChargeType charge) {
-		this.charge = charge.getCod();
-	}
 
 	public Date getBirthday() {
 		return birthday;
@@ -68,6 +78,14 @@ public class Legio implements Serializable{
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public Ata getAta() {
+		return ata;
+	}
+
+	public void setAta(Ata ata) {
+		this.ata = ata;
 	}
 
 	@Override

@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,21 +22,22 @@ public class Ata implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany(mappedBy="ata")
+	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Legio> legionarios = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata")
+	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Event> eventos = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata")
+	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Work> trabalhos = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata")
+	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Recruitment> recrutamentos = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata")
+	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Event> event = new ArrayList<>();
 	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="ata")
 	private Treasury tesouraria;
 	
 	public Ata() {

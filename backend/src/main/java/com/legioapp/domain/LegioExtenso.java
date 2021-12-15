@@ -10,31 +10,28 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
-@Table(name = "tb_recruitment_extenso")
-public class RecruitmentExtenso {
-	
+@Table(name = "tb_legio_extenso")
+public class LegioExtenso {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String quantidade;
-	
-	private String person;
+	private String name;
 	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ataExtenso_id")
 	private Ata ata;
-
-	public RecruitmentExtenso() {
+	
+	public LegioExtenso() {
 	}
 
-	public RecruitmentExtenso(Integer id, String quantidade, String person, Ata ata) {
+	public LegioExtenso(Integer id, String name, Ata ata) {
+		super();
 		this.id = id;
-		this.quantidade = quantidade;
-		this.person = person;
+		this.name = name;
 		this.ata = ata;
 	}
 
@@ -46,27 +43,19 @@ public class RecruitmentExtenso {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Ata getAta() {
 		return ata;
 	}
 
 	public void setAta(Ata ata) {
 		this.ata = ata;
-	}
-
-	public String getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(String quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public String getPerson() {
-		return person;
-	}
-
-	public void setPerson(String person) {
-		this.person = person;
 	}
 }

@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.legioapp.domain.Ata;
+import com.legioapp.domain.AtaExtenso;
 import com.legioapp.repositories.AtaRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
@@ -19,6 +19,9 @@ public class AtaService {
 	@Autowired
 	private AtaRepository repo;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public Ata find(Integer  id) {
 		
 		Optional<Ata> obj = repo.findById(id);
@@ -26,9 +29,9 @@ public class AtaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
 	}
 	
-	@Transactional
-	public Ata insert(Ata obj) {
+	public Ata insert(Ata obj, AtaExtenso ata) {
 		obj.setId(null);
+		emailService.sendOrderConfirmationHtmlEmail(ata);
 		obj = repo.save(obj);
 		return obj;
 	}
