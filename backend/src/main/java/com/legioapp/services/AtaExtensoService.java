@@ -8,33 +8,32 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.legioapp.domain.Ata;
-import com.legioapp.repositories.AtaRepository;
+import com.legioapp.domain.AtaExtenso;
+import com.legioapp.repositories.AtaExtensoRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class AtaService {
+public class AtaExtensoService {
 
 	@Autowired
-	private AtaRepository repo;
+	private AtaExtensoRepository repo;
 	
-	public Ata find(Integer  id) {
+	@Autowired
+	private EmailService emailService;
+	
+	public AtaExtenso find(Integer  id) {
 		
-		Optional<Ata> obj = repo.findById(id);
+		Optional<AtaExtenso> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
 	}
 	
-	public Ata insert(Ata obj) {
+	public AtaExtenso insert(AtaExtenso obj) {
 		obj.setId(null);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		obj = repo.save(obj);
 		return obj;
-	}
-	
-	public Ata Update(Ata obj) {
-		Ata newObj = find(obj.getId());
-		UpdateData(newObj, obj);
-		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -54,15 +53,15 @@ public class AtaService {
 		newObj.setTrabalhos(obj.getTrabalhos());
 	}
 	
-	public List<Ata> findAll() {
+	public List<AtaExtenso> findAll() {
 		return repo.findAll();
 	}
 	
-	public Ata findAllById(Integer id) {
-		Optional<Ata> obj = repo.findById(id);
+	public AtaExtenso findAllById(Integer id) {
+		Optional<AtaExtenso> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Ata.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + AtaExtenso.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;
