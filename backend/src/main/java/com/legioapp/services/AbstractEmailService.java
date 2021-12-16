@@ -15,7 +15,6 @@ import org.thymeleaf.context.Context;
 
 import com.legioapp.domain.AtaExtenso;
 
-
 public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
@@ -37,11 +36,12 @@ public abstract class AbstractEmailService implements EmailService {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo("legiomariae@outlook.com.br");
 		sm.setFrom(sender);
-		sm.setSubject("Confirmação de envio de e-mail");
+		sm.setSubject("Confirmação de envio da pré Ata");
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText(obj.toString());
 		return sm;
 	}
+
 
 	protected String htmlFromTemplatePedido(AtaExtenso obj) {
 		Context context = new Context();
@@ -63,11 +63,11 @@ public abstract class AbstractEmailService implements EmailService {
 	protected MimeMessage prepareMimeMessageFromClient(AtaExtenso obj) throws MessagingException {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true);
-		mmh.setTo("legiomariae@outlook.com.br");
+		mmh.setTo("virginis.caelum@gmail.com");
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		mmh.setFrom(sender);
-		mmh.setSubject("Confirmação da nova pré Ata");
+		mmh.setSubject("Confirmação de do envio da ata");
 		return mimeMessage;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +13,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_ataExtenso")
+@Table(name = "tb_ata_extenso")
 public class AtaExtenso {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(unique=true)
 	private Integer number;
+
+	@Column(unique=true)
 	private String numero;
+	
+	@Column(unique=true)
 	private String dia;
+	
 	private String mes;
 	private String ano;
 	private String hora;

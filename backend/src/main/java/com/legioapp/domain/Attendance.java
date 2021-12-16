@@ -1,6 +1,7 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,34 +11,41 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.legioapp.domain.enums.PersonType;
+import com.legioapp.domain.enums.AttendanceType;
 
 @Entity
-@Table(name = "tb_recruitment")
-public class Recruitment implements Serializable{
+@Table(name = "tb_presencas")
+public class Attendance implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Integer quantity;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date date;
 	
-	private Integer person;
+	@ManyToOne
+	@JoinColumn(name="legio_id")
+	private Legio legio;
+	
+	private Integer attendance;
 	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata_id")
 	private Ata ata;
 
-	public Recruitment() {
+	public Attendance() {
 	}
 
-	public Recruitment(Integer id, Integer quantity, PersonType person, Ata ata) {
+	public Attendance(Integer id, Date date, Legio legio, AttendanceType attendance, Ata ata) {
 		this.id = id;
-		this.quantity = quantity;
-		this.person = (person == null) ? null: person.getCod();
+		this.date = date;
+		this.legio = legio;
+		this.attendance = (attendance==null) ? null: attendance.getCod();
 		this.ata = ata;
 	}
 
@@ -49,22 +57,30 @@ public class Recruitment implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public PersonType getPerson() {
-		return PersonType.toEnum(person);
+	public Legio getLegio() {
+		return legio;
 	}
 
-	public void setPerson(PersonType person) {
-		this.person = person.getCod();
+	public void setLegio(Legio legio) {
+		this.legio = legio;
 	}
-	
+
+	public AttendanceType getAttendance() {
+		return AttendanceType.toEnum(attendance);
+	}
+
+	public void setAttendance(AttendanceType attendance) {
+		this.attendance = attendance.getCod();
+	}
+
 	public Ata getAta() {
 		return ata;
 	}
@@ -89,7 +105,7 @@ public class Recruitment implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Recruitment other = (Recruitment) obj;
+		Attendance other = (Attendance) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

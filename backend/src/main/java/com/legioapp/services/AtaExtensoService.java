@@ -23,7 +23,6 @@ public class AtaExtensoService {
 	private EmailService emailService;
 	
 	public AtaExtenso find(Integer  id) {
-		
 		Optional<AtaExtenso> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
@@ -45,12 +44,39 @@ public class AtaExtensoService {
 		}
 	}
 	
-	public void UpdateData(Ata newObj, Ata obj) {
-		newObj.setEventos(obj.getEventos());
-		newObj.setLegionarios(obj.getLegionarios());
-		newObj.setRecrutamentos(obj.getRecrutamentos());
-		newObj.setTesouraria(obj.getTesouraria());
-		newObj.setTrabalhos(obj.getTrabalhos());
+	public AtaExtenso Update(AtaExtenso obj) {
+		AtaExtenso newObj = find(obj.getId());
+		UpdateData(newObj, obj);
+		emailService.sendOrderConfirmationHtmlEmail(newObj);
+		return repo.save(newObj);
+	}
+	
+	public void UpdateData(AtaExtenso newObj, AtaExtenso obj) {
+		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
+		newObj.setAllocutionAutor(obj.getAllocutionAutor());
+		newObj.setAno(obj.getAno());
+		newObj.setCapituloEspiritual(obj.getCapituloEspiritual());
+		newObj.setColetaDoDia(obj.getColetaDoDia());
+		newObj.setDespesas(obj.getDespesas());
+		newObj.setDia(obj.getDia());
+		newObj.setDiaDaColeta(obj.getDiaDaColeta());
+		newObj.setEvent(obj.getEvent());
+		newObj.setHora(obj.getHora());
+		newObj.setHoraFinal(obj.getHoraFinal());
+		newObj.setLegionario(obj.getLegionario());
+		newObj.setMes(obj.getMes());
+		newObj.setMinutoFinal(obj.getMinutoFinal());
+		newObj.setNumber(obj.getNumber());
+		newObj.setNumero(obj.getNumero());
+		newObj.setPaginaEspiritual(obj.getPaginaEspiritual());
+		newObj.setPaginaEstudo(obj.getPaginaEstudo());
+		newObj.setParagrafoEstudo(obj.getParagrafoEstudo());
+		newObj.setRecrutamento(obj.getRecrutamento());
+		newObj.setSaldoAnterior(obj.getSaldoAnterior());
+		newObj.setSubTotal(obj.getSubTotal());
+		newObj.setTitleEspiritual(obj.getTitleEspiritual());
+		newObj.setTotalEmCaixa(obj.getTotalEmCaixa());
+		newObj.setWork(obj.getWork());
 	}
 	
 	public List<AtaExtenso> findAll() {

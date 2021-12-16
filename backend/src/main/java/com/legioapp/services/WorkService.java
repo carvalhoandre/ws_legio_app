@@ -53,7 +53,10 @@ public class WorkService {
 		newObj.setPerson(obj.getPerson());
 		newObj.setHours(obj.getHours());
 		newObj.setLegios(obj.getLegios());
-		newObj.setQuantContact(obj.getQuantContact());
+		newObj.setAdult(obj.getAdult());
+		newObj.setElderly(obj.getElderly());
+		newObj.setChildren(obj.getChildren());
+		
 	}
 	
 	public List<Work> findAll() {

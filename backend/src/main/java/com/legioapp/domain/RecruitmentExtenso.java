@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "tb_recruitmentExtenso")
+@Table(name = "tb_recruitment_extenso")
 public class RecruitmentExtenso {
 	
 	@Id

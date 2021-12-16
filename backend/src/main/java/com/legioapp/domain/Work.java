@@ -30,22 +30,34 @@ public class Work implements Serializable{
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "LEGIONARIO_TRABALHO",
+	@JoinTable(name = "legionario_trabalho",
 		joinColumns = @JoinColumn(name = "work_id"),
 		inverseJoinColumns = @JoinColumn(name = "legios_id")
 	)
 	private List<Legio> legio = new ArrayList<>();
 	
-	@CollectionTable(name="TRABALHO")
+	@CollectionTable(name="trabalho")
 	private Integer work;
 	
-	@CollectionTable(name="CONTATO")
+	@CollectionTable(name="contato_jovem")
+	private Integer yong;
+	
+	@CollectionTable(name="contato_adult")
+	private Integer adult;
+	
+	@CollectionTable(name="contato_children")
 	private Integer person;
 	
-	@CollectionTable(name="QUANT_CONTATO")
-	private Integer quantContact;
+	@CollectionTable(name="contato_children")
+	private Integer children;
 	
-	@CollectionTable(name="DURACAO")
+	@CollectionTable(name="contato_elderly")
+	private Integer elderly;
+	
+	@CollectionTable(name="total")
+	private Integer total;
+	
+	@CollectionTable(name="duracao")
 	private Float hours;
 	
 	@JsonIgnore
@@ -55,12 +67,18 @@ public class Work implements Serializable{
 
 	public Work() {
 	}
-
-	public Work(Integer id, Legio legio, WorkType work, PersonType person, Integer quantContact, Float hours, Ata ata) {
+	
+	public Work(Integer id, List<Legio> legio, WorkType work, Integer yong, Integer adult, Integer person,
+			Integer children, Integer elderly, Integer total, Float hours, Ata ata) {
 		this.id = id;
+		this.legio = legio;
 		this.work = (work==null) ? null : work.getCod();
-		this.person = (person==null) ? null : person.getCod();
-		this.quantContact = quantContact;
+		this.yong = yong;
+		this.adult = adult;
+		this.person = person;
+		this.children = children;
+		this.elderly = elderly;
+		this.total = total;
 		this.hours = hours;
 		this.ata = ata;
 	}
@@ -97,12 +115,48 @@ public class Work implements Serializable{
 		this.person = person.getCod();
 	}
 
-	public Integer getQuantContact() {
-		return quantContact;
+	public List<Legio> getLegio() {
+		return legio;
 	}
 
-	public void setQuantContact(Integer quantContact) {
-		this.quantContact = quantContact;
+	public void setLegio(List<Legio> legio) {
+		this.legio = legio;
+	}
+
+	public Integer getYong() {
+		return yong;
+	}
+
+	public void setYong(Integer yong) {
+		this.yong = yong;
+	}
+
+	public Integer getAdult() {
+		return adult;
+	}
+
+	public void setAdult(Integer adult) {
+		this.adult = adult;
+	}
+
+	public Integer getElderly() {
+		return elderly;
+	}
+
+	public void setElderly(Integer elderly) {
+		this.elderly = elderly;
+	}
+
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
+	public void setPerson(Integer person) {
+		this.person = person;
 	}
 
 	public Float getHours() {
@@ -119,6 +173,14 @@ public class Work implements Serializable{
 
 	public void setAta(Ata ata) {
 		this.ata = ata;
+	}
+
+	public Integer getChildren() {
+		return children;
+	}
+
+	public void setChildren(Integer children) {
+		this.children = children;
 	}
 
 	@Override

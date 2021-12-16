@@ -6,33 +6,36 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.legioapp.domain.Ata;
-import com.legioapp.repositories.AtaRepository;
+import com.legioapp.domain.Attendance;
+import com.legioapp.domain.Legio;
+import com.legioapp.repositories.AttendanceRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class AtaService {
+public class AttendanceService {
 
 	@Autowired
-	private AtaRepository repo;
+	private AttendanceRepository repo;
 	
-	public Ata find(Integer  id) {
+	public Attendance find(Integer  id) {
 		
-		Optional<Ata> obj = repo.findById(id);
+		Optional<Attendance> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Legio.class.getName()));
 	}
 	
-	public Ata insert(Ata obj) {
+	@Transactional
+	public Attendance insert(Attendance obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 	
-	public Ata Update(Ata obj) {
-		Ata newObj = find(obj.getId());
+	public Attendance Update(Attendance obj) {
+		Attendance newObj = find(obj.getId());
 		UpdateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -46,26 +49,22 @@ public class AtaService {
 		}
 	}
 	
-	public void UpdateData(Ata newObj, Ata obj) {
-		newObj.setId(obj.getId());
+	public void UpdateData(Attendance newObj, Attendance obj) {
+		newObj.setAta(obj.getAta());
 		newObj.setDate(obj.getDate());
+		newObj.setLegio(obj.getLegio());
 		newObj.setAttendance(obj.getAttendance());
-		newObj.setEvent(obj.getEvent());
-		newObj.setRecruitment(obj.getRecruitment());
-		newObj.setRecruitment(obj.getRecruitment());
-		newObj.setTreasury(obj.getTreasury());
-		newObj.setWork(obj.getWork());
 	}
 	
-	public List<Ata> findAll() {
+	public List<Attendance> findAll() {
 		return repo.findAll();
 	}
 	
-	public Ata findAllById(Integer id) {
-		Optional<Ata> obj = repo.findById(id);
+	public Attendance findAllById(Integer id) {
+		Optional<Attendance> obj = repo.findById(id);
 		try {
 			return obj.orElseThrow(
-					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Ata.class.getName()));
+					() -> new ObjectNotFoundException("Não localizado " + id + ", tipo" + Legio.class.getName()));
 		} catch (ObjectNotFoundException e) {
 			// TODO Auto-generated catch block
 			return null;

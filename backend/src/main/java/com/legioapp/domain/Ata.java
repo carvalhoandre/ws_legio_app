@@ -2,9 +2,11 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tb_ata")
@@ -22,23 +26,24 @@ public class Ata implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
-	private List<Legio> legionarios = new ArrayList<>();
+	@Column(unique=true)
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date date;
 	
 	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
-	private List<Event> eventos = new ArrayList<>();
+	private List<Attendance> attendance = new ArrayList<>();
 	
 	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
-	private List<Work> trabalhos = new ArrayList<>();
+	private List<Work> work = new ArrayList<>();
 	
 	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
-	private List<Recruitment> recrutamentos = new ArrayList<>();
+	private List<Recruitment> recruitment = new ArrayList<>();
 	
 	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
 	private List<Event> event = new ArrayList<>();
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="ata")
-	private Treasury tesouraria;
+	private Treasury treasury;
 	
 	public Ata() {
 	}
@@ -47,15 +52,15 @@ public class Ata implements Serializable {
 		this.id = id;
 	}
 
-	public Ata(Integer id, List<Legio> legionarios, List<Event> eventos, List<Work> trabalhos,
-			List<Recruitment> recrutamentos, List<Event> event, Treasury tesouraria) {
+	public Ata(Integer id, Date date, List<Attendance> attendance, List<Work> work, List<Recruitment> recruitment,
+			List<Event> event, Treasury treasury) {
 		this.id = id;
-		this.legionarios = legionarios;
-		this.eventos = eventos;
-		this.trabalhos = trabalhos;
-		this.recrutamentos = recrutamentos;
+		this.date = date;
+		this.attendance = attendance;
+		this.work = work;
+		this.recruitment = recruitment;
 		this.event = event;
-		this.tesouraria = tesouraria;
+		this.treasury = treasury;
 	}
 
 	public Integer getId() {
@@ -66,36 +71,20 @@ public class Ata implements Serializable {
 		this.id = id;
 	}
 
-	public List<Legio> getLegionarios() {
-		return legionarios;
+	public List<Work> getWork() {
+		return work;
 	}
 
-	public void setLegionarios(List<Legio> legionarios) {
-		this.legionarios = legionarios;
+	public void setWork(List<Work> work) {
+		this.work = work;
 	}
 
-	public List<Event> getEventos() {
-		return eventos;
+	public List<Recruitment> getRecruitment() {
+		return recruitment;
 	}
 
-	public void setEventos(List<Event> eventos) {
-		this.eventos = eventos;
-	}
-
-	public List<Work> getTrabalhos() {
-		return trabalhos;
-	}
-
-	public void setTrabalhos(List<Work> trabalhos) {
-		this.trabalhos = trabalhos;
-	}
-
-	public List<Recruitment> getRecrutamentos() {
-		return recrutamentos;
-	}
-
-	public void setRecrutamentos(List<Recruitment> recrutamentos) {
-		this.recrutamentos = recrutamentos;
+	public void setRecruitment(List<Recruitment> recruitment) {
+		this.recruitment = recruitment;
 	}
 
 	public List<Event> getEvent() {
@@ -106,11 +95,52 @@ public class Ata implements Serializable {
 		this.event = event;
 	}
 
-	public Treasury getTesouraria() {
-		return tesouraria;
+	public Treasury getTreasury() {
+		return treasury;
 	}
 
-	public void setTesouraria(Treasury tesouraria) {
-		this.tesouraria = tesouraria;
+	public void setTreasury(Treasury treasury) {
+		this.treasury = treasury;
+	}
+
+	public List<Attendance> getAttendance() {
+		return attendance;
+	}
+
+	public void setAttendance(List<Attendance> attendance) {
+		this.attendance = attendance;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ata other = (Ata) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

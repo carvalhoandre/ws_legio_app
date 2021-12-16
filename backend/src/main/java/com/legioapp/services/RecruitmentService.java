@@ -51,7 +51,7 @@ public class RecruitmentService {
 	public void UpdateData(Recruitment newObj, Recruitment obj) {
 		newObj.setAta(obj.getAta());
 		newObj.setPerson(obj.getPerson());
-		newObj.setQuantidade(obj.getQuantidade());
+		newObj.setQuantity(obj.getQuantity());
 	}
 	
 	public List<Recruitment> findAll() {

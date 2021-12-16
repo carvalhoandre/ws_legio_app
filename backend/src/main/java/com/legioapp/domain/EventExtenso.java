@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tb_eventExtenso")
+@Table(name = "tb_event_extenso")
 public class EventExtenso {
 	
 	@Id

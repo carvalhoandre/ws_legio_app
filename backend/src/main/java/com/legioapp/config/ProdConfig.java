@@ -8,12 +8,12 @@ import com.legioapp.services.EmailService;
 import com.legioapp.services.SmtpEmailService;
 
 @Configuration
-@Profile("dev")
-public class DevConfig {
+@Profile("prod")
+public class ProdConfig {
 	
 	@Bean
 	public EmailService emailService() {
 		return new SmtpEmailService();
 	}
-
+	
 }

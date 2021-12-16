@@ -51,8 +51,8 @@ public class LegioService {
 	public void UpdateData(Legio newObj, Legio obj) {
 		newObj.setName(obj.getName());
 		newObj.setBirthday(obj.getBirthday());
-		newObj.setAta(obj.getAta());
 		newObj.setType(obj.getType());
+		newObj.setAttendance(obj.getAttendance());
 	}
 	
 	public List<Legio> findAll() {

@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.legioapp.domain.AtaExtenso;
-import com.legioapp.services.AtaExtensoService;
+import com.legioapp.domain.Attendance;
+import com.legioapp.services.AttendanceService;
 
 @RestController
-@RequestMapping("/ataExtenso")
-public class AtaExtensoResource {
+@RequestMapping(value="/attendance")
+public class AttendanceResource {
 
 	@Autowired
-	private AtaExtensoService service;
+	private AttendanceService service;
+	
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody AtaExtenso obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Attendance obj) {
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -39,14 +41,14 @@ public class AtaExtensoResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<AtaExtenso> findById(@PathVariable Integer id){
-		AtaExtenso obj = service.findAllById(id);
+	public ResponseEntity<Attendance> findById(@PathVariable Integer id){
+		Attendance obj = service.findAllById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<AtaExtenso>> findAll(){
-		List<AtaExtenso> list = service.findAll();
+	public ResponseEntity<List<Attendance>> findAll(){
+		List<Attendance> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
 }
