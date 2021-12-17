@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
+<head>
+	<title th:remove="all">Confirmação de Email</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+		body {
+			font-family: 'Open Sans', sans-serif;
+			text-align: justify;
+			font-size: 0.75em;
+		}
+
+		main {
+			background-color: #FFF;
+			color: rgb(27, 27, 27);
+			text-align: justify;
+		}
+
+		p {
+			margin-bottom: 1.5em;
+		}
+
+		#title {
+			font-weight: bold;
+			text-align: center;
+			margin-bottom: 1.5em;
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<p>Ata n° <span th:text="${ataExtenso.number}"></span></p>
+
+		<div>
+			<p id="title">Ata número <span th:text="${ataExtenso.numero}"></span></p>
+
+			<p>
+				Aos <span th:text="${ataExtenso.dataExtenso}"></span>, na comunidade Santa Teresa de Jesus, no bairro Parque Santa Teresa, no munícipio de Carapicuíba, no estado de São Paulo, iniciou sob a proteção de Maria Santíssima com as orações iniciais e o rosário e a tessera, o praesidium “Porta do Céu” iniciou sua reunião semanal.
+			</p>
+
+			<p>Foram dadas as boas-vindas e estavam participando os seguintes</p>
+
+			<p>
+				Irmãos: <span th:text="${ataExtenso.legionario}"></span>
+				Tivemos a participação <span th:text="${ataExtenso.participation}"></span>
+			</p> 
+			<p>
+				Leitura Espiritual, foi extraído do Manual, capítulo 
+				<span th:text="${ataExtenso.capituloEspiritual}"></span>,
+				página 
+				<span th:text="${ataExtenso.paginaEspiritual}"></span>, 
+				<span th:text="${ataExtenso.titleEspiritual}"></span>. 
+				Ata da reunião anterior foi lida e aprovada. No recrutamento 
+				<span th:text="${ataExtenso.recrutamento}"></span>. 
+				Relatório da Tesouraria, saldo anterior 
+				<span th:text="${ataExtenso.saldoAnterior}"></span>; 
+				coleta do dia 
+				<span th:text="${ataExtenso.diaDaColeta}"></span>,
+				<span th:text="${ataExtenso.coletaDoDia}"></span>; 
+				despesas: 
+				<span th:text="${ataExtenso.despesas}"></span>; 
+				subtotal 
+				<span th:text="${ataExtenso.subTotal}"></span>; 
+				total em caixa 
+				<span th:text="${ataExtenso.totalEmCaixa}"></span>. 
+				No Relatório das Atividades Pastorais 
+				<span th:text="${ataExtenso.work}"></span>. 
+				Rezemos a Catena Legionis e na Allocution o irmão 
+				<span th:text="${ataExtenso.allocutionAutor}"></span> 
+				refletiu sobre 
+				<span th:text="${ataExtenso.allocutionAssunto}"></span>. 
+				Foi passada a coleta secreta e não foram designados trabalhos para semana seguinte. O Estudo Manual foi retirado da página 
+				<span th:text="${ataExtenso.paginaEstudo}"></span>, 
+				parágrafo 
+				<span th:text="${ataExtenso.paragrafoEstudo}"></span> 
+				e foi lido e comentado por todos. Nos assuntos diversos, foi falado sobre 
+				<span th:text="${ataExtenso.event}"></span>. 
+				Não tendo nada mais a comenta encerramos a reunião às 
+				<span th:text="${ataExtenso.horaFinal}"></span> 
+				horas e trinta e 
+				<span th:text="${ataExtenso.minutoFinal}"></span> 
+				minutos com as orações finais.
+			</p>
+
+			<p>Salve Maria.</p>
+		</div>
+	</main>
+</body>
+
+</html>

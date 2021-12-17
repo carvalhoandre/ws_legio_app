@@ -2,8 +2,8 @@ package com.legioapp.domain.enums;
 
 public enum AttendanceType {
 	
-	PRESENTE(1, "Presente"),
-	AUSENTE(2, "Ausente");
+	AUSENTE(1, "Ausente"),
+	PRESENTE(2, "Presente");
 	
 	private int cod;
 	private String desc;

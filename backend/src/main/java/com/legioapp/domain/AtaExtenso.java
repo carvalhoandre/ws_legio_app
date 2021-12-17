@@ -1,15 +1,10 @@
 package com.legioapp.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,46 +16,32 @@ public class AtaExtenso {
 	private Integer id;
 	
 	@Column(unique=true)
-	private Integer number;
+	private String number;
 
 	@Column(unique=true)
 	private String numero;
 	
 	@Column(unique=true)
-	private String dia;
-	
-	private String mes;
-	private String ano;
-	private String hora;
-	
-	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
-	private List<LegioExtenso> legionario = new ArrayList<>();
-	
+	private String dataExtenso;
+
+	private String legionario;
+	private String participation;
 	private String capituloEspiritual;
 	private String paginaEspiritual;
 	private String titleEspiritual;
-	
-	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
-	private List<RecruitmentExtenso> recrutamento = new ArrayList<>();
-	
+	private String recrutamento;
 	private String saldoAnterior;
-	private String coletaDoDia;
 	private String diaDaColeta;
+	private String coletaDoDia;
 	private String despesas;
 	private String subTotal;
 	private String totalEmCaixa;
-	
-	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
-	private List<WorkExtenso> work = new ArrayList<>();
-	
-	@OneToMany(mappedBy="ataExtenso", cascade=CascadeType.ALL)
-	private List<EventExtenso> event = new ArrayList<>();
-	
+	private String work;
 	private String allocutionAutor;
 	private String allocutionAssunto;
 	private String paginaEstudo;
 	private String paragrafoEstudo;
-	
+	private String event;
 	private String horaFinal;
 	private String minutoFinal;
 	
@@ -71,45 +52,74 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public AtaExtenso(Integer id, Integer number, String numero, String dia, String mes, String ano, String hora,
-			List<LegioExtenso> legionario, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
-			List<RecruitmentExtenso> recrutamento, String saldoAnterior, String coletaDoDia, String diaDaColeta,
-			String despesas, String subTotal, String totalEmCaixa, List<WorkExtenso> work, List<EventExtenso> event,
-			String allocutionAutor, String allocutionAssunto, String paginaEstudo, String paragrafoEstudo,
-			String horaFinal, String minutoFinal) {
+	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String legionario,
+			String participation, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
+			String recrutamento, String saldoAnterior, String diaDaColeta, String coletaDoDia, String despesas,
+			String subTotal, String totalEmCaixa, String work, String allocutionAutor, String allocutionAssunto,
+			String paginaEstudo, String paragrafoEstudo, String event, String horaFinal, String minutoFinal) {
 		this.id = id;
 		this.number = number;
 		this.numero = numero;
-		this.dia = dia;
-		this.mes = mes;
-		this.ano = ano;
-		this.hora = hora;
+		this.dataExtenso = dataExtenso;
 		this.legionario = legionario;
+		this.participation = participation;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
 		this.titleEspiritual = titleEspiritual;
 		this.recrutamento = recrutamento;
 		this.saldoAnterior = saldoAnterior;
-		this.coletaDoDia = coletaDoDia;
 		this.diaDaColeta = diaDaColeta;
+		this.coletaDoDia = coletaDoDia;
 		this.despesas = despesas;
 		this.subTotal = subTotal;
 		this.totalEmCaixa = totalEmCaixa;
 		this.work = work;
-		this.event = event;
 		this.allocutionAutor = allocutionAutor;
 		this.allocutionAssunto = allocutionAssunto;
 		this.paginaEstudo = paginaEstudo;
 		this.paragrafoEstudo = paragrafoEstudo;
+		this.event = event;
 		this.horaFinal = horaFinal;
 		this.minutoFinal = minutoFinal;
 	}
 
-	public List<EventExtenso> getEvent() {
+	public String getLegionario() {
+		return legionario;
+	}
+
+	public void setLegionario(String legionario) {
+		this.legionario = legionario;
+	}
+
+	public String getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(String participation) {
+		this.participation = participation;
+	}
+
+	public String getRecrutamento() {
+		return recrutamento;
+	}
+
+	public void setRecrutamento(String recrutamento) {
+		this.recrutamento = recrutamento;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
+	public String getEvent() {
 		return event;
 	}
 
-	public void setEvent(List<EventExtenso> event) {
+	public void setEvent(String event) {
 		this.event = event;
 	}
 
@@ -121,11 +131,11 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -137,44 +147,12 @@ public class AtaExtenso {
 		this.numero = numero;
 	}
 
-	public String getDia() {
-		return dia;
+	public String getDataExtenso() {
+		return dataExtenso;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-
-	public String getMes() {
-		return mes;
-	}
-
-	public void setMes(String mes) {
-		this.mes = mes;
-	}
-
-	public String getAno() {
-		return ano;
-	}
-
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
-
-	public List<LegioExtenso> getLegionario() {
-		return legionario;
-	}
-
-	public void setLegionario(List<LegioExtenso> legionario) {
-		this.legionario = legionario;
+	public void setDataExtenso(String dataExtenso) {
+		this.dataExtenso = dataExtenso;
 	}
 
 	public String getCapituloEspiritual() {
@@ -199,14 +177,6 @@ public class AtaExtenso {
 
 	public void setTitleEspiritual(String titleEspiritual) {
 		this.titleEspiritual = titleEspiritual;
-	}
-
-	public List<RecruitmentExtenso> getRecrutamento() {
-		return recrutamento;
-	}
-
-	public void setRecrutamento(List<RecruitmentExtenso> recrutamento) {
-		this.recrutamento = recrutamento;
 	}
 
 	public String getSaldoAnterior() {
@@ -255,14 +225,6 @@ public class AtaExtenso {
 
 	public void setTotalEmCaixa(String totalEmCaixa) {
 		this.totalEmCaixa = totalEmCaixa;
-	}
-
-	public List<WorkExtenso> getWork() {
-		return work;
-	}
-
-	public void setWork(List<WorkExtenso> work) {
-		this.work = work;
 	}
 
 	public String getAllocutionAutor() {

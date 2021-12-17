@@ -15,59 +15,59 @@ import org.thymeleaf.context.Context;
 
 import com.legioapp.domain.AtaExtenso;
 
+
 public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
 	private String sender;
-
+	
 	@Autowired
 	private TemplateEngine templateEngine;
-
+	
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
 	@Override
 	public void sendOrderConfirmationEmail(AtaExtenso obj) {
-		SimpleMailMessage sm = prepareSimpleMailMessageFromClient(obj);
+		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
 		sendEmail(sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMessageFromClient(AtaExtenso obj) {
+	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(AtaExtenso obj) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo("legiomariae@outlook.com.br");
 		sm.setFrom(sender);
-		sm.setSubject("Confirmação de envio da pré Ata");
+		sm.setSubject("Pré Ata de número: " + obj.getNumber());
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText(obj.toString());
 		return sm;
 	}
-
-
+	
 	protected String htmlFromTemplatePedido(AtaExtenso obj) {
 		Context context = new Context();
-		context.setVariable("client", obj);
-		return templateEngine.process("email/confirmacaoEmail", context);
+		context.setVariable("ataExtenso", obj);
+		return templateEngine.process("email/confirmacaoAtaExtenso", context);
 	}
-
+	
 	@Override
 	public void sendOrderConfirmationHtmlEmail(AtaExtenso obj) {
 		try {
-			MimeMessage mm = prepareMimeMessageFromClient(obj);
+			MimeMessage mm = prepareMimeMessageFromPedido(obj);
 			sendHtmlEmail(mm);
 		}
 		catch(MessagingException e){
 			sendOrderConfirmationEmail(obj);
 		}
 	}
-
-	protected MimeMessage prepareMimeMessageFromClient(AtaExtenso obj) throws MessagingException {
+	
+	protected MimeMessage prepareMimeMessageFromPedido(AtaExtenso obj) throws MessagingException {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true);
-		mmh.setTo("virginis.caelum@gmail.com");
+		mmh.setTo("legiomariae@outlook.com.br");
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		mmh.setFrom(sender);
-		mmh.setSubject("Confirmação de do envio da ata");
+		mmh.setSubject("Pré Ata de número: " + obj.getNumber());
 		return mimeMessage;
 	}
 }

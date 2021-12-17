@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.legioapp.domain.enums.PersonType;
 import com.legioapp.domain.enums.WorkType;
 
 @Entity
@@ -46,9 +45,6 @@ public class Work implements Serializable{
 	private Integer adult;
 	
 	@CollectionTable(name="contato_children")
-	private Integer person;
-	
-	@CollectionTable(name="contato_children")
 	private Integer children;
 	
 	@CollectionTable(name="contato_elderly")
@@ -75,7 +71,6 @@ public class Work implements Serializable{
 		this.work = (work==null) ? null : work.getCod();
 		this.yong = yong;
 		this.adult = adult;
-		this.person = person;
 		this.children = children;
 		this.elderly = elderly;
 		this.total = total;
@@ -105,14 +100,6 @@ public class Work implements Serializable{
 
 	public void setWork(WorkType work) {
 		this.work = work.getCod();
-	}
-
-	public PersonType getPerson() {
-		return PersonType.toEnum(person);
-	}
-
-	public void setPerson(PersonType person) {
-		this.person = person.getCod();
 	}
 
 	public List<Legio> getLegio() {
@@ -153,10 +140,6 @@ public class Work implements Serializable{
 
 	public void setTotal(Integer total) {
 		this.total = total;
-	}
-
-	public void setPerson(Integer person) {
-		this.person = person;
 	}
 
 	public Float getHours() {

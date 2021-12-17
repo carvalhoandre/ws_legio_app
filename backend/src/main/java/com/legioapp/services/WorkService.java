@@ -49,14 +49,15 @@ public class WorkService {
 	}
 	
 	public void UpdateData(Work newObj, Work obj) {
-		newObj.setAta(obj.getAta());
-		newObj.setPerson(obj.getPerson());
-		newObj.setHours(obj.getHours());
-		newObj.setLegios(obj.getLegios());
 		newObj.setAdult(obj.getAdult());
-		newObj.setElderly(obj.getElderly());
+		newObj.setAta(obj.getAta());
 		newObj.setChildren(obj.getChildren());
-		
+		newObj.setElderly(obj.getElderly());
+		newObj.setHours(obj.getHours());
+		newObj.setLegio(obj.getLegio());
+		newObj.setTotal(obj.getTotal());
+		newObj.setWork(obj.getWork());
+		newObj.setYong(obj.getYong());
 	}
 	
 	public List<Work> findAll() {

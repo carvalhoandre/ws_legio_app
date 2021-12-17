@@ -1,0 +1,110 @@
+{
+    "date": "27/11/2021",
+    "attendance": [
+        {
+            "legio" : {
+                "name": "Giovanna"
+            },
+            "attendance" : 1
+        },
+        {
+            "legio" : {
+                "name": "Inacia"
+            },
+            "attendance" : 1
+        },
+        {
+            "legio" : {
+                "name": "Joanderson"
+            },
+            "attendance" : 1
+        },
+        {
+            "legio" : {
+                "name": "Edenilson"
+            },
+            "attendance" : 1
+        },
+        {
+            "legio" : {
+                "name": "André"
+            },
+            "attendance" : 1
+        },
+        {
+            "legio" : {
+                "name": "Regina"
+            },
+            "attendance" : 0
+        },
+        {
+            "legio" : {
+                "name": "Aparecido"
+            },
+            "attendance" : 0
+        }
+    ],
+    "work": [
+        {
+            "legio": [
+                {
+                    "name": "Giovanna" 
+                },
+                {
+                    "name": "Inacia" 
+                }
+            ],
+            "work": 1,
+            "yong": 1,
+            "adult": 3,
+            "children": 0,
+            "elderly": 5,
+            "total": 9,
+            "hours": 1.10
+        },
+        {
+            "legio": [
+                {
+                    "name": "Edenilson" 
+                },
+                {
+                    "name": "Joanderson" 
+                }
+            ],
+            "work": 2,
+            "yong": 1,
+            "adult": 3,
+            "children": 0,
+            "elderly": 5,
+            "total": 9,
+            "hours": 1.10
+        }
+    ],
+    "recruitment": [
+        {
+            "quantity" : 1,
+            "person": 2
+        },
+        {
+            "quantity" : 5,
+            "person": 3
+        }
+    ],
+    "event": [
+        {
+            "name": "Sarau",
+            "guests": 0,
+            "ativos": 5,
+            "auxiliares": 2
+        }
+    ],
+    "treasury": {
+        "saldoAnterior": 318.35,
+        "coletaDoDia": 18.17,
+        "diaDaColeta": "27/11/2021",
+        "despesas": 289.00,
+        "subTotal": 337.32,
+        "totalEmCaixa": 337.32
+    }
+}
+

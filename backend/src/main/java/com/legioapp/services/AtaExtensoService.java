@@ -30,8 +30,8 @@ public class AtaExtensoService {
 	
 	public AtaExtenso insert(AtaExtenso obj) {
 		obj.setId(null);
-		emailService.sendOrderConfirmationHtmlEmail(obj);
 		obj = repo.save(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
 	
@@ -40,7 +40,7 @@ public class AtaExtensoService {
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir um Legionário que possui pedidos pendentes");
+			throw new DataIntegrityException("Não é possível excluir um Ata que possui pendencias");
 		}
 	}
 	
@@ -52,19 +52,17 @@ public class AtaExtensoService {
 	}
 	
 	public void UpdateData(AtaExtenso newObj, AtaExtenso obj) {
+		newObj.setParticipation(obj.getParticipation());
 		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
 		newObj.setAllocutionAutor(obj.getAllocutionAutor());
-		newObj.setAno(obj.getAno());
+		newObj.setDataExtenso(obj.getDataExtenso());
 		newObj.setCapituloEspiritual(obj.getCapituloEspiritual());
 		newObj.setColetaDoDia(obj.getColetaDoDia());
 		newObj.setDespesas(obj.getDespesas());
-		newObj.setDia(obj.getDia());
 		newObj.setDiaDaColeta(obj.getDiaDaColeta());
 		newObj.setEvent(obj.getEvent());
-		newObj.setHora(obj.getHora());
 		newObj.setHoraFinal(obj.getHoraFinal());
 		newObj.setLegionario(obj.getLegionario());
-		newObj.setMes(obj.getMes());
 		newObj.setMinutoFinal(obj.getMinutoFinal());
 		newObj.setNumber(obj.getNumber());
 		newObj.setNumero(obj.getNumero());

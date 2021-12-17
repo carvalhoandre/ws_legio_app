@@ -28,6 +28,7 @@ public class AtaExtensoResource {
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody AtaExtenso obj) {
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
