@@ -1,8 +1,6 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
@@ -10,12 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.WorkType;
 
 @Entity
@@ -27,27 +22,19 @@ public class Work implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "legionario_trabalho",
-		joinColumns = @JoinColumn(name = "work_id"),
-		inverseJoinColumns = @JoinColumn(name = "legios_id")
-	)
-	private List<Legio> legio = new ArrayList<>();
-	
 	@CollectionTable(name="trabalho")
 	private Integer work;
 	
 	@CollectionTable(name="contato_jovem")
 	private Integer yong;
 	
-	@CollectionTable(name="contato_adult")
+	@CollectionTable(name="contato_adulto")
 	private Integer adult;
 	
-	@CollectionTable(name="contato_children")
+	@CollectionTable(name="contato_crianca")
 	private Integer children;
 	
-	@CollectionTable(name="contato_elderly")
+	@CollectionTable(name="contato_idoso")
 	private Integer elderly;
 	
 	@CollectionTable(name="total")
@@ -56,18 +43,16 @@ public class Work implements Serializable{
 	@CollectionTable(name="duracao")
 	private Float hours;
 	
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="ata_id")
+	@JoinColumn(name="ata")
 	private Ata ata;
 
 	public Work() {
 	}
 	
-	public Work(Integer id, List<Legio> legio, WorkType work, Integer yong, Integer adult, Integer person,
-			Integer children, Integer elderly, Integer total, Float hours, Ata ata) {
+	public Work(Integer id, WorkType work, Integer yong, Integer adult, Integer person,
+			Integer children, Integer elderly, Integer total, Float hours) {
 		this.id = id;
-		this.legio = legio;
 		this.work = (work==null) ? null : work.getCod();
 		this.yong = yong;
 		this.adult = adult;
@@ -75,7 +60,6 @@ public class Work implements Serializable{
 		this.elderly = elderly;
 		this.total = total;
 		this.hours = hours;
-		this.ata = ata;
 	}
 
 	public Integer getId() {
@@ -86,28 +70,12 @@ public class Work implements Serializable{
 		this.id = id;
 	}
 
-	public List<Legio> getLegios() {
-		return legio;
-	}
-
-	public void setLegios(List<Legio> legio) {
-		this.legio = legio;
-	}
-
 	public WorkType getWork() {
 		return WorkType.toEnum(work);
 	}
 
 	public void setWork(WorkType work) {
 		this.work = work.getCod();
-	}
-
-	public List<Legio> getLegio() {
-		return legio;
-	}
-
-	public void setLegio(List<Legio> legio) {
-		this.legio = legio;
 	}
 
 	public Integer getYong() {

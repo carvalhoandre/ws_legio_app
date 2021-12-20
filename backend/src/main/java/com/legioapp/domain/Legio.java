@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Legio implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(unique=true)
 	private String name;
 	
 	private Integer type;
@@ -39,12 +41,11 @@ public class Legio implements Serializable{
 	public Legio() {
 	}	
 	
-	public Legio(Integer id, String name, ChargeType type, Date birthday, List<Attendance> attendance) {
+	public Legio(Integer id, String name, ChargeType type, Date birthday) {
 		this.id = id;
 		this.name = name;
 		this.type = (type==null) ? null: type.getCod();
 		this.birthday = birthday;
-		this.attendance = attendance;
 	}
 
 	public ChargeType getType() {

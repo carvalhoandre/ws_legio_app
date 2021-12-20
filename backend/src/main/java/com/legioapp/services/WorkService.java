@@ -54,7 +54,6 @@ public class WorkService {
 		newObj.setChildren(obj.getChildren());
 		newObj.setElderly(obj.getElderly());
 		newObj.setHours(obj.getHours());
-		newObj.setLegio(obj.getLegio());
 		newObj.setTotal(obj.getTotal());
 		newObj.setWork(obj.getWork());
 		newObj.setYong(obj.getYong());

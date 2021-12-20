@@ -20,7 +20,7 @@ import com.legioapp.domain.Work;
 import com.legioapp.services.WorkService;
 
 @RestController
-@RequestMapping(value="/works")
+@RequestMapping(value="/work")
 public class WorkResource {
 	
 	@Autowired

@@ -35,18 +35,17 @@ public class Attendance implements Serializable{
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="ata_id")
+	@JoinColumn(name="ata")
 	private Ata ata;
 
 	public Attendance() {
 	}
 
-	public Attendance(Integer id, Date date, Legio legio, AttendanceType attendance, Ata ata) {
+	public Attendance(Integer id, Date date, Legio legio, AttendanceType attendance) {
 		this.id = id;
 		this.date = date;
 		this.legio = legio;
 		this.attendance = (attendance==null) ? null: attendance.getCod();
-		this.ata = ata;
 	}
 
 	public Integer getId() {

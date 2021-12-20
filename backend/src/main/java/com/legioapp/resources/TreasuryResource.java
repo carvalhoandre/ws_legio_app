@@ -20,7 +20,7 @@ import com.legioapp.domain.Treasury;
 import com.legioapp.services.TreasuryService;
 
 @RestController
-@RequestMapping(value="/Treasury")
+@RequestMapping(value="/treasury")
 public class TreasuryResource {
 
 	@Autowired

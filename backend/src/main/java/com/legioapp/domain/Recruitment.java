@@ -2,6 +2,7 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.PersonType;
 
 @Entity
@@ -22,23 +22,23 @@ public class Recruitment implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@CollectionTable(name="quantidade")
 	private Integer quantity;
 	
+	@CollectionTable(name="pessoa")
 	private Integer person;
 	
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="ata_id")
+	@JoinColumn(name="ata")
 	private Ata ata;
 
 	public Recruitment() {
 	}
 
-	public Recruitment(Integer id, Integer quantity, PersonType person, Ata ata) {
+	public Recruitment(Integer id, Integer quantity, PersonType person) {
 		this.id = id;
 		this.quantity = quantity;
 		this.person = (person == null) ? null: person.getCod();
-		this.ata = ata;
 	}
 
 	public Integer getId() {

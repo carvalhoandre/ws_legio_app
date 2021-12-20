@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,23 +25,23 @@ public class Ata implements Serializable {
 	private Integer id;
 	
 	@Column(unique=true)
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date date;
 	
-	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="ata")
 	private List<Attendance> attendance = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="ata")
 	private List<Work> work = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="ata")
 	private List<Recruitment> recruitment = new ArrayList<>();
 	
-	@OneToMany(mappedBy="ata", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="ata")
 	private List<Event> event = new ArrayList<>();
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="ata")
-	private Treasury treasury;
+	@OneToMany(mappedBy="ata")
+	private List<Treasury> treasury = new ArrayList<>();
 	
 	public Ata() {
 	}
@@ -53,7 +51,7 @@ public class Ata implements Serializable {
 	}
 
 	public Ata(Integer id, Date date, List<Attendance> attendance, List<Work> work, List<Recruitment> recruitment,
-			List<Event> event, Treasury treasury) {
+			List<Event> event, List<Treasury> treasury) {
 		this.id = id;
 		this.date = date;
 		this.attendance = attendance;
@@ -69,6 +67,22 @@ public class Ata implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public List<Attendance> getAttendance() {
+		return attendance;
+	}
+
+	public void setAttendance(List<Attendance> attendance) {
+		this.attendance = attendance;
 	}
 
 	public List<Work> getWork() {
@@ -95,28 +109,12 @@ public class Ata implements Serializable {
 		this.event = event;
 	}
 
-	public Treasury getTreasury() {
+	public List<Treasury> getTreasury() {
 		return treasury;
 	}
 
-	public void setTreasury(Treasury treasury) {
+	public void setTreasury(List<Treasury> treasury) {
 		this.treasury = treasury;
-	}
-
-	public List<Attendance> getAttendance() {
-		return attendance;
-	}
-
-	public void setAttendance(List<Attendance> attendance) {
-		this.attendance = attendance;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 	@Override

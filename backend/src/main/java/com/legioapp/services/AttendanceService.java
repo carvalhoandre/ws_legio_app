@@ -20,6 +20,9 @@ public class AttendanceService {
 	@Autowired
 	private AttendanceRepository repo;
 	
+	@Autowired
+	private LegioService legioService; 
+	
 	public Attendance find(Integer  id) {
 		
 		Optional<Attendance> obj = repo.findById(id);
@@ -30,6 +33,7 @@ public class AttendanceService {
 	@Transactional
 	public Attendance insert(Attendance obj) {
 		obj.setId(null);
+		obj.setLegio(legioService.find(obj.getLegio().getId()));
 		obj = repo.save(obj);
 		return obj;
 	}

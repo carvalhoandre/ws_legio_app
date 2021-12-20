@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.legioapp.domain.Legio;
+import com.legioapp.dto.LegioDTO;
 import com.legioapp.repositories.LegiosRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
@@ -24,6 +25,11 @@ public class LegioService {
 		Optional<Legio> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Legio.class.getName()));
+	}
+	
+	public Legio findByName(String name) {	
+		Legio obj = repo.findByName(name);
+		return obj;
 	}
 	
 	@Transactional
@@ -68,5 +74,10 @@ public class LegioService {
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	public Legio fromDTO(LegioDTO objDto) {
+		return new Legio(objDto.getId(), objDto.getName(), null, null);
+
 	}
 }

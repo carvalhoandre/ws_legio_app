@@ -2,6 +2,7 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_event")
@@ -21,30 +20,32 @@ public class Event implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@CollectionTable(name="titulo")
 	private String name;
 	
+	@CollectionTable(name="quantidade_convidados")
 	private Integer guests;
 	
+	@CollectionTable(name="quantidade_ativos")
 	private Integer ativos;
 	
+	@CollectionTable(name="quantidade_auxilixares")
 	private Integer auxiliares;
 	
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="ata_id")
+	@JoinColumn(name="ata")
 	private Ata ata;
 
 	public Event() {
 	}
 
-	public Event(Integer id, String name, Integer guests, Integer ativos, Integer auxiliares, Ata ata) {
+	public Event(Integer id, String name, Integer guests, Integer ativos, Integer auxiliares) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.guests = guests;
 		this.ativos = ativos;
 		this.auxiliares = auxiliares;
-		this.ata = ata;
 	}
 
 	public Integer getId() {
