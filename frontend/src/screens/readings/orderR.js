@@ -67,19 +67,19 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: commonStyles.fontSize.medium,
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
         textAlign: "center",
         marginTop: 20
     },
     item: {
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         marginTop: 15,
         marginLeft: 10,
         fontSize: commonStyles.fontSize.normal
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.italic,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColorLight,
         marginBottom: 5,
         marginLeft: 15,

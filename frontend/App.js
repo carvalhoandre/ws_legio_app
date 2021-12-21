@@ -19,38 +19,8 @@ export default class App extends Component {
         display: Font.FontDisplay.FALLBACK,
       },
 
-      'WorkSans-Bold': {
-        uri: require('./assets/fonts/WorkSans-Bold.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-ExtraLight': {
-        uri: require('./assets/fonts/WorkSans-ExtraLight.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-Italic': {
-        uri: require('./assets/fonts/WorkSans-Italic.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-Light': {
-        uri: require('./assets/fonts/WorkSans-Light.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-Medium': {
-        uri: require('./assets/fonts/WorkSans-Medium.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-Regular': {
+      'WorkSans': {
         uri: require('./assets/fonts/WorkSans-Regular.ttf'),
-        display: Font.FontDisplay.FALLBACK,
-      },
-
-      'WorkSans-SemiBold': {
-        uri: require('./assets/fonts/WorkSans-SemiBold.ttf'),
         display: Font.FontDisplay.FALLBACK,
       },
     })

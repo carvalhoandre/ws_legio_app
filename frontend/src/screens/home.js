@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontFamily: commonStyles.fontFamily.LegioTitle,
+        fontFamily: commonStyles.fontFamily.OldEnglish,
         color: commonStyles.colors.primaryColor,
         fontSize: commonStyles.fontSize.title,
     }

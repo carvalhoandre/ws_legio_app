@@ -13,7 +13,7 @@ export default {
         titleColor: '#1C1D1F',
         textColor: '#434343',
         textColorLight: '#6A6F73',
-        textColorHover: '#000',
+        textColorHover: '#9c9c9c',
     },
 
     fontSize: {
@@ -25,12 +25,7 @@ export default {
     },
 
     fontFamily: {
-        LegioTitle: 'Old English Text MT',
-        subtitle: 'WorkSans-Bold',
-        body: 'WorkSans-Regular',
-        light: 'WorkSans-Light',
-        extraLight: 'WorkSans-ExtraLight',
-        semiBold: 'WorkSans-SemiBold',
-        italic: 'WorkSans-Italic'
+        OldEnglish: 'Old English Text MT',
+        WorkSans: 'WorkSans'
     }
 }

@@ -54,21 +54,21 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: commonStyles.fontSize.medium,
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
         textAlign: "center",
         marginTop: 20
     },
     item: {
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         marginTop: 15,
         marginLeft: 10,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.WorkSans,
         color: commonStyles.colors.titleColor,
         lineHeight: 23
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.italic,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColorLight,
         marginTop: 15,
         lineHeight: 20,

@@ -1,75 +1,38 @@
-import {useState} from "react";
-import { View, StyleSheet, Linking } from 'react-native'
-import { ListItem } from 'react-native-elements'
+import React, { useState } from "react";
+import { View, StyleSheet, Platform } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../../styles/commonStyles'
 import { useNavigation } from '@react-navigation/native';
+import { List } from 'react-native-paper';
 
 const DataBase = () => {
 
     const navigation = useNavigation();
 
-    const [visible, setVisible] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const handlePress = () => setExpanded(!expanded);
 
-    const options = [
-        {
-            title: 'Legionários',
-            onPress: (() => {
-                Linking.openURL('https://drive.google.com/file/d/164KwtPC5Iv2X4gCyYDE_mpel9Bp7ZAnh/view?usp=sharing');
-            })
-        },
-        {
-            title: 'Ata',
-            onPress: (() => {
-                Linking.openURL('https://drive.google.com/file/d/14-KoTpszV6zKsrcwiKengzY6Trn2FQnx/view?usp=sharing');
-            })
-        },
-        {
-            title: 'Tesouraria',
-            onPress: (() => {
-                navigation.navigate('OrderR');
-            })
-        },
-        {
-            title: 'Instruções Permanente',
-            onPress: (() => {
-                navigation.navigate('Instructions');
-            })
-        },
-    ];
-
-    const list = [
-        {
-            title: 'Adicionar',
-            onPress: (() => {
-                navigation.navigate('Gloriosos');
-            }),
-        },
-        {
-            title: 'Consultar',
-            onPress: (() => {
-                navigation.navigate('Gozosos');
-            }),
-        },
-        {
-            title: 'Atualizar',
-            onPress: (() => {
-                navigation.navigate('Dolorosos');
-            }),
-        },
-    ];
-
-    return ( 
+    return (
         <View style={styles.container}>
-            {options.map((item, i) => {
-                return (
-                    <ListItem key={i} bottomDivider onPress={item.onPress}>
-                        <ListItem.Content>
-                            <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
-                        </ListItem.Content>
-                        <ListItem.Chevron />
-                    </ListItem>
-                )
-            })}
+            <List.Section>
+                <List.Accordion
+                    title="Ata"
+                    titleStyle={styles.title}
+                    style={styles.option}
+                    left={(() => <Icon name={"create-outline"} size={20} color={commonStyles.colors.primaryHoverColor} />)}
+                    expanded={expanded}
+                    onPress={handlePress}
+                >
+                    <List.Item title="Criar" 
+                        onPress={(() => {
+                            navigation.navigate('CreateAta')
+                        })}
+                        titleStyle={styles.subtitle}
+                    />
+                    <List.Item title="Buscar" titleStyle={styles.subtitle} />
+                </List.Accordion>
+
+            </List.Section>
         </View>
     )
 }
@@ -77,14 +40,23 @@ const DataBase = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 50,
-        backgroundColor: "#FFF"
+        marginTop: Platform === 'ios' ? 30 : 30,
     },
+    option: {
+        backgroundColor: "#FFF",
+        borderRadius: 10,
+    },  
     title: {
-        fontSize: commonStyles.fontSize.normal,
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontSize: commonStyles.fontSize.medium,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
-
+        fontWeight: '500'
+    },
+    subtitle: {
+        fontSize: commonStyles.fontSize.normal,
+        fontFamily: commonStyles.fontFamily.WorkSans,
+        color: commonStyles.colors.textColor,
+        fontWeight: '300'
     }
 })
 

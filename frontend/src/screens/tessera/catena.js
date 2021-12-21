@@ -96,25 +96,25 @@ const styles = StyleSheet.create({
     paragraph: {
         lineHeight: 22,
         textAlign: "justify",
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         marginBottom: 15,
         fontSize: commonStyles.fontSize.normal,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         fontSize: commonStyles.fontSize.normal,
     },
     repply: {
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.italic,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         fontSize: commonStyles.fontSize.normal,
     },
     bold: {
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColor,
     },
 })

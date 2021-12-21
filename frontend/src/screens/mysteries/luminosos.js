@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.primaryHoverColor,
         fontSize: commonStyles.fontSize.normal,
         marginBottom: 10,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     paragraph: {
         lineHeight: 20,
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         textAlign: 'justify',
         color: commonStyles.colors.textColor,
         marginBottom: 20,

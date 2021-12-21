@@ -24,6 +24,7 @@ public class AtaExtenso {
 	@Column(unique=true)
 	private String dataExtenso;
 
+	private String ata;
 	private String legionario;
 	private String participation;
 	private String capituloEspiritual;
@@ -52,7 +53,7 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String legionario,
+	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String ata, String legionario,
 			String participation, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
 			String recrutamento, String saldoAnterior, String diaDaColeta, String coletaDoDia, String despesas,
 			String subTotal, String totalEmCaixa, String work, String allocutionAutor, String allocutionAssunto,
@@ -81,6 +82,15 @@ public class AtaExtenso {
 		this.event = event;
 		this.horaFinal = horaFinal;
 		this.minutoFinal = minutoFinal;
+		this.ata = ata;
+	}
+
+	public String getAta() {
+		return ata;
+	}
+
+	public void setAta(String ata) {
+		this.ata = ata;
 	}
 
 	public String getLegionario() {

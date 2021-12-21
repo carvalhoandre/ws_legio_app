@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,14 @@ public class Legio implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@CollectionTable(name="nome")
 	@Column(unique=true)
 	private String name;
 	
+	@CollectionTable(name="membro")
 	private Integer type;
 	
+	@CollectionTable(name="aniversario")
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date birthday;
 

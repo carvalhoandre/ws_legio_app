@@ -156,14 +156,14 @@ const styles = StyleSheet.create({
     paragraph: {
         lineHeight: 22,
         textAlign: "justify",
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         marginBottom: 15,
         fontSize: commonStyles.fontSize.normal,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         fontSize: commonStyles.fontSize.normal,
 
     },
@@ -171,12 +171,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.italic,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         fontSize: commonStyles.fontSize.normal,
         marginBottom: 20,
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.light,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColorLight,
         marginBottom: 15,
     },

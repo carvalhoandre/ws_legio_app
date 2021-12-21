@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontFamily: commonStyles.fontFamily.LegioTitle,
+        fontFamily: commonStyles.fontFamily.OldEnglish,
         color: commonStyles.colors.primaryHoverColor,
         fontSize: commonStyles.fontSize.subtitle,
         marginBottom: 20,
         textAlign: 'center'
     },
     subtitle: {
-        fontFamily: commonStyles.fontFamily.italic,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small,
         marginBottom: 20,
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     paragraph: {
         lineHeight: 23,
         textAlign: 'justify',
-        fontFamily: commonStyles.fontFamily.body,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         marginBottom: 10,
         fontSize: commonStyles.fontSize.normal,
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.light,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColorLight,
         marginBottom: 15,
     },

@@ -3,6 +3,7 @@ package com.legioapp.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,14 +23,20 @@ public class Treasury implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@CollectionTable(name="saldo_anterior")
 	private Float saldoAnterior;
+	
+	@CollectionTable(name="coleta_do_dia")
 	private Float coletaDoDia;
 	
+	@CollectionTable(name="data_da_coleta")
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date diaDaColeta;
 	
 	private Float despesas;
 	private Float subTotal;
+	
+	@CollectionTable(name="total_em_caixa")
 	private Float totalEmCaixa;
 	
 	@ManyToOne

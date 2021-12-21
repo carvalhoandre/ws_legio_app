@@ -3,6 +3,7 @@ package com.legioapp.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +30,10 @@ public class Attendance implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="legio_id")
+	@CollectionTable(name="id_legio")
 	private Legio legio;
 	
+	@CollectionTable(name="presenca_ou_falta")
 	private Integer attendance;
 	
 	@JsonIgnore

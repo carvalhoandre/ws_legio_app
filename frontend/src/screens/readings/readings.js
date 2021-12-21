@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Linking } from 'react-native'
+import { View, StyleSheet, Linking, Platform } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import commonStyles from '../../styles/commonStyles'
 import { useNavigation } from '@react-navigation/native';
@@ -40,7 +40,7 @@ const Readings = () => {
             {list.map((item, i) => {
                 return (
                     <ListItem key={i} bottomDivider onPress={item.onPress}>
-                        <ListItem.Content>
+                        <ListItem.Content style={styles.option}>
                             <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
@@ -55,15 +55,17 @@ const Readings = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 50,
-        backgroundColor: "#FFF"
+        marginTop: Platform === 'ios' ? 30 : 30,
     },
     title: {
         fontSize: commonStyles.fontSize.normal,
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
-
-    }
+    },
+    option: {
+        backgroundColor: "#FFF",
+        borderRadius: 10,
+    },  
 })
 
 export default Readings;

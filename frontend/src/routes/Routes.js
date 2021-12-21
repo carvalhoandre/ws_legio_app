@@ -9,6 +9,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Home from '../screens/home'
 import PrayersRoute from './prayersRoute'
 import ReadingRoute from "../routes/readingRoute";
+import BaseRoute from "./baseRoute";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,21 +21,13 @@ const Settings = () => {
     )
 }
 
-const Database = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Database</Text>
-        </View>
-    )
-}
-
 export default class Routes extends Component {
 
     render() {
         return (
             <NavigationContainer>
                 <Tab.Navigator
-                    initialRouteName="Home"
+                    initialRouteName="Database"
                     options={{
                         headerShown: false,
                     }}
@@ -84,7 +77,7 @@ export default class Routes extends Component {
                     />
                     <Tab.Screen
                         name="Database"
-                        component={Database}
+                        component={BaseRoute}
                         options={() => ({
                             headerShown: false,
                             tabBarIcon: ({ tintColor }) => (
@@ -142,10 +135,9 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
     },
     title: {
-        fontFamily: commonStyles.fontFamily.semiBold,
+        fontFamily: commonStyles.fontFamily.WorkSans,
         fontSize: commonStyles.fontSize.small,
         textAlign: "center",
         justifyContent: "center",
-
     }
 });
