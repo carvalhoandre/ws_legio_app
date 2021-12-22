@@ -4,6 +4,7 @@ export default {
         bodyColor: '#f7f7f7',
         firstColor: '#F29727',
         firstColorLight: '#2E78A6',
+        disabeldColor: '#bee4fc',
         minimalistColor: '#faf0f0',
         primaryHoverColor: '#2B2073',
         containerColor: '#fff',

@@ -51,7 +51,7 @@ export default class Routes extends Component {
                                     iconName = 'document-attach-outline';
                                     break;
                                 case 'Database':
-                                    iconName = 'create-outline';
+                                    iconName = 'file-tray-stacked-outline';
                                     break;
                                 default:
                                     iconName = 'albums-outline';

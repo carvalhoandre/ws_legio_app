@@ -11,6 +11,9 @@ const DataBase = () => {
 
     const [expanded, setExpanded] = useState(false);
     const handlePress = () => setExpanded(!expanded);
+    
+    const [expandedUser, setExpandedUser] = useState(false);
+    const handlePressUser = () => setExpandedUser(!expanded);
 
     return (
         <View style={styles.container}>
@@ -32,6 +35,23 @@ const DataBase = () => {
                     <List.Item title="Buscar" titleStyle={styles.subtitle} />
                 </List.Accordion>
 
+                <List.Accordion
+                    title="Legionários"
+                    titleStyle={styles.title}
+                    style={styles.option}
+                    left={(() => <Icon name={"people-outline"} size={20} color={commonStyles.colors.primaryHoverColor} />)}
+                    expanded={expandedUser}
+                    onPress={handlePressUser}
+                >
+                    <List.Item title="Adicionar novo membro" 
+                        onPress={(() => {
+                            navigation.navigate('CreateLegio')
+                        })}
+                        titleStyle={styles.subtitle}
+                    />
+                    <List.Item title="Buscar" titleStyle={styles.subtitle} />
+                </List.Accordion>
+
             </List.Section>
         </View>
     )
@@ -44,7 +64,6 @@ const styles = StyleSheet.create({
     },
     option: {
         backgroundColor: "#FFF",
-        borderRadius: 10,
     },  
     title: {
         fontSize: commonStyles.fontSize.medium,
