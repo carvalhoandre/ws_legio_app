@@ -7,8 +7,10 @@ import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Legios from '../../../components/Legios'
 
 const initialState = {
+    activeIds: [],
     id: 2,
     // page1
     number: null,
@@ -78,30 +80,13 @@ export default class CreateAta extends Component {
     }
 
     send = () => {
-        console.log(this.state)
-
     }
 
-    onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || this.state.dateCreate;
-        this.setState({ show: Platform.OS === 'ios' })
-        this.setState({ dateCreate: currentDate })
-    };
+    changePage = (index) => {
+        setActivePage(index);
+    }
 
-    showMode = (currentMode) => {
-        this.setState({ show: true })
-        this.setState({ mode: currentMode })
-    };
-
-    showDatepicker = () => {
-        this.showMode('date');
-    };
-
-    showTimepicker = () => {
-        this.showMode('time');
-    };
-
-    returnIndicator = () => {
+    returnIndicator = (id) => {
         if (this.state.id === 1) {
             return (
                 <View styles={{ margin: 'auto' }}>
@@ -138,31 +123,12 @@ export default class CreateAta extends Component {
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Legionários</Text>
 
-
-
-                </View>
-            )
-        }
-
-        if (this.state.id === 3) {
-            return (
-                <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Descrição do Indicador</Text>
-
+                    <Legios />
 
                 </View>
             )
         }
 
-        if (this.state.id === 4) {
-            return (
-                <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Método de Cálculo</Text>
-
-
-                </View>
-            )
-        }
     }
 
     rigth = () => {
@@ -172,7 +138,6 @@ export default class CreateAta extends Component {
                     const id = this.state.id + 1
                     this.setState({ id })
                 }}
-
                 contentStyle={styles.buttons}
             >
                 <Icon name={"chevron-forward-outline"} size={30} color={commonStyles.colors.primaryHoverColor} />
@@ -210,6 +175,7 @@ export default class CreateAta extends Component {
     }
 
     render() {
+
 
         return (
             <SafeAreaView

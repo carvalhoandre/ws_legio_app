@@ -1,0 +1,2 @@
+export const LEGIO_PRESENT = 'LEGIO_PRESENT'
+export const LEGIO_FALT = 'LEGIO_FALT'

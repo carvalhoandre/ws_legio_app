@@ -13,7 +13,7 @@ const DataBase = () => {
     const handlePress = () => setExpanded(!expanded);
     
     const [expandedUser, setExpandedUser] = useState(false);
-    const handlePressUser = () => setExpandedUser(!expanded);
+    const handlePressUser = () => setExpandedUser(!expandedUser);
 
     return (
         <View style={styles.container}>
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
     },  
     title: {
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.normal,
         fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.titleColor,
         fontWeight: '500'
     },
     subtitle: {
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         fontFamily: commonStyles.fontFamily.WorkSans,
         color: commonStyles.colors.textColor,
         fontWeight: '300'

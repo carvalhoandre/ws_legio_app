@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
 import axios from "axios";
 
 const api = axios.create({
@@ -10,6 +12,12 @@ export const createLegio = (creds) => {
             observe: 'response',
             responseType: 'text'
         });
+}
+
+export const getLegios = () => {
+    return api.get("/legio", {
+        observe: 'response',
+    })
 }
 
 export default api;

@@ -51,7 +51,7 @@ export default class Routes extends Component {
                                     iconName = 'document-attach-outline';
                                     break;
                                 case 'Database':
-                                    iconName = 'file-tray-stacked-outline';
+                                    iconName = 'flask';
                                     break;
                                 default:
                                     iconName = 'albums-outline';
@@ -88,7 +88,7 @@ export default class Routes extends Component {
                                         end={{ x: 0, y: 0 }}
                                         colors={[commonStyles.colors.primaryHoverColor, commonStyles.colors.firstColorLight]}
                                     >
-                                        <Icon name="add-outline" size={26} color="#FFF" />
+                                        <Icon name="flask" size={26} color="#FFF" />
                                     </LinearGradient>
                                 </View>
                             )

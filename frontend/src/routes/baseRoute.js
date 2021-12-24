@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 function BaseRoute() {
     return (
         <Stack.Navigator
-            initialRouteName="DataMain"
+            initialRouteName="CreateAta"
         >
             <Stack.Screen
                 name="DataMain"
