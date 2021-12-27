@@ -38,6 +38,16 @@ public class AttendanceService {
 		return obj;
 	}
 	
+	@Transactional
+	public List<Attendance> insertForId(List<Attendance> obj) {
+		obj.forEach(newobj -> {
+			newobj.setId(null);
+			newobj.setLegio(legioService.find(newobj.getLegio().getId()));
+			newobj = repo.save(newobj);
+		});
+		return obj;
+	}
+	
 	public Attendance Update(Attendance obj) {
 		Attendance newObj = find(obj.getId());
 		UpdateData(newObj, obj);

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { TextInput, Button } from 'react-native-paper';
 import { View, StyleSheet, Text, Platform, Image, SafeAreaView, ScrollView } from 'react-native';
-import { CheckBox } from 'react-native-elements'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from '../../../styles/commonStyles';
@@ -25,6 +23,8 @@ const initialState = {
             attendance: null
         },
     ],
+    /* page 2 */
+    legios: [],
     participation: '',
     capituloEspiritual: '',
     paginaEspiritual: '',
@@ -80,10 +80,6 @@ export default class CreateAta extends Component {
     }
 
     send = () => {
-    }
-
-    changePage = (index) => {
-        setActivePage(index);
     }
 
     returnIndicator = (id) => {
@@ -175,8 +171,6 @@ export default class CreateAta extends Component {
     }
 
     render() {
-
-
         return (
             <SafeAreaView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}

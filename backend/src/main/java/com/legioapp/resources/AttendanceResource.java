@@ -35,6 +35,14 @@ public class AttendanceResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PostMapping("/all")
+	public ResponseEntity<List<Attendance>> insert(@Valid @RequestBody List<Attendance> obj) {
+		obj = service.insertForId(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(((Attendance) obj).getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 		service.delete(id);

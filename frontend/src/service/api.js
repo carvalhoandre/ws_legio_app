@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
 import axios from "axios";
 
-const api = axios.create({
-    baseURL: 'https://legio-app.herokuapp.com'
-});
+const API_URL = "http://localhost:8080"
 
-export const createLegio = (creds) => {
-    return api.post("/legio", creds,
-        {
-            observe: 'response',
-            responseType: 'text'
-        });
+export function createLegio(creds) {
+    return axios.post(`${API_URL}/legio`, creds)
 }
 
-export const getLegios = () => {
-    return api.get("/legio", {
-        observe: 'response',
-    })
+export function createAttendance(creds) {
+    return axios.post(`${API_URL}/attendance`, creds)
 }
 
-export default api;
+export function createAllAttendance(creds) {
+    return axios.post(`${API_URL}/attendance/all`, creds)
+}
+
+export function getLegios() {
+    return axios.get(`${API_URL}/legio`);
+}
