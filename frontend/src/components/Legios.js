@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import LegioList from './LegioList';
 import { Button } from 'react-native-elements'
+import OrderSummary from './OrderSummary';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
@@ -35,11 +36,8 @@ export default function Legios() {
     const handleSelectLegio = (legio) => {
         const isAlreadySelected = checkIsSelected(selectedLegios, legio)
 
-        console.log(isAlreadySelected)
-
         if (isAlreadySelected) {
             const selected = selectedLegios.filter(item => item.id !== legio.id);
-            console.log(selected)
             setSelectedLegios(selected)
 
         } else {
@@ -47,53 +45,29 @@ export default function Legios() {
         }
     }
 
-    const question = () => {
-        const data = moment().locale('pt-br').format('DD-MM-YYYY')
-
-        legios.forEach((element) => {
-            const isAlreadySelected = checkIsSelected(selectedLegios, element)
-            const attendance = isAlreadySelected ? 1 : 0
-            const payload = {
-                date: data,
-                legio: {
-                    id: element.id
-                },
-                attendance: attendance
-            }
-            createAttendance(payload)
-                .then(() => {
-                    setMessage({ title: '🥳🤗🤗', message: 'Chamada registrada' })
-                    setVisible(true)
-                })
-                .catch(error => {
-                    setMessage({ title: 'Error 😵😵😵', message: error })
-                    setVisible(true)
-                })
-        });
-    }
-
     const handleSubmit = () => {
-        const list = []
-        const data = moment().locale('pt-br').format('DD-MM-YYYY')
+        const payload = []
 
-        legios.forEach((element) => {
-            const isAlreadySelected = checkIsSelected(selectedLegios, element)
-            const attendance = isAlreadySelected ? 1 : 0
-            list.push({
-                date: data,
+        selectedLegios.forEach(element => {
+            payload.push({
+                date: moment().locale('pt-br').format('DD-MM-YYYY'),
                 legio: {
                     id: element.id
                 },
-                attendance: attendance
+                attendance: 0
             })
         })
-        createAllAttendance(list)
+
+        createAllAttendance(payload)
             .then(() => {
-                setMessage({ title: '🥳🤗🤗', message: 'Chamada registrada' })
+                setMessage({ title: 'sucesso', message: 'sucesso' })
+                setVisible(true)
+            }, error => {
+                setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
             })
-            .catch(error => {
-                setMessage({ title: 'Error 😵😵😵', message: error })
+            .catch((error) => {
+                setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
             })
     }
@@ -122,12 +96,10 @@ export default function Legios() {
                 selectedLegios={selectedLegios}
             />
 
-            <Button
-                onPress={handleSubmit()}
-                contentStyle={styles.buttons}
-            >
-                Send
-            </Button>
+            <OrderSummary
+                amount={selectedLegios.length}
+                onSubmit={handleSubmit}
+            />
         </View>
     );
 

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +37,10 @@ public class AttendanceResource {
 	}
 	
 	@PostMapping("/all")
-	public ResponseEntity<List<Attendance>> insert(@Valid @RequestBody List<Attendance> obj) {
+	public ResponseEntity<Void> insert(@RequestBody Attendance[] obj, ModelMap map) {
 		obj = service.insertForId(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(((Attendance) obj).getId()).toUri();
+				.path("/{id}").buildAndExpand(obj.length).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
