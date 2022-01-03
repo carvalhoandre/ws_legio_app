@@ -1,6 +1,4 @@
 import axios from "axios";
-import moment from 'moment'
-import 'moment/locale/pt-br'
 
 const API_URL = "https://legio-app.herokuapp.com"
 
@@ -19,4 +17,16 @@ export function createAllAttendance(creds) {
 
 export function getLegios() {
     return axios.get(`${API_URL}/legio`);
+}
+
+export function getRecruitmentForDate(date) {
+    return axios.get(`${API_URL}/recruitment/date/${date}`)
+}
+
+export function createRecruitment(recruitment){
+    return axios.post(`${API_URL}/recruitment`, recruitment)
+}
+
+export function deleteRecruitment(id) {
+    return axios.delete(`${API_URL}/${id}`)
 }

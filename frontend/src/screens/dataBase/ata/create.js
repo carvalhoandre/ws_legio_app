@@ -5,8 +5,8 @@ import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Picker } from '@react-native-picker/picker';
-import Recrutment from '../../../components/Recrutment/Recrutment'
+import Recruitment from '../../../components/Recruitment/Recruitment';
+import RecruitmentAll from '../../../components/Recruitment/RecruitmentAll'
 
 const initialState = {
     activeIds: [],
@@ -14,10 +14,10 @@ const initialState = {
     // page1
     number: null,
     dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
-    date: moment().locale('pt-br').format('DD-MM-YYYY'),
+    date: moment().locale('pt-br').format('DD/MM/YYYY'),
     attendance: [
         {
-            date: moment().locale('pt-br').format('DD-MM-YYYY'),
+            date: moment().locale('pt-br').format('DD/MM/YYYY'),
             legio: {
                 id: null
             },
@@ -30,12 +30,6 @@ const initialState = {
     paginaEspiritual: '',
     titleEspiritual: '',
     /* page 3 */
-    recruitmentObj: [{}],
-    recrutId: 0,
-    quantity: null,
-    person: null,
-    attendance: null,
-    //page4
     treasury: [{
         saldoAnterior: null,
         coletaDoDia: null,
@@ -70,8 +64,7 @@ const initialState = {
         }
     ],
     horaFinal: "",
-    minutoFinal: "",
-    teste:[]
+    minutoFinal: ""
 }
 
 export default class CreateAta extends Component {
@@ -84,15 +77,13 @@ export default class CreateAta extends Component {
     }
 
     addRecrut = () => {
-        const newId = (this.state.recrutId + 1)
         const obj = {
-            id: newId,
             quantity: this.state.quantity,
             person: this.state.person,
-            attendance: this.state.attendance
+            attendancing: this.state.attendancing
         }
-        this.setState({ recrutmentPrimary: obj })
-        this.setState({ quantity: null, person: null, attendance: null, recrutId: newId })
+
+        this.setState({ quantity: null, person: null, attendancing: null, recrutId: newId })
     }
 
     returnIndicator = () => {
@@ -180,66 +171,18 @@ export default class CreateAta extends Component {
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Recrutamento</Text>
 
-                    {this.state.recrutId > 0 ?
-                        
-                        this.state.recruitmentObj.forEach((element) => {
-                            this.setState({
-                                teste:
-                                    <View key={this.state.recrutId}>
-                                        <Text>{element.quantity}</Text>
-                                        <Text>{element.person}</Text>
-                                        <Text>{element.attendance}</Text>
-                                        <Button mode="text" >
-                                            Excluir
-                                        </Button>
-                                    </View>
-                            })
-                        })
-                        : null
-                    }
+                    <RecruitmentAll />
+                    <Recruitment />
+                </View>
+            )
+        }
 
-                    {this.state.teste}
+        if (this.state.id === 4) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Tesouraria</Text>
 
-                    <Picker
-                        selectedValue={this.state.person}
-                        style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
-                    >
-                        <Picker.Item label="Criança" value={0} />
-                        <Picker.Item label="Adolescente" value={1} />
-                        <Picker.Item label="Jovem" value={2} />
-                        <Picker.Item label="Adulto" value={3} />
-                        <Picker.Item label="Idoso" value={4} />
-                    </Picker>
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Quantidade"
-                        value={this.state.quantity}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={quantity => this.setState({ quantity: quantity })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Comparecimentos"
-                        value={this.state.attendance}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={attendance => this.setState({ attendance: attendance })}
-                    />
-
-                    <Button mode="text" onPress={this.addRecrut}>
-                        Adicionar
-                    </Button>
-
+                   
                 </View>
             )
         }

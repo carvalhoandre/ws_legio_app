@@ -52,7 +52,7 @@ public class AtaService {
 	public Ata insert(Ata obj) {
 		obj.setId(null);
 		Date myDate = new Date();
-		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 		String mdy = mdyFormat.format(myDate);
 		obj.setDate(mdy);
 		for(Work w : obj.getWork()) {

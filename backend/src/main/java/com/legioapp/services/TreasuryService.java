@@ -31,7 +31,7 @@ public class TreasuryService {
 	@Transactional
 	public Treasury insert(Treasury obj) {
 		Date myDate = new Date();
-		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 		String mdy = mdyFormat.format(myDate);
 		obj.setDate(mdy);
 		obj.setId(null);

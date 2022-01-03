@@ -30,7 +30,7 @@ public class RecruitmentService {
 	@Transactional
 	public Recruitment insert(Recruitment obj) {
 		 Date myDate = new Date();
-		 SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 		 String mdy = mdyFormat.format(myDate);
 		obj.setDate(mdy);
 		obj.setId(null);
