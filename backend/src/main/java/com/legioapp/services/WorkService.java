@@ -63,6 +63,7 @@ public class WorkService {
 		newObj.setTotal(obj.getTotal());
 		newObj.setWork(obj.getWork());
 		newObj.setYong(obj.getYong());
+		newObj.setObservation(obj.getObservation());
 	}
 	
 	public List<Work> findAll() {

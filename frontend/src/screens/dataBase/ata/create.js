@@ -7,10 +7,10 @@ import commonStyles from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Recruitment from '../../../components/Recruitment/Recruitment';
 import RecruitmentAll from '../../../components/Recruitment/RecruitmentAll'
+import Work from '../../../components/Work/Work';
 
 const initialState = {
-    activeIds: [],
-    id: 3,
+    id: 1,
     // page1
     number: null,
     dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
@@ -30,26 +30,14 @@ const initialState = {
     paginaEspiritual: '',
     titleEspiritual: '',
     /* page 3 */
-    treasury: [{
-        saldoAnterior: null,
-        coletaDoDia: null,
-        diaDaColeta: '',
-        despesas: null,
-        subTotal: null,
-        totalEmCaixa: null
-    }],
-    //page5
-    work: [
-        {
-            work: null,
-            yong: null,
-            adult: null,
-            children: null,
-            elderly: null,
-            total: null,
-            hours: null
-        }
-    ],
+    saldoAnterior: null,
+    coletaDoDia: null,
+    diaDaColeta: '',
+    despesas: null,
+    subTotal: null,
+    totalEmCaixa: null,
+    //page5 
+    
     //page6
     allocutionAutor: '',
     allocutionAssunto: '',
@@ -182,7 +170,95 @@ export default class CreateAta extends Component {
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Tesouraria</Text>
 
-                   
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Saldo Anterior"
+                        value={this.state.saldoAnterior}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={saldoAnterior => this.setState({ saldoAnterior })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Coleta do dia"
+                        value={this.state.coletaDoDia}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={coletaDoDia => this.setState({ coletaDoDia })}
+                    />
+
+                    <TextInput
+                        label="Dia da Coleta"
+                        value={this.state.diaDaColeta}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={diaDaColeta => this.setState({ diaDaColeta })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Despesas"
+                        value={this.state.despesas}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={despesas => this.setState({ despesas })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Sub Total"
+                        value={this.state.subTotal}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={subTotal => this.setState({ subTotal })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Total em Caixa"
+                        value={this.state.totalEmCaixa}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={totalEmCaixa => this.setState({ totalEmCaixa })}
+                    />
+                </View>
+            )
+        }
+
+        if (this.state.id === 5) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Trabalhos</Text>
+
+                    <Work />
+                </View>
+            )
+        }
+
+        if (this.state.id === 5) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Trabalhos</Text>
+
+                    <Work />
                 </View>
             )
         }

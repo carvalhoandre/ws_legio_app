@@ -39,7 +39,8 @@
             "children": 0,
             "elderly": 1,
             "total": 6,
-            "hours": 0.50
+            "hours": 0.50,
+            "observation": "Visita a doente"
         }
        
     ],

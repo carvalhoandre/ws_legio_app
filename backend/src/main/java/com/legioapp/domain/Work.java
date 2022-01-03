@@ -45,6 +45,9 @@ public class Work implements Serializable{
 	@CollectionTable(name="duracao")
 	private Float hours;
 	
+	@CollectionTable(name="observação")
+	private String observation;
+	
 	@ManyToOne
 	@JoinColumn(name="ata")
 	private Ata ata;
@@ -53,7 +56,7 @@ public class Work implements Serializable{
 	}
 	
 	public Work(Integer id, String date, WorkType work, Integer yong, Integer adult, Integer person,
-			Integer children, Integer elderly, Integer total, Float hours) {
+			Integer children, Integer elderly, Integer total, Float hours, String observation) {
 		this.id = id;
 		this.date = date;
 		this.work = (work==null) ? null : work.getCod();
@@ -63,6 +66,7 @@ public class Work implements Serializable{
 		this.elderly = elderly;
 		this.total = total;
 		this.hours = hours;
+		this.observation = observation;
 	}
 
 	public Integer getId() {
@@ -143,6 +147,14 @@ public class Work implements Serializable{
 
 	public void setChildren(Integer children) {
 		this.children = children;
+	}
+
+	public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 
 	@Override
