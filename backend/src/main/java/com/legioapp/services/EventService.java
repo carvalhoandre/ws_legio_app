@@ -1,5 +1,7 @@
 package com.legioapp.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,10 @@ public class EventService {
 	
 	@Transactional
 	public Event insert(Event obj) {
+		Date myDate = new Date();
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String mdy = mdyFormat.format(myDate);
+		obj.setDate(mdy);
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
@@ -70,5 +76,10 @@ public class EventService {
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	public List<Event> findAllByDate(String date) {
+		List<Event> obj = repo.findForDate(date);
+		return obj;
 	}
 }

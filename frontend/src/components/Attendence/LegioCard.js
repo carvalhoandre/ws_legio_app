@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import commonStyles from '../styles/commonStyles';
+import commonStyles from '../../styles/commonStyles'
 
 export default function LegioCard({ legio, onSelectLegio, isSelected }) {
     return (
@@ -20,7 +20,6 @@ export default function LegioCard({ legio, onSelectLegio, isSelected }) {
                 }
             </Button>
             <Text style={styles.name}>{legio.name}</Text>
- 
         </View>
     )
 }

@@ -60,4 +60,10 @@ public class AttendanceResource {
 		List<Attendance> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Attendance>> findById(@PathVariable String date){
+		List<Attendance> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

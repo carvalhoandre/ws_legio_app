@@ -22,6 +22,8 @@ public class Work implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String date;
+	
 	@CollectionTable(name="trabalho")
 	private Integer work;
 	
@@ -50,9 +52,10 @@ public class Work implements Serializable{
 	public Work() {
 	}
 	
-	public Work(Integer id, WorkType work, Integer yong, Integer adult, Integer person,
+	public Work(Integer id, String date, WorkType work, Integer yong, Integer adult, Integer person,
 			Integer children, Integer elderly, Integer total, Float hours) {
 		this.id = id;
+		this.date = date;
 		this.work = (work==null) ? null : work.getCod();
 		this.yong = yong;
 		this.adult = adult;
@@ -68,6 +71,14 @@ public class Work implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public WorkType getWork() {

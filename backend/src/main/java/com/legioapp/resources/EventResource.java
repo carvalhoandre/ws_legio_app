@@ -51,4 +51,10 @@ public class EventResource {
 		List<Event> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Event>> findById(@PathVariable String date){
+		List<Event> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

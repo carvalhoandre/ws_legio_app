@@ -1,7 +1,6 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.AttendanceType;
 
@@ -25,8 +23,7 @@ public class Attendance implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date date;
+	private String date;
 	
 	@ManyToOne
 	@JoinColumn(name="legio_id")
@@ -44,7 +41,7 @@ public class Attendance implements Serializable{
 	public Attendance() {
 	}
 
-	public Attendance(Integer id, Date date, Legio legio, AttendanceType attendance) {
+	public Attendance(Integer id, String date, Legio legio, AttendanceType attendance) {
 		this.id = id;
 		this.date = date;
 		this.legio = legio;
@@ -59,11 +56,11 @@ public class Attendance implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

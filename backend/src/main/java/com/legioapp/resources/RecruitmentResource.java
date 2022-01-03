@@ -51,4 +51,10 @@ public class RecruitmentResource {
 		List<Recruitment> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Recruitment>> findById(@PathVariable String date){
+		List<Recruitment> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

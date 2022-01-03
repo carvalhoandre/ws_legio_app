@@ -1,5 +1,6 @@
 package com.legioapp.services;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +51,10 @@ public class AtaService {
 	@Transactional
 	public Ata insert(Ata obj) {
 		obj.setId(null);
-		obj.setDate(new Date());
+		Date myDate = new Date();
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String mdy = mdyFormat.format(myDate);
+		obj.setDate(mdy);
 		for(Work w : obj.getWork()) {
 			if(w != null) {
 				workService.insert(w);
@@ -91,7 +95,7 @@ public class AtaService {
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir um Legionário que possui pedidos pendentes");
+			throw new DataIntegrityException("Não é possível excluir uma Ata que possua pendências");
 		}
 	}
 	
@@ -119,5 +123,10 @@ public class AtaService {
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	public List<Ata> findAllByDate(String date) {
+		List<Ata> obj = repo.findForDate(date);
+		return obj;
 	}
 }

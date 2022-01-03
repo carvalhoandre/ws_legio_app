@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { TextInput, Button } from 'react-native-paper';
-import { View, StyleSheet, Text, Platform, Image, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Platform, SafeAreaView, ScrollView } from 'react-native';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Legios from '../../../components/Legios'
+import { Picker } from '@react-native-picker/picker';
+import Recrutment from '../../../components/Recrutment/Recrutment'
 
 const initialState = {
     activeIds: [],
-    id: 2,
+    id: 3,
     // page1
     number: null,
     dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
@@ -24,18 +25,17 @@ const initialState = {
         },
     ],
     /* page 2 */
-    legios: [],
     participation: '',
     capituloEspiritual: '',
     paginaEspiritual: '',
     titleEspiritual: '',
-    recruitment: [
-        {
-            quantity: null,
-            person: null
-        }
-    ],
-    //page2
+    /* page 3 */
+    recruitmentObj: [{}],
+    recrutId: 0,
+    quantity: null,
+    person: null,
+    attendance: null,
+    //page4
     treasury: [{
         saldoAnterior: null,
         coletaDoDia: null,
@@ -44,7 +44,7 @@ const initialState = {
         subTotal: null,
         totalEmCaixa: null
     }],
-    //page3
+    //page5
     work: [
         {
             work: null,
@@ -56,7 +56,7 @@ const initialState = {
             hours: null
         }
     ],
-    //page4
+    //page6
     allocutionAutor: '',
     allocutionAssunto: '',
     paginaEstudo: '',
@@ -70,7 +70,8 @@ const initialState = {
         }
     ],
     horaFinal: "",
-    minutoFinal: ""
+    minutoFinal: "",
+    teste:[]
 }
 
 export default class CreateAta extends Component {
@@ -82,7 +83,19 @@ export default class CreateAta extends Component {
     send = () => {
     }
 
-    returnIndicator = (id) => {
+    addRecrut = () => {
+        const newId = (this.state.recrutId + 1)
+        const obj = {
+            id: newId,
+            quantity: this.state.quantity,
+            person: this.state.person,
+            attendance: this.state.attendance
+        }
+        this.setState({ recrutmentPrimary: obj })
+        this.setState({ quantity: null, person: null, attendance: null, recrutId: newId })
+    }
+
+    returnIndicator = () => {
         if (this.state.id === 1) {
             return (
                 <View styles={{ margin: 'auto' }}>
@@ -119,7 +132,113 @@ export default class CreateAta extends Component {
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Legionários</Text>
 
-                    <Legios />
+                    <TextInput
+                        label="Participantes"
+                        value={this.state.participation}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={participation => this.setState({ participation })}
+                    />
+
+                    <Text style={styles.subtitle}>Leitura Espiritual</Text>
+                    <TextInput
+                        label="Capítulo"
+                        value={this.state.capituloEspiritual}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={capituloEspiritual => this.setState({ capituloEspiritual })}
+                    />
+                    <TextInput
+                        label="Página"
+                        value={this.state.paginaEspiritual}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={paginaEspiritual => this.setState({ paginaEspiritual })}
+                    />
+                    <TextInput
+                        label="Título"
+                        value={this.state.titleEspiritual}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={titleEspiritual => this.setState({ titleEspiritual })}
+                    />
+
+                </View>
+            )
+        }
+
+        if (this.state.id === 3) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Recrutamento</Text>
+
+                    {this.state.recrutId > 0 ?
+                        
+                        this.state.recruitmentObj.forEach((element) => {
+                            this.setState({
+                                teste:
+                                    <View key={this.state.recrutId}>
+                                        <Text>{element.quantity}</Text>
+                                        <Text>{element.person}</Text>
+                                        <Text>{element.attendance}</Text>
+                                        <Button mode="text" >
+                                            Excluir
+                                        </Button>
+                                    </View>
+                            })
+                        })
+                        : null
+                    }
+
+                    {this.state.teste}
+
+                    <Picker
+                        selectedValue={this.state.person}
+                        style={{ height: 50, width: 150 }}
+                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
+                    >
+                        <Picker.Item label="Criança" value={0} />
+                        <Picker.Item label="Adolescente" value={1} />
+                        <Picker.Item label="Jovem" value={2} />
+                        <Picker.Item label="Adulto" value={3} />
+                        <Picker.Item label="Idoso" value={4} />
+                    </Picker>
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Quantidade"
+                        value={this.state.quantity}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={quantity => this.setState({ quantity: quantity })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Comparecimentos"
+                        value={this.state.attendance}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={attendance => this.setState({ attendance: attendance })}
+                    />
+
+                    <Button mode="text" onPress={this.addRecrut}>
+                        Adicionar
+                    </Button>
 
                 </View>
             )
@@ -232,8 +351,11 @@ const styles = StyleSheet.create({
     subtitle: {
         color: "#757575",
         fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 14,
-        marginLeft: 13
+        fontSize: 18,
+        marginLeft: 13,
+        marginTop: 5,
+        marginBottom: 2.5,
+        fontWeight: '800'
     },
 
     icon: {

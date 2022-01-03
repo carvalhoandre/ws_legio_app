@@ -46,11 +46,13 @@
     "recruitment": [
         {
             "quantity" : 1,
-            "person": 2
+            "person": 2,
+            "attendancing": 0
         },
         {
             "quantity" : 5,
-            "person": 3
+            "person": 3,
+            "attendancing": 0
         }
     ],
     "event": [

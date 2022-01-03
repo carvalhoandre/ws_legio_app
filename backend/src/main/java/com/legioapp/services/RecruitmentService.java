@@ -1,5 +1,7 @@
 package com.legioapp.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,6 @@ public class RecruitmentService {
 	private RecruitmentRepository repo;
 	
 	public Recruitment find(Integer  id) {
-		
 		Optional<Recruitment> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Recruitment.class.getName()));
@@ -28,6 +29,10 @@ public class RecruitmentService {
 	
 	@Transactional
 	public Recruitment insert(Recruitment obj) {
+		 Date myDate = new Date();
+		 SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 String mdy = mdyFormat.format(myDate);
+		obj.setDate(mdy);
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
@@ -52,6 +57,7 @@ public class RecruitmentService {
 		newObj.setAta(obj.getAta());
 		newObj.setPerson(obj.getPerson());
 		newObj.setQuantity(obj.getQuantity());
+		newObj.setAttendancing(obj.getAttendancing());
 	}
 	
 	public List<Recruitment> findAll() {
@@ -67,5 +73,10 @@ public class RecruitmentService {
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	public List<Recruitment> findAllByDate(String date) {
+		List<Recruitment> obj = repo.findForDate(date);
+		return obj;
 	}
 }

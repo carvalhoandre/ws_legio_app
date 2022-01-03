@@ -1,5 +1,7 @@
 package com.legioapp.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,10 @@ public class AttendanceService {
 	
 	@Transactional
 	public Attendance insert(Attendance obj) {
+		Date myDate = new Date();
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String mdy = mdyFormat.format(myDate);
+		obj.setDate(mdy);
 		obj.setId(null);
 		obj.setLegio(legioService.find(obj.getLegio().getId()));
 		obj = repo.save(obj);
@@ -83,5 +89,10 @@ public class AttendanceService {
 			// TODO Auto-generated catch block
 			return null;
 		}
+	}
+	
+	public List<Attendance> findAllByDate(String date) {
+		List<Attendance> obj = repo.findForDate(date);
+		return obj;
 	}
 }

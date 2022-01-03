@@ -23,6 +23,8 @@ public class Treasury implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String date;
+	
 	@CollectionTable(name="saldo_anterior")
 	private Float saldoAnterior;
 	
@@ -46,10 +48,10 @@ public class Treasury implements Serializable{
 	public Treasury() {
 	}
 
-	public Treasury(Integer id, Float saldoAnterior, Float coletaDoDia, Date diaDaColeta, Float despesas,
+	public Treasury(Integer id, String date, Float saldoAnterior, Float coletaDoDia, Date diaDaColeta, Float despesas,
 			Float subTotal, Float totalEmCaixa) {
-		super();
 		this.id = id;
+		this.date = date;
 		this.saldoAnterior = saldoAnterior;
 		this.coletaDoDia = coletaDoDia;
 		this.diaDaColeta = diaDaColeta;
@@ -64,6 +66,14 @@ public class Treasury implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public Float getSaldoAnterior() {

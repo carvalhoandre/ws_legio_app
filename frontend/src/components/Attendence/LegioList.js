@@ -1,5 +1,5 @@
 import React from 'react';
-import { checkIsSelected } from '../utils/helpers'
+import { checkIsSelected } from '../../utils/helpers'
 import { View } from 'react-native';
 import LegioCard from './LegioCard';
 

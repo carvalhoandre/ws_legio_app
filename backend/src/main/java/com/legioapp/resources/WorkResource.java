@@ -51,4 +51,9 @@ public class WorkResource {
 		return ResponseEntity.ok(list);
 	}
 	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Work>> findById(@PathVariable String date){
+		List<Work> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

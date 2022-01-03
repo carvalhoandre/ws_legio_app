@@ -51,4 +51,9 @@ public class AtaResource {
 		return ResponseEntity.ok(list);
 	}
 	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Ata>> findById(@PathVariable String date){
+		List<Ata> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

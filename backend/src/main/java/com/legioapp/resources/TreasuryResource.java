@@ -51,4 +51,10 @@ public class TreasuryResource {
 		List<Treasury> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Treasury>> findById(@PathVariable String date){
+		List<Treasury> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

@@ -2,21 +2,15 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "tb_ata")
 public class Ata implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -24,9 +18,7 @@ public class Ata implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(unique=true)
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
-	private Date date;
+	private String date;
 	
 	@OneToMany(mappedBy="ata")
 	private List<Attendance> attendance = new ArrayList<>();
@@ -50,7 +42,7 @@ public class Ata implements Serializable {
 		this.id = id;
 	}
 
-	public Ata(Integer id, Date date, List<Attendance> attendance, List<Work> work, List<Recruitment> recruitment,
+	public Ata(Integer id, String date, List<Attendance> attendance, List<Work> work, List<Recruitment> recruitment,
 			List<Event> event, List<Treasury> treasury) {
 		this.id = id;
 		this.date = date;
@@ -69,11 +61,11 @@ public class Ata implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getLegios, createAllAttendance } from '../service/api';
 import { StyleSheet } from 'react-native';
-import { checkIsSelected } from '../utils/helpers'
-import commonStyles from '../styles/commonStyles'
+import { checkIsSelected } from '../../utils/helpers'
+import commonStyles from '../../styles/commonStyles'
 import { View } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import LegioList from './LegioList';
+import LegioList from './Attendence/LegioList';
 import { Button } from 'react-native-elements'
 import OrderSummary from './OrderSummary';
 import moment from 'moment'
@@ -47,10 +47,10 @@ export default function Legios() {
 
     const handleSubmit = () => {
         const payload = []
-
+        const date = moment().locale('pt-br').format('DD-MM-YYYY')
         selectedLegios.forEach(element => {
             payload.push({
-                date: moment().locale('pt-br').format('DD-MM-YYYY'),
+                date: date,
                 legio: {
                     id: element.id
                 },

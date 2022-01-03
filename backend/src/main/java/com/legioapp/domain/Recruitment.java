@@ -22,11 +22,16 @@ public class Recruitment implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String date;
+	
 	@CollectionTable(name="quantidade")
 	private Integer quantity;
 	
 	@CollectionTable(name="pessoa")
 	private Integer person;
+	
+	@CollectionTable(name="comparecimento")
+	private Integer attendancing;
 	
 	@ManyToOne
 	@JoinColumn(name="ata")
@@ -35,10 +40,12 @@ public class Recruitment implements Serializable{
 	public Recruitment() {
 	}
 
-	public Recruitment(Integer id, Integer quantity, PersonType person) {
+	public Recruitment(Integer id, String date, Integer quantity, PersonType person, Integer attendancing) {
 		this.id = id;
 		this.quantity = quantity;
 		this.person = (person == null) ? null: person.getCod();
+		this.attendancing = attendancing;
+		this.date = date;
 	}
 
 	public Integer getId() {
@@ -47,6 +54,14 @@ public class Recruitment implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public Integer getQuantity() {
@@ -71,6 +86,14 @@ public class Recruitment implements Serializable{
 
 	public void setAta(Ata ata) {
 		this.ata = ata;
+	}
+
+	public Integer getAttendancing() {
+		return attendancing;
+	}
+
+	public void setAttendancing(Integer attendance) {
+		this.attendancing = attendance;
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package com.legioapp.domain.enums;
 public enum PersonType {
 	
 	CRIANCA(1, "Crianca"),
-	ADOLESCENTE(2, "Adolecente"),
+	ADOLESCENTE(2, "Adolescente"),
 	JOVEM(3, "Jovem"),
 	ADULTO(4, "Adulto"),
 	IDOSO(5, "Idoso");
