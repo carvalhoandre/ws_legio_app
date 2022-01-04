@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.AttendanceType;
 
 @Entity
@@ -32,6 +33,7 @@ public class Attendance implements Serializable{
 	@CollectionTable(name="presenca_ou_falta")
 	private Integer attendance;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata")
 	private Ata ata;

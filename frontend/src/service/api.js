@@ -37,3 +37,30 @@ export function deleteRecruitment(id) {
 export function createWork(work) {
     return axios.post(`${API_URL}/work`, work)
 }
+
+export function getWorkForDate(date) {
+    return axios.get(`${API_URL}/work/date/${date}`)
+}
+
+// event 
+export function createEvent(event) {
+    return axios.post(`${API_URL}/event`, event)
+}
+
+export function getEventForDate(date) {
+    return axios.get(`${API_URL}/event/date/${date}`)
+}
+
+//ata
+export function createAta(ata) {
+    return axios.post(`${API_URL}/ata`, ata)
+}
+
+export function createAtaExtenso(ataExtenso) {
+    return axios.post(`${API_URL}/ataExtenso`, ataExtenso)
+}
+
+//treasury
+export function createTreasury(treasury) {
+    return axios.post(`${API_URL}/treasury`, treasury)
+}

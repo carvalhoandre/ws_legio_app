@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_event")
 public class Event implements Serializable{
@@ -25,6 +27,9 @@ public class Event implements Serializable{
 	@CollectionTable(name="titulo")
 	private String name;
 	
+	@CollectionTable(name="data_evento")
+	private String dateEvent;
+	
 	@CollectionTable(name="quantidade_convidados")
 	private Integer guests;
 	
@@ -34,6 +39,7 @@ public class Event implements Serializable{
 	@CollectionTable(name="quantidade_auxilixares")
 	private Integer auxiliares;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata")
 	private Ata ata;
@@ -41,13 +47,14 @@ public class Event implements Serializable{
 	public Event() {
 	}
 
-	public Event(Integer id, String date, String name, Integer guests, Integer ativos, Integer auxiliares) {
+	public Event(Integer id, String dateEvent, String date, String name, Integer guests, Integer ativos, Integer auxiliares) {
 		this.id = id;
 		this.name = name;
 		this.guests = guests;
 		this.ativos = ativos;
 		this.auxiliares = auxiliares;
 		this.date = date;
+		this.dateEvent = dateEvent;
 	}
 
 	public Integer getId() {
@@ -96,6 +103,14 @@ public class Event implements Serializable{
 
 	public void setAuxiliares(Integer auxiliares) {
 		this.auxiliares = auxiliares;
+	}
+
+	public String getDateEvent() {
+		return dateEvent;
+	}
+
+	public void setDateEvent(String dateEvent) {
+		this.dateEvent = dateEvent;
 	}
 
 	public Ata getAta() {

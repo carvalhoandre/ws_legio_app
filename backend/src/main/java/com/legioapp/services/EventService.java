@@ -51,7 +51,7 @@ public class EventService {
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir um Legionário que possui pedidos pendentes");
+			throw new DataIntegrityException("Não é possível excluir um Evento que possua pendencias");
 		}
 	}
 	
@@ -61,6 +61,7 @@ public class EventService {
 		newObj.setAtivos(obj.getAtivos());
 		newObj.setAuxiliares(obj.getAuxiliares());
 		newObj.setGuests(obj.getGuests());
+		newObj.setDateEvent(obj.getDateEvent());
 	}
 	
 	public List<Event> findAll() {

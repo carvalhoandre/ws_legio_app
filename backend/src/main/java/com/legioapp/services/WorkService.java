@@ -64,6 +64,7 @@ public class WorkService {
 		newObj.setWork(obj.getWork());
 		newObj.setYong(obj.getYong());
 		newObj.setObservation(obj.getObservation());
+		newObj.setLegio(obj.getLegio());
 	}
 	
 	public List<Work> findAll() {

@@ -52,7 +52,7 @@ public class AtaExtensoService {
 	}
 	
 	public void UpdateData(AtaExtenso newObj, AtaExtenso obj) {
-		newObj.setParticipation(obj.getParticipation());
+		newObj.setPresentes(obj.getPresentes());
 		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
 		newObj.setAllocutionAutor(obj.getAllocutionAutor());
 		newObj.setDataExtenso(obj.getDataExtenso());
@@ -62,7 +62,6 @@ public class AtaExtensoService {
 		newObj.setDiaDaColeta(obj.getDiaDaColeta());
 		newObj.setEvent(obj.getEvent());
 		newObj.setHoraFinal(obj.getHoraFinal());
-		newObj.setLegionario(obj.getLegionario());
 		newObj.setMinutoFinal(obj.getMinutoFinal());
 		newObj.setNumber(obj.getNumber());
 		newObj.setNumero(obj.getNumero());

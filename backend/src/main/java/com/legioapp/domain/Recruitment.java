@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.PersonType;
 
 @Entity
@@ -33,6 +34,7 @@ public class Recruitment implements Serializable{
 	@CollectionTable(name="comparecimento")
 	private Integer attendancing;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata")
 	private Ata ata;

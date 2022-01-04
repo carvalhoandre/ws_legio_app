@@ -25,8 +25,7 @@ public class AtaExtenso {
 	private String dataExtenso;
 
 	private String ata;
-	private String legionario;
-	private String participation;
+	private String presentes;
 	private String capituloEspiritual;
 	private String paginaEspiritual;
 	private String titleEspiritual;
@@ -53,8 +52,8 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String ata, String legionario,
-			String participation, String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
+	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String ata, String presentes,
+			String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
 			String recrutamento, String saldoAnterior, String diaDaColeta, String coletaDoDia, String despesas,
 			String subTotal, String totalEmCaixa, String work, String allocutionAutor, String allocutionAssunto,
 			String paginaEstudo, String paragrafoEstudo, String event, String horaFinal, String minutoFinal) {
@@ -62,8 +61,7 @@ public class AtaExtenso {
 		this.number = number;
 		this.numero = numero;
 		this.dataExtenso = dataExtenso;
-		this.legionario = legionario;
-		this.participation = participation;
+		this.presentes = presentes;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
 		this.titleEspiritual = titleEspiritual;
@@ -93,20 +91,12 @@ public class AtaExtenso {
 		this.ata = ata;
 	}
 
-	public String getLegionario() {
-		return legionario;
+	public String getPresentes() {
+		return presentes;
 	}
 
-	public void setLegionario(String legionario) {
-		this.legionario = legionario;
-	}
-
-	public String getParticipation() {
-		return participation;
-	}
-
-	public void setParticipation(String participation) {
-		this.participation = participation;
+	public void setPresentes(String legionario) {
+		this.presentes = legionario;
 	}
 
 	public String getRecrutamento() {

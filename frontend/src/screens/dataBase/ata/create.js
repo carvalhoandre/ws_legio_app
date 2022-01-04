@@ -1,31 +1,25 @@
 import React, { Component } from 'react'
-import { TextInput, Button } from 'react-native-paper';
-import { View, StyleSheet, Text, Platform, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Platform, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
+import { TextInput, Button, Portal, Dialog, Paragraph } from 'react-native-paper';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import commonStyles from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Recruitment from '../../../components/Recruitment/Recruitment';
-import RecruitmentAll from '../../../components/Recruitment/RecruitmentAll'
 import Work from '../../../components/Work/Work';
+import Event from '../../../components/Event/Event';
+import { number, date } from '../../../utils/extenso'
+import { createAtaExtenso, createTreasury, getEventForDate, getRecruitmentForDate, getWorkForDate } from '../../../service/api'
+import extenso from 'extenso';
 
 const initialState = {
-    id: 1,
+    id: 10,
     // page1
     number: null,
     dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
-    date: moment().locale('pt-br').format('DD/MM/YYYY'),
-    attendance: [
-        {
-            date: moment().locale('pt-br').format('DD/MM/YYYY'),
-            legio: {
-                id: null
-            },
-            attendance: null
-        },
-    ],
-    /* page 2 */
+    date: moment().locale('pt-br').format('DD-MM-YYYY'),
     participation: '',
+    /* page 2 */
     capituloEspiritual: '',
     paginaEspiritual: '',
     titleEspiritual: '',
@@ -37,22 +31,17 @@ const initialState = {
     subTotal: null,
     totalEmCaixa: null,
     //page5 
-    
+    /* work */
     //page6
     allocutionAutor: '',
     allocutionAssunto: '',
     paginaEstudo: '',
     paragrafoEstudo: '',
-    event: [
-        {
-            name: '',
-            guests: null,
-            ativos: null,
-            auxiliares: null
-        }
-    ],
-    horaFinal: "",
-    minutoFinal: ""
+    //others
+    loading: false,
+    visible: false,
+    title: '',
+    body: '',
 }
 
 export default class CreateAta extends Component {
@@ -61,17 +50,124 @@ export default class CreateAta extends Component {
         ...initialState
     }
 
-    send = () => {
-    }
+    send = async () => {
+        this.setState({ loading: true })
+        let hora = moment().locale('pt-br').format('H')
+        let minuto = moment().locale('pt-br').format('mm')
 
-    addRecrut = () => {
-        const obj = {
-            quantity: this.state.quantity,
-            person: this.state.person,
-            attendancing: this.state.attendancing
+        //set treasury
+        let newTreasury = {
+            saldoAnterior: this.state.saldoAnterior,
+            coletaDoDia: this.state.coletaDoDia,
+            diaDaColeta: this.state.diaDaColeta,
+            despesas: this.state.despesas,
+            subTotal: this.state.subTotal,
+            totalEmCaixa: this.state.totalEmCaixa
+        }
+        createTreasury(newTreasury)
+            .then(() => {
+                null
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro ao enviar salvar tessouraria`, visible: true, title: "😱😰😰" })
+            })
+        //get recrutment
+        let recrutment = ''
+        getRecruitmentForDate(this.state.date)
+            .then((response) => {
+                let data = response.data
+                if (data.length < 1) {
+                    recrutment = 'não houveram convites'
+                } else {
+                    data.forEach(element => {
+                        let quantity = number(element.quantity)
+                        if (element.quantity === 1) {
+                            recrutment = `${recrutment} foi realizado ${element.quantity} 
+                            covite para ${quantity} ${element.person.toLowerCase()}`
+
+                        } else {
+                            recrutment = `${recrutment} foi realizado ${element.quantity} 
+                            covites para ${quantity} ${element.person.toLowerCase()}s`
+                        }
+                    })
+                }
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro: ao inserir recrutamentos`, visible: true, title: "😱😰😰" })
+            })
+
+        //get works
+        let allWork = ''
+        getWorkForDate(this.state.date)
+            .then((response) => {
+                let data = response.data
+                if (data.length < 1) {
+                    allWork = 'não houveram trabalhos relatados'
+                } else {
+                    data.forEach(element => {
+                        allWork = `${allWork} Os irmãos ${element.legios} realizaram um(a) 
+                        ${element.work.toLowerCase()} tendo contato com ${number(element.total)} 
+                        pessoas, em ${number(element.hours)} horas de trabalho`
+                    })
+                }
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro: ao inserir trabalhos`, visible: true, title: "😱😰😰" })
+            })
+
+        //get works
+        let allEvent = ''
+        getEventForDate(this.state.date)
+            .then((response) => {
+                let data = response.data
+                if (data.length < 1) {
+                    allEvent = null
+                } else {
+                    data.forEach(element => {
+                        allEvent = `${allEvent} ${element.name}, no dia ${date(element.dateEvent)} estavão presentes
+                        ${element.ativos >= 1 ? `${element.ativos} ativos` : null}
+                        ${element.auxiliares >= 1 ? `${element.auxiliares} auxiliares` : null}
+                        ${element.guests >= 1 ? `${element.guests} convidados` : null}`
+                    })
+                }
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro: ao inserir eventos`, visible: true, title: "😱😰😰" })
+            })
+
+        let ataExtenso = {
+            number: this.state.number,
+            numero: number(this.state.number),
+            dataExtenso: this.state.dataExtenso,
+            presentes: this.state.participation,
+            capituloEspiritual: this.state.capituloEspiritual,
+            paginaEspiritual: this.state.paginaEspiritual,
+            titleEspiritual: this.state.titleEspiritual,
+            recrutamento: recrutment,
+            saldoAnterior: extenso(`${this.state.saldoAnterior}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            diaDaColeta: date(this.state.diaDaColeta),
+            coletaDoDia: extenso(`${this.state.coletaDoDia}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            despesas: extenso(`${this.state.despesas}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            subTotal: extenso(`${this.state.subTotal}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            totalEmCaixa: extenso(`${this.state.totalEmCaixa}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            work: allWork,
+            allocutionAutor: this.state.allocutionAutor,
+            allocutionAssunto: this.state.allocutionAssunto,
+            paginaEstudo: this.state.paginaEstudo,
+            paragrafoEstudo: this.state.paragrafoEstudo,
+            event: allEvent,
+            horaFinal: date(hora),
+            minutoFinal: date(minuto)
         }
 
-        this.setState({ quantity: null, person: null, attendancing: null, recrutId: newId })
+        createAtaExtenso(ataExtenso)
+            .then(() => {
+                this.setState({ loading: false })
+                this.setState({ body: `Ata Adicionada com sucesso!`, visible: true, title: "👏👏👏" })
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro ao enviar ata por e-mail`, visible: true, title: "😱😰😰" })
+            })
     }
 
     returnIndicator = () => {
@@ -102,13 +198,7 @@ export default class CreateAta extends Component {
                         style={styles.input}
                         onChangeText={dataExtenso => this.setState({ dataExtenso })}
                     />
-                </View>
-            )
-        }
 
-        if (this.state.id === 2) {
-            return (
-                <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Legionários</Text>
 
                     <TextInput
@@ -120,6 +210,13 @@ export default class CreateAta extends Component {
                         style={styles.input}
                         onChangeText={participation => this.setState({ participation })}
                     />
+                </View>
+            )
+        }
+
+        if (this.state.id === 2) {
+            return (
+                <View styles={{ margin: 'auto' }}>
 
                     <Text style={styles.subtitle}>Leitura Espiritual</Text>
                     <TextInput
@@ -155,17 +252,6 @@ export default class CreateAta extends Component {
         }
 
         if (this.state.id === 3) {
-            return (
-                <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Recrutamento</Text>
-
-                    <RecruitmentAll />
-                    <Recruitment />
-                </View>
-            )
-        }
-
-        if (this.state.id === 4) {
             return (
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Tesouraria</Text>
@@ -243,7 +329,7 @@ export default class CreateAta extends Component {
             )
         }
 
-        if (this.state.id === 5) {
+        if (this.state.id === 4) {
             return (
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Trabalhos</Text>
@@ -256,13 +342,91 @@ export default class CreateAta extends Component {
         if (this.state.id === 5) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Trabalhos</Text>
+                    <Text style={styles.title}>Alocução</Text>
 
-                    <Work />
+                    <TextInput
+                        label="Autor"
+                        value={this.state.allocutionAutor}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={allocutionAutor => this.setState({ allocutionAutor })}
+                    />
+
+                    <TextInput
+                        label="Assunto"
+                        value={this.state.allocutionAutor}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={allocutionAutor => this.setState({ allocutionAutor })}
+                    />
+
                 </View>
             )
         }
 
+        if (this.state.id === 6) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Recrutamento</Text>
+
+                    <Recruitment />
+                </View>
+            )
+        }
+
+        if (this.state.id === 8) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Estudo do Manual</Text>
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Página"
+                        value={this.state.paginaEstudo}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={paginaEstudo => this.setState({ paginaEstudo })}
+                    />
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Parágrafo"
+                        value={this.state.paragrafoEstudo}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={paragrafoEstudo => this.setState({ paragrafoEstudo })}
+                    />
+
+                </View>
+            )
+        }
+
+        if (this.state.id === 9) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Eventos</Text>
+
+                    <Event />
+                    <View style={styles.containerButton}>
+                        <Button
+                            title="Salvar"
+                            type="outline"
+                            buttonStyle={styles.buttonSend}
+                            titleStyle={styles.textButton}
+                            onPress={this.send}
+                        />
+                    </View>
+                </View>
+            )
+        }
     }
 
     rigth = () => {
@@ -295,7 +459,7 @@ export default class CreateAta extends Component {
     }
 
     returnButtons = () => {
-        if (this.state.id > 1 && this.state.id < 6) {
+        if (this.state.id > 1 && this.state.id < 8) {
             return (<>{this.left()}{this.rigth()}</>)
         }
 
@@ -303,28 +467,48 @@ export default class CreateAta extends Component {
             return (<>{this.rigth()}</>)
         }
 
-        if (this.state.id === 6) {
+        if (this.state.id === 9) {
             return (<>{this.left()}</>)
         }
     }
 
     render() {
         return (
-            <SafeAreaView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={styles.main}
-            >
-                <ScrollView
-                    contentContainerStyle={styles.scrollView}
+            this.state.loading ?
+                <View style={styles.spinner}>
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                </View>
+                :
+                <SafeAreaView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    style={styles.main}
                 >
-                    <View style={styles.container}>
-                        {this.returnIndicator()}
-                        <View style={styles.containerButton}>
-                            {this.returnButtons()}
+                    <Portal>
+                        <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
+                            <Dialog.Title>{this.state.title}</Dialog.Title>
+                            <Dialog.Content>
+                                <Paragraph>{this.state.body}</Paragraph>
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <Button
+                                    title="Ok"
+                                    type="outline"
+                                    onPress={this.hideDialog}
+                                />
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
+                    <ScrollView
+                        contentContainerStyle={styles.scrollView}
+                    >
+                        <View style={styles.container}>
+                            {this.returnIndicator()}
+                            <View style={styles.containerButton}>
+                                {this.returnButtons()}
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
+                    </ScrollView>
+                </SafeAreaView>
         )
     }
 }

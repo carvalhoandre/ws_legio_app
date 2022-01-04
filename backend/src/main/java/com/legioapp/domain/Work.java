@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.WorkType;
 
 @Entity
@@ -48,6 +49,10 @@ public class Work implements Serializable{
 	@CollectionTable(name="observação")
 	private String observation;
 	
+	@CollectionTable(name="legionarioa")
+	private String legio;
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ata")
 	private Ata ata;
@@ -56,7 +61,7 @@ public class Work implements Serializable{
 	}
 	
 	public Work(Integer id, String date, WorkType work, Integer yong, Integer adult, Integer person,
-			Integer children, Integer elderly, Integer total, Float hours, String observation) {
+			Integer children, Integer elderly, Integer total, Float hours, String observation, String legio) {
 		this.id = id;
 		this.date = date;
 		this.work = (work==null) ? null : work.getCod();
@@ -67,7 +72,9 @@ public class Work implements Serializable{
 		this.total = total;
 		this.hours = hours;
 		this.observation = observation;
+		this.legio = legio;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -155,6 +162,14 @@ public class Work implements Serializable{
 
 	public void setObservation(String observation) {
 		this.observation = observation;
+	}
+
+	public String getLegio() {
+		return legio;
+	}
+
+	public void setLegio(String legio) {
+		this.legio = legio;
 	}
 
 	@Override

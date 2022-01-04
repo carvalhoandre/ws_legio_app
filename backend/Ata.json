@@ -30,7 +30,8 @@
             "children": 0,
             "elderly": 5,
             "total": 9,
-            "hours": 1.10
+            "hours": 1.10,
+            "legios": "Jailson e Janny"
         },
         {
             "work": 0,
@@ -40,7 +41,8 @@
             "elderly": 1,
             "total": 6,
             "hours": 0.50,
-            "observation": "Visita a doente"
+            "observation": "Visita a doente",
+            "legios": "Adão e Eva"
         }
        
     ],
@@ -61,7 +63,8 @@
             "name": "Sarau",
             "guests": 0,
             "ativos": 5,
-            "auxiliares": 2
+            "auxiliares": 2,
+            "dataEvent": "27/11/2021"
         }
     ],
     "treasury": [{

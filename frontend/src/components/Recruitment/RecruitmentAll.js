@@ -21,7 +21,6 @@ export default function RecruitmentAll() {
 
     useEffect(() => {
         const date = moment().locale('pt-br').format('DD-MM-YYYY')
-        console.log(date)
         getRecruitmentForDate(date)
             .then((response) => {
                 const date = response.data
