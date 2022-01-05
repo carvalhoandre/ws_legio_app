@@ -1,9 +1,15 @@
 
 import { createStore, combineReducers } from "redux"
-import LegioReducer from "./reducers/legio"
+import eventReducer from './reducers/event'
+import treasuryReducer from './reducers/treasury'
+import recruitmentReducer from './reducers/recruitment'
+import workReducer from './reducers/work'
 
 const reducers = combineReducers({
-    legio : LegioReducer
+    event: eventReducer,
+    treasury: treasuryReducer,
+    recruitment: recruitmentReducer,
+    work: workReducer
 })
 
 const storeConfig = () => {

@@ -1,20 +1,24 @@
-import { LEGIO_FALT, LEGIO_PRESENT } from '../actions/actionTypes'
+import { CREATE_WORK, DELETE_WORK  } from '../actions/actionTypes'
 
 const initialState = {
-    ids: [],
+    work: [],
 }
+
+const array = []
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case LEGIO_PRESENT:
+        case CREATE_WORK:
+            array.push(action.payload.work)
             return {
                 ...state,
-                ids: action.payload.ids
+                work: array
             }
-        case LEGIO_FALT:
+        case DELETE_WORK:
             return {
                 ...state,
-                ids: []
+                work: [],
+                array: []
             }
         default:
             return state

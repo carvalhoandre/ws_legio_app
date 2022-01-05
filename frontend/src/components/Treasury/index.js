@@ -1,25 +1,32 @@
 import React, { Component } from 'react'
 import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
-import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Platform, ActivityIndicator, Text } from 'react-native';
 import 'moment/locale/pt-br'
 import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
-import { createRecruitment } from '../../service/api'
-import { Picker } from '@react-native-picker/picker';
+import { createTreasury } from '../../service/api'
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
+import { formatDate } from '../../utils/format'
 
 const initialState = {
-    quantity: null,
-    person: null,
-    attendancing: null,
+    saldoAnterior: null,
+    coletaDoDia: null,
+    despesas: null,
+    elderly: null,
+    hours: null,
+    subTotal: '',
+    totalEmCaixa: '',
     loading: false,
     visible: false,
     title: '',
     body: '',
+    date: new Date(),
+    mode: 'date',
+    show: false
 }
 
-class Recruitment extends Component {
-
+class Treasury extends Component {
     state = {
         ...initialState
     }
@@ -29,34 +36,50 @@ class Recruitment extends Component {
     });
 
     send = async () => {
-        if (this.state.person < this.state.attendancing) {
-            this.setState({ body: `Quantidade de comparecimento maior que de recrutamento`, visible: true, title: "👀" })
-        } else {
-            this.setState({ loading: true })
-            let newObj = {
-                quantity: this.state.quantity,
-                person: this.state.person,
-                attendancing: this.state.attendancing,
-            }
-            createRecruitment(newObj)
-                .then(() => {
-                    this.setState({ loading: false })
-                    this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
-                    this.props.addRecruitment(newObj);
-                }, error => {
-                    this.setState({ loading: false })
-                    this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
-                })
+        this.setState({ loading: true })
+        let newSA = parseFloat(this.state.saldoAnterior, 10)
+        let newC = parseFloat(this.state.coletaDoDia, 10)
+        let newD = parseFloat(this.state.despesas, 10)
+        let newCDD = parseFloat(this.state.coletaDoDia, 10)
+        let tot = newSA + newC - newD
+        let sub = newSA + newC
+        let newDate = formatDate(this.state.date)
+
+        let newObj = {
+            saldoAnterior: newSA,
+            coletaDoDia: newCDD,
+            diaDaColeta: newDate,
+            despesas: newC,
+            subTotal: sub,
+            totalEmCaixa: tot,
         }
+       console.log(newObj)
     }
 
     render() {
         const validations = []
-        const validQuantity = (this.state.quantity !== null)
-        const validAttendancing = (this.state.attendancing !== null)
-        validations.push(validQuantity, validAttendancing)
+        const validSaldo = (this.state.saldoAnterior !== null)
+        const validColeta = (this.state.coletaDoDia !== null)
+        const validDespesas = (this.state.despesas !== null)
+
+        validations.push(validColeta, validDespesas, validSaldo)
 
         const validForm = validations.reduce((t, a) => t && a)
+
+        const onChange = (event, selectedDate) => {
+            const currentDate = selectedDate || date;
+            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ date: currentDate })
+        };
+
+        const showMode = (currentMode) => {
+            this.setState({ show: true })
+            this.setState({ mode: currentMode })
+        };
+
+        const showDatepicker = () => {
+            showMode('date');
+        };
 
         return (
             this.state.loading ?
@@ -65,7 +88,6 @@ class Recruitment extends Component {
                 </View>
                 :
                 <>
-
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
                             <Dialog.Title>{this.state.title}</Dialog.Title>
@@ -82,40 +104,56 @@ class Recruitment extends Component {
                         </Dialog>
                     </Portal>
 
-                    <Picker
-                        selectedValue={this.state.person}
-                        style={{ height: 50, width: 150 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
-                    >
-                        <Picker.Item label="Criança" value={0} style={styles.textOption} />
-                        <Picker.Item label="Adolescente" value={1} style={styles.textOption} />
-                        <Picker.Item label="Jovem" value={2} style={styles.textOption} />
-                        <Picker.Item label="Adulto" value={3} style={styles.textOption} />
-                        <Picker.Item label="Idoso" value={4} style={styles.textOption} />
-                    </Picker>
-
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
-                        label="Quantidade"
-                        value={this.state.quantity}
+                        label="Saldo Anterior"
+                        value={this.state.saldoAnterior}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={quantity => this.setState({ quantity: quantity })}
+                        onChangeText={saldoAnterior => this.setState({ saldoAnterior })}
+                    />
+
+                    <View>
+                        <Text>Data da coleta Anterior</Text>
+                        <Button onPress={showDatepicker} title={`${formatDate(this.state.date)}`} />
+                    </View>
+
+                    {this.state.show && (
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={this.state.date}
+                            mode={this.state.mode}
+                            display="default"
+                            onChange={onChange}
+                            dateFormat='shortdate'
+                        />
+                    )}
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Valor da coleta anterior"
+                        value={this.state.coletaDoDia}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={coletaDoDia => this.setState({ coletaDoDia })}
                     />
 
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
-                        label="Comparecimentos"
-                        value={this.state.attendancing}
+                        label="Despesas"
+                        value={this.state.desdespesas}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={attendancing => this.setState({ attendancing: attendancing })}
+                        onChangeText={despesas => this.setState({ despesas })}
                     />
 
                     <View style={styles.containerButton}>
@@ -130,7 +168,6 @@ class Recruitment extends Component {
                             disabledStyle={styles.buttonDisabled}
                         />
                     </View>
-
                 </>
         )
     }
@@ -235,12 +272,6 @@ const styles = StyleSheet.create({
         height: 40
     },
 
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
 
     textButton: {
         color: "#FFF",
@@ -258,8 +289,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        addRecruitment: recruitment => dispatch(addRecruitment(recruitment))
+        addTreasury: treasury => dispatch(addTreasury(treasury))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Recruitment);
+export default connect(null, mapDispatchToProps)(Treasury);

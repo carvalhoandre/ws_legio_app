@@ -8,35 +8,28 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Recruitment from '../../../components/Recruitment/Recruitment';
 import Work from '../../../components/Work/Work';
 import Event from '../../../components/Event/Event';
-import { number, date } from '../../../utils/extenso'
-import { createAtaExtenso, createTreasury, getEventForDate, getRecruitmentForDate, getWorkForDate } from '../../../service/api'
+import { date } from '../../../utils/extenso'
+import { createAtaExtenso } from '../../../service/api'
 import extenso from 'extenso';
+import { connect } from 'react-redux';
+import Treasury from '../../../components/Treasury';
 
 const initialState = {
-    id: 10,
+    id: 1,
     // page1
-    number: null,
+    number: "289",
     dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
     date: moment().locale('pt-br').format('DD-MM-YYYY'),
-    participation: '',
+    participation: 'Giovanna, Inacia, Joanderson, Edenilson, André e a participação do membro auxiliar Raquel',
     /* page 2 */
-    capituloEspiritual: '',
-    paginaEspiritual: '',
-    titleEspiritual: '',
-    /* page 3 */
-    saldoAnterior: null,
-    coletaDoDia: null,
-    diaDaColeta: '',
-    despesas: null,
-    subTotal: null,
-    totalEmCaixa: null,
-    //page5 
-    /* work */
+    capituloEspiritual: '8',
+    paginaEspiritual: '318',
+    titleEspiritual: 'Liturgia da Palavra',
     //page6
-    allocutionAutor: '',
-    allocutionAssunto: '',
-    paginaEstudo: '',
-    paragrafoEstudo: '',
+    allocutionAutor: 'Edenilson',
+    allocutionAssunto: '"a Festa de Cristo Rei',
+    paginaEstudo: '345',
+    paragrafoEstudo: '4',
     //others
     loading: false,
     visible: false,
@@ -44,112 +37,83 @@ const initialState = {
     body: '',
 }
 
-export default class CreateAta extends Component {
+class CreateAta extends Component {
 
     state = {
         ...initialState
     }
+
+    hideDialog = () => this.setState({
+        ...initialState
+    })
 
     send = async () => {
         this.setState({ loading: true })
         let hora = moment().locale('pt-br').format('H')
         let minuto = moment().locale('pt-br').format('mm')
 
-        //set treasury
-        let newTreasury = {
-            saldoAnterior: this.state.saldoAnterior,
-            coletaDoDia: this.state.coletaDoDia,
-            diaDaColeta: this.state.diaDaColeta,
-            despesas: this.state.despesas,
-            subTotal: this.state.subTotal,
-            totalEmCaixa: this.state.totalEmCaixa
-        }
-        createTreasury(newTreasury)
-            .then(() => {
-                null
-            }, error => {
-                this.setState({ loading: false })
-                this.setState({ body: `Erro ao enviar salvar tessouraria`, visible: true, title: "😱😰😰" })
-            })
         //get recrutment
-        let recrutment = ''
-        getRecruitmentForDate(this.state.date)
-            .then((response) => {
-                let data = response.data
-                if (data.length < 1) {
-                    recrutment = 'não houveram convites'
+        let recrutment = '' 
+        if (this.props.recruitment.length < 1) {
+            recrutment = 'não houveram convites'
+        } else {
+            this.props.recruitment.forEach(element => {
+                let quantity = extenso(`${element.quantity}`, { mode: 'number' })
+                if (element.quantity === 1) {
+                    recrutment = `${recrutment} foi realizado ${element.quantity} 
+                        covite para ${quantity} ${element.person.toLowerCase()}`
                 } else {
-                    data.forEach(element => {
-                        let quantity = number(element.quantity)
-                        if (element.quantity === 1) {
-                            recrutment = `${recrutment} foi realizado ${element.quantity} 
-                            covite para ${quantity} ${element.person.toLowerCase()}`
-
-                        } else {
-                            recrutment = `${recrutment} foi realizado ${element.quantity} 
-                            covites para ${quantity} ${element.person.toLowerCase()}s`
-                        }
-                    })
+                    recrutment = `${recrutment} foi realizado ${element.quantity} 
+                        covites para ${quantity} ${element.person.toLowerCase()}s`
                 }
-            }, error => {
-                this.setState({ loading: false })
-                this.setState({ body: `Erro: ao inserir recrutamentos`, visible: true, title: "😱😰😰" })
             })
+        }
 
         //get works
         let allWork = ''
-        getWorkForDate(this.state.date)
-            .then((response) => {
-                let data = response.data
-                if (data.length < 1) {
-                    allWork = 'não houveram trabalhos relatados'
-                } else {
-                    data.forEach(element => {
-                        allWork = `${allWork} Os irmãos ${element.legios} realizaram um(a) 
-                        ${element.work.toLowerCase()} tendo contato com ${number(element.total)} 
-                        pessoas, em ${number(element.hours)} horas de trabalho`
-                    })
-                }
-            }, error => {
-                this.setState({ loading: false })
-                this.setState({ body: `Erro: ao inserir trabalhos`, visible: true, title: "😱😰😰" })
+        if (this.props.work < 1) {
+            allWork = 'não houveram trabalhos relatados'
+        } else {
+            this.props.work.forEach(element => {
+                let newHours = extenso(`${element.hours}`, { mode: 'number' })
+                let newTotal = extenso(`${element.total}`, { mode: 'number' })
+                allWork = `${allWork} Os irmãos ${element.legios} realizaram um(a) 
+                    ${element.work.toLowerCase()} tendo contato com ${newTotal} 
+                    pessoas, em ${newHours} horas de trabalho`
             })
+        }
 
-        //get works
+        //get event
         let allEvent = ''
-        getEventForDate(this.state.date)
-            .then((response) => {
-                let data = response.data
-                if (data.length < 1) {
-                    allEvent = null
-                } else {
-                    data.forEach(element => {
-                        allEvent = `${allEvent} ${element.name}, no dia ${date(element.dateEvent)} estavão presentes
-                        ${element.ativos >= 1 ? `${element.ativos} ativos` : null}
-                        ${element.auxiliares >= 1 ? `${element.auxiliares} auxiliares` : null}
-                        ${element.guests >= 1 ? `${element.guests} convidados` : null}`
-                    })
-                }
-            }, error => {
-                this.setState({ loading: false })
-                this.setState({ body: `Erro: ao inserir eventos`, visible: true, title: "😱😰😰" })
+        if (this.props.event.length < 1) {
+            allEvent = null
+        } else {
+            this.props.event.forEach(element => {
+                allEvent = `${allEvent} ${element.name}, no dia ${date(element.dateEvent)} estavão presentes
+                    ${element.ativos >= 1 ? `${element.ativos} ativos` : null}
+                    ${element.auxiliares >= 1 ? `${element.auxiliares} auxiliares` : null}
+                    ${element.guests >= 1 ? `${element.guests} convidados` : null}`
             })
+        }
+
+        let newNumero = extenso(`${this.state.number}`, { mode: 'number' })
+
 
         let ataExtenso = {
             number: this.state.number,
-            numero: number(this.state.number),
+            numero: newNumero,
             dataExtenso: this.state.dataExtenso,
             presentes: this.state.participation,
             capituloEspiritual: this.state.capituloEspiritual,
             paginaEspiritual: this.state.paginaEspiritual,
             titleEspiritual: this.state.titleEspiritual,
             recrutamento: recrutment,
-            saldoAnterior: extenso(`${this.state.saldoAnterior}`, { mode: 'currency', currency: { type: 'BRL' } }),
-            diaDaColeta: date(this.state.diaDaColeta),
-            coletaDoDia: extenso(`${this.state.coletaDoDia}`, { mode: 'currency', currency: { type: 'BRL' } }),
-            despesas: extenso(`${this.state.despesas}`, { mode: 'currency', currency: { type: 'BRL' } }),
-            subTotal: extenso(`${this.state.subTotal}`, { mode: 'currency', currency: { type: 'BRL' } }),
-            totalEmCaixa: extenso(`${this.state.totalEmCaixa}`, { mode: 'currency', currency: { type: 'BRL' } }),
+            saldoAnterior: this.props.saldoAnterior,
+            diaDaColeta: this.props.diaDaColeta,
+            coletaDoDia: this.props.coletaDoDia,
+            despesas: this.props.despesas,
+            subTotal: this.props.subTotal,
+            totalEmCaixa: this.props.totalEmCaixa,
             work: allWork,
             allocutionAutor: this.state.allocutionAutor,
             allocutionAssunto: this.state.allocutionAssunto,
@@ -217,7 +181,6 @@ export default class CreateAta extends Component {
         if (this.state.id === 2) {
             return (
                 <View styles={{ margin: 'auto' }}>
-
                     <Text style={styles.subtitle}>Leitura Espiritual</Text>
                     <TextInput
                         label="Capítulo"
@@ -246,7 +209,6 @@ export default class CreateAta extends Component {
                         style={styles.input}
                         onChangeText={titleEspiritual => this.setState({ titleEspiritual })}
                     />
-
                 </View>
             )
         }
@@ -256,75 +218,7 @@ export default class CreateAta extends Component {
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Tesouraria</Text>
 
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Saldo Anterior"
-                        value={this.state.saldoAnterior}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={saldoAnterior => this.setState({ saldoAnterior })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Coleta do dia"
-                        value={this.state.coletaDoDia}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={coletaDoDia => this.setState({ coletaDoDia })}
-                    />
-
-                    <TextInput
-                        label="Dia da Coleta"
-                        value={this.state.diaDaColeta}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={diaDaColeta => this.setState({ diaDaColeta })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Despesas"
-                        value={this.state.despesas}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={despesas => this.setState({ despesas })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Sub Total"
-                        value={this.state.subTotal}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={subTotal => this.setState({ subTotal })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Total em Caixa"
-                        value={this.state.totalEmCaixa}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={totalEmCaixa => this.setState({ totalEmCaixa })}
-                    />
+                    <Treasury />
                 </View>
             )
         }
@@ -356,14 +250,13 @@ export default class CreateAta extends Component {
 
                     <TextInput
                         label="Assunto"
-                        value={this.state.allocutionAutor}
+                        value={this.state.allocutionAssunto}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={allocutionAutor => this.setState({ allocutionAutor })}
+                        onChangeText={allocutionAssunto => this.setState({ allocutionAssunto })}
                     />
-
                 </View>
             )
         }
@@ -378,7 +271,7 @@ export default class CreateAta extends Component {
             )
         }
 
-        if (this.state.id === 8) {
+        if (this.state.id === 7) {
             return (
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Estudo do Manual</Text>
@@ -409,21 +302,29 @@ export default class CreateAta extends Component {
             )
         }
 
-        if (this.state.id === 9) {
+        if (this.state.id === 8) {
             return (
                 <View styles={{ margin: 'auto' }}>
                     <Text style={styles.title}>Eventos</Text>
 
                     <Event />
-                    <View style={styles.containerButton}>
-                        <Button
-                            title="Salvar"
-                            type="outline"
-                            buttonStyle={styles.buttonSend}
-                            titleStyle={styles.textButton}
-                            onPress={this.send}
-                        />
-                    </View>
+                </View>
+            )
+        }
+
+        if (this.state.id === 9) {
+            return (
+                <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.title}>Revisar os dados antes de enviar</Text>
+
+
+
+                    <Button
+                        onPress={this.send}
+                        contentStyle={styles.buttonSend}
+                    >
+                        <Text>Enviar</Text>
+                    </Button>
                 </View>
             )
         }
@@ -459,7 +360,7 @@ export default class CreateAta extends Component {
     }
 
     returnButtons = () => {
-        if (this.state.id > 1 && this.state.id < 8) {
+        if (this.state.id > 1 && this.state.id < 9) {
             return (<>{this.left()}{this.rigth()}</>)
         }
 
@@ -491,10 +392,11 @@ export default class CreateAta extends Component {
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
-                                    title="Ok"
                                     type="outline"
                                     onPress={this.hideDialog}
-                                />
+                                >
+                                    <Text>Ok</Text>
+                                </Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
@@ -623,12 +525,36 @@ const styles = StyleSheet.create({
         backgroundColor: commonStyles.colors.primaryColor,
         padding: 5,
         borderRadius: 8,
-        width: 150,
     },
 
     textButton: {
         color: "#FFF",
         fontFamily: commonStyles.fontFamily.WorkSans,
         fontWeight: '600',
-    }
+    },
+
 })
+
+const mapStateToProps = ({ event, recruitment, treasury, work }) => {
+    return {
+        event: event,
+        recruitment: recruitment,
+        work: work,
+        saldoAnterior: treasury.saldoAnterior,
+        coletaDoDia: treasury.coletaDoDia,
+        diaDaColeta: treasury.diaDaColeta,
+        despesas: treasury.despesas,
+        subTotal: treasury.subTotal,
+        totalEmCaixa: treasury.totalEmCaixa,
+    }
+}
+
+const mapDispatchToProps = dispatchEvent => {
+    return {
+        removeEvent: () => dispatchEvent(removeEvent()),
+        removeRecruitment: () => dispatchEvent(removeRecruitment()),
+        removeTreasury: () => dispatchEvent(removeTreasury()),
+        removeWork: () => dispatchEvent(removeWork()),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAta);

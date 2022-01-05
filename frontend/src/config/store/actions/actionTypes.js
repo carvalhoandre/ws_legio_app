@@ -1,2 +1,12 @@
-export const LEGIO_PRESENT = 'LEGIO_PRESENT'
-export const LEGIO_FALT = 'LEGIO_FALT'
+//work
+export const CREATE_WORK = 'CREATE_WORK'
+export const DELETE_WORK = 'DELETE_WORK'
+//recruitment
+export const CREATE_RECRUITMENT = 'CREATE_RECRUITMENT'
+export const DELETE_RECRUITMENT = 'DELETE_RECRUITMENT'
+//event
+export const CREATE_EVENT = 'CREATE_EVENT'
+export const DELETE_EVENT = 'DELETE_EVENT'
+//treasury
+export const CREATE_TREASURY = 'CREATE_TREASURY'
+export const DELETE_TREASURY = 'DELETE_TREASURY'

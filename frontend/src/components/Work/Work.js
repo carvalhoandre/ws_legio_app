@@ -6,6 +6,7 @@ import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createWork } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
+import { connect } from 'react-redux';
 
 const initialState = {
     work: 0,
@@ -22,7 +23,7 @@ const initialState = {
     body: '',
 }
 
-export default class Work extends Component {
+class Work extends Component {
     state = {
         ...initialState
     }
@@ -32,6 +33,7 @@ export default class Work extends Component {
     });
 
     send = async () => {
+        this.setState({ loading: true })
         let newA = parseInt(this.state.adult, 10)
         let newC = parseInt(this.state.children, 10)
         let newY = parseInt(this.state.yong, 10)
@@ -53,6 +55,7 @@ export default class Work extends Component {
             .then(() => {
                 this.setState({ loading: false })
                 this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
+                this.props.addWork(newObj);
             }, error => {
                 this.setState({ loading: false })
                 this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -299,12 +302,6 @@ const styles = StyleSheet.create({
         height: 40
     },
 
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
 
     textButton: {
         color: "#FFF",
@@ -319,3 +316,11 @@ const styles = StyleSheet.create({
 
     }
 })
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addWork: work => dispatch(addWork(work))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Work);

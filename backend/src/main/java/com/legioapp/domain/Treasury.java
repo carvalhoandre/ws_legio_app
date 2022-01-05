@@ -1,9 +1,9 @@
 package com.legioapp.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -32,9 +31,9 @@ public class Treasury implements Serializable{
 	@CollectionTable(name="coleta_do_dia")
 	private Float coletaDoDia;
 	
+	@Column(unique=true)
 	@CollectionTable(name="data_da_coleta")
-	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date diaDaColeta;
+	private String diaDaColeta;
 	
 	private Float despesas;
 	private Float subTotal;
@@ -50,7 +49,7 @@ public class Treasury implements Serializable{
 	public Treasury() {
 	}
 
-	public Treasury(Integer id, String date, Float saldoAnterior, Float coletaDoDia, Date diaDaColeta, Float despesas,
+	public Treasury(Integer id, String date, Float saldoAnterior, Float coletaDoDia, String diaDaColeta, Float despesas,
 			Float subTotal, Float totalEmCaixa) {
 		this.id = id;
 		this.date = date;
@@ -94,11 +93,11 @@ public class Treasury implements Serializable{
 		this.coletaDoDia = coletaDoDia;
 	}
 
-	public Date getDiaDaColeta() {
+	public String getDiaDaColeta() {
 		return diaDaColeta;
 	}
 
-	public void setDiaDaColeta(Date diaDaColeta) {
+	public void setDiaDaColeta(String diaDaColeta) {
 		this.diaDaColeta = diaDaColeta;
 	}
 

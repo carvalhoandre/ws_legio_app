@@ -4,6 +4,7 @@ import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
 import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createEvent } from '../../service/api'
+import { connect } from 'react-redux';
 
 const initialState = {
     name: "",
@@ -16,7 +17,7 @@ const initialState = {
     body: '',
 }
 
-export default class Event extends Component {
+class Event extends Component {
     state = {
         ...initialState
     }
@@ -26,6 +27,7 @@ export default class Event extends Component {
     });
 
     send = async () => {
+        this.setState({ loading: true })
         let newObj = {
             name: this.state.name,
             guests: this.state.guests,
@@ -36,6 +38,7 @@ export default class Event extends Component {
             .then(() => {
                 this.setState({ loading: false })
                 this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
+                this.props.addEvent(newObj);
             }, error => {
                 this.setState({ loading: false })
                 this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -254,3 +257,11 @@ const styles = StyleSheet.create({
 
     }
 })
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addEvent: event => dispatch(addRecruitment(event))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Event);
