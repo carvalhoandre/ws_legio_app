@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements'
 import { createWork } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
 import { connect } from 'react-redux';
+import { addWork } from '../../config/store/actions/work'
 
 const initialState = {
     work: 0,

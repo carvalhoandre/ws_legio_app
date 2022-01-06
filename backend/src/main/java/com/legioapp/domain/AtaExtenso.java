@@ -1,5 +1,7 @@
 package com.legioapp.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,41 +11,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_ata_extenso")
-public class AtaExtenso {
+public class AtaExtenso implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(unique=true)
-	private String number;
-
-	@Column(unique=true)
-	private String numero;
+	private String date;
 	
-	@Column(unique=true)
-	private String dataExtenso;
-
+	private String inicio;
 	private String ata;
-	private String presentes;
+	private String participation;
 	private String capituloEspiritual;
 	private String paginaEspiritual;
 	private String titleEspiritual;
-	private String recrutamento;
-	private String saldoAnterior;
-	private String diaDaColeta;
-	private String coletaDoDia;
-	private String despesas;
-	private String subTotal;
-	private String totalEmCaixa;
-	private String work;
 	private String allocutionAutor;
 	private String allocutionAssunto;
+	private Boolean coleta;
 	private String paginaEstudo;
 	private String paragrafoEstudo;
-	private String event;
+	private String assuntos;
 	private String horaFinal;
-	private String minutoFinal;
 	
 	public AtaExtenso() {
 	}
@@ -52,75 +42,41 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public AtaExtenso(Integer id, String number, String numero, String dataExtenso, String ata, String presentes,
-			String capituloEspiritual, String paginaEspiritual, String titleEspiritual,
-			String recrutamento, String saldoAnterior, String diaDaColeta, String coletaDoDia, String despesas,
-			String subTotal, String totalEmCaixa, String work, String allocutionAutor, String allocutionAssunto,
-			String paginaEstudo, String paragrafoEstudo, String event, String horaFinal, String minutoFinal) {
+	public AtaExtenso(Integer id, String date, String inicio, String ata, String participation,
+			String capituloEspiritual, String paginaEspiritual, String titleEspiritual, String allocutionAutor,
+			String allocutionAssunto, Boolean coleta, String paginaEstudo, String paragrafoEstudo, String assuntos,
+			String horaFinal) {
 		this.id = id;
-		this.number = number;
-		this.numero = numero;
-		this.dataExtenso = dataExtenso;
-		this.presentes = presentes;
+		this.date = date;
+		this.inicio = inicio;
+		this.ata = ata;
+		this.participation = participation;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
 		this.titleEspiritual = titleEspiritual;
-		this.recrutamento = recrutamento;
-		this.saldoAnterior = saldoAnterior;
-		this.diaDaColeta = diaDaColeta;
-		this.coletaDoDia = coletaDoDia;
-		this.despesas = despesas;
-		this.subTotal = subTotal;
-		this.totalEmCaixa = totalEmCaixa;
-		this.work = work;
 		this.allocutionAutor = allocutionAutor;
 		this.allocutionAssunto = allocutionAssunto;
+		this.coleta = coleta;
 		this.paginaEstudo = paginaEstudo;
 		this.paragrafoEstudo = paragrafoEstudo;
-		this.event = event;
+		this.assuntos = assuntos;
 		this.horaFinal = horaFinal;
-		this.minutoFinal = minutoFinal;
-		this.ata = ata;
 	}
 
-	public String getAta() {
-		return ata;
+	public String getInicio() {
+		return inicio;
 	}
 
-	public void setAta(String ata) {
-		this.ata = ata;
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
 	}
 
-	public String getPresentes() {
-		return presentes;
+	public Boolean getColeta() {
+		return coleta;
 	}
 
-	public void setPresentes(String legionario) {
-		this.presentes = legionario;
-	}
-
-	public String getRecrutamento() {
-		return recrutamento;
-	}
-
-	public void setRecrutamento(String recrutamento) {
-		this.recrutamento = recrutamento;
-	}
-
-	public String getWork() {
-		return work;
-	}
-
-	public void setWork(String work) {
-		this.work = work;
-	}
-
-	public String getEvent() {
-		return event;
-	}
-
-	public void setEvent(String event) {
-		this.event = event;
+	public void setColeta(Boolean coleta) {
+		this.coleta = coleta;
 	}
 
 	public Integer getId() {
@@ -131,28 +87,20 @@ public class AtaExtenso {
 		this.id = id;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getDate() {
+		return date;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getAta() {
+		return ata;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getDataExtenso() {
-		return dataExtenso;
-	}
-
-	public void setDataExtenso(String dataExtenso) {
-		this.dataExtenso = dataExtenso;
+	public void setAta(String ata) {
+		this.ata = ata;
 	}
 
 	public String getCapituloEspiritual() {
@@ -177,54 +125,6 @@ public class AtaExtenso {
 
 	public void setTitleEspiritual(String titleEspiritual) {
 		this.titleEspiritual = titleEspiritual;
-	}
-
-	public String getSaldoAnterior() {
-		return saldoAnterior;
-	}
-
-	public void setSaldoAnterior(String saldoAnterior) {
-		this.saldoAnterior = saldoAnterior;
-	}
-
-	public String getColetaDoDia() {
-		return coletaDoDia;
-	}
-
-	public void setColetaDoDia(String coletaDoDia) {
-		this.coletaDoDia = coletaDoDia;
-	}
-
-	public String getDiaDaColeta() {
-		return diaDaColeta;
-	}
-
-	public void setDiaDaColeta(String diaDaColeta) {
-		this.diaDaColeta = diaDaColeta;
-	}
-
-	public String getDespesas() {
-		return despesas;
-	}
-
-	public void setDespesas(String despesas) {
-		this.despesas = despesas;
-	}
-
-	public String getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(String subTotal) {
-		this.subTotal = subTotal;
-	}
-
-	public String getTotalEmCaixa() {
-		return totalEmCaixa;
-	}
-
-	public void setTotalEmCaixa(String totalEmCaixa) {
-		this.totalEmCaixa = totalEmCaixa;
 	}
 
 	public String getAllocutionAutor() {
@@ -267,12 +167,20 @@ public class AtaExtenso {
 		this.horaFinal = horaFinal;
 	}
 
-	public String getMinutoFinal() {
-		return minutoFinal;
+	public String getParticipation() {
+		return participation;
 	}
 
-	public void setMinutoFinal(String minutoFinal) {
-		this.minutoFinal = minutoFinal;
+	public void setParticipation(String participation) {
+		this.participation = participation;
+	}
+
+	public String getAssuntos() {
+		return assuntos;
+	}
+
+	public void setAssuntos(String assuntos) {
+		this.assuntos = assuntos;
 	}
 
 	@Override

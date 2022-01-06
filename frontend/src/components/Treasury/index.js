@@ -8,6 +8,7 @@ import { createTreasury } from '../../service/api'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
 import { formatDate } from '../../utils/format'
+import { addTreasury } from '../../config/store/actions/treasury'
 
 const initialState = {
     saldoAnterior: null,
@@ -53,7 +54,18 @@ class Treasury extends Component {
             subTotal: sub,
             totalEmCaixa: tot,
         }
-       console.log(newObj)
+        createTreasury(newObj)
+            .then(() => {
+                this.setState({ loading: false })
+                this.setState({
+                    body: `Adicionado com sucesso! Sub Total: ${newObj.subTotal}
+                Total em Caixa: ${newObj.totalEmCaixa}`, visible: true, title: "👏👏👏"
+                })
+                this.props.addTreasury(newObj);
+            }, error => {
+                this.setState({ loading: false })
+                this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
+            })
     }
 
     render() {

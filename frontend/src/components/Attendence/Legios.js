@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getLegios, createAllAttendance } from '../service/api';
-import { StyleSheet } from 'react-native';
+import { getLegios, createAllAttendance } from '../../service/api';
+import { StyleSheet, View } from 'react-native';
 import { checkIsSelected } from '../../utils/helpers'
-import commonStyles from '../../styles/commonStyles'
-import { View } from 'react-native';
-import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import LegioList from './Attendence/LegioList';
 import { Button } from 'react-native-elements'
+import commonStyles from '../../styles/commonStyles'
+import { Portal, Dialog, Paragraph } from 'react-native-paper';
+import LegioList from './LegioList';
 import OrderSummary from './OrderSummary';
 import moment from 'moment'
 import 'moment/locale/pt-br'

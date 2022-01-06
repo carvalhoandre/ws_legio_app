@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements'
 import { createRecruitment } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
 import { connect } from 'react-redux';
+import { addRecruitment } from '../../config/store/actions/recruitment'
 
 const initialState = {
     quantity: null,

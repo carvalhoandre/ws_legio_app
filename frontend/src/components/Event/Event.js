@@ -5,6 +5,7 @@ import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createEvent } from '../../service/api'
 import { connect } from 'react-redux';
+import { addEvent } from '../../config/store/actions/event'
 
 const initialState = {
     name: "",
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        addEvent: event => dispatch(addRecruitment(event))
+        addEvent: event => dispatch(addEvent(event))
     }
 }
 

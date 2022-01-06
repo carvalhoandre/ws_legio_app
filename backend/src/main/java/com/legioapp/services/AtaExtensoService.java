@@ -1,5 +1,7 @@
 package com.legioapp.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,11 @@ public class AtaExtensoService {
 	
 	public AtaExtenso insert(AtaExtenso obj) {
 		obj.setId(null);
+		Date myDate = new Date();
+		SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String mdy = mdyFormat.format(myDate);
+		obj.setDate(mdy);
 		obj = repo.save(obj);
-		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
 	
@@ -52,28 +57,18 @@ public class AtaExtensoService {
 	}
 	
 	public void UpdateData(AtaExtenso newObj, AtaExtenso obj) {
-		newObj.setPresentes(obj.getPresentes());
+		newObj.setParticipation(obj.getParticipation());
 		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
 		newObj.setAllocutionAutor(obj.getAllocutionAutor());
-		newObj.setDataExtenso(obj.getDataExtenso());
 		newObj.setCapituloEspiritual(obj.getCapituloEspiritual());
-		newObj.setColetaDoDia(obj.getColetaDoDia());
-		newObj.setDespesas(obj.getDespesas());
-		newObj.setDiaDaColeta(obj.getDiaDaColeta());
-		newObj.setEvent(obj.getEvent());
 		newObj.setHoraFinal(obj.getHoraFinal());
-		newObj.setMinutoFinal(obj.getMinutoFinal());
-		newObj.setNumber(obj.getNumber());
-		newObj.setNumero(obj.getNumero());
 		newObj.setPaginaEspiritual(obj.getPaginaEspiritual());
 		newObj.setPaginaEstudo(obj.getPaginaEstudo());
 		newObj.setParagrafoEstudo(obj.getParagrafoEstudo());
-		newObj.setRecrutamento(obj.getRecrutamento());
-		newObj.setSaldoAnterior(obj.getSaldoAnterior());
-		newObj.setSubTotal(obj.getSubTotal());
 		newObj.setTitleEspiritual(obj.getTitleEspiritual());
-		newObj.setTotalEmCaixa(obj.getTotalEmCaixa());
-		newObj.setWork(obj.getWork());
+		newObj.setAssuntos(obj.getAssuntos());
+		newObj.setColeta(obj.getColeta());
+		newObj.setInicio(obj.getInicio());
 	}
 	
 	public List<AtaExtenso> findAll() {

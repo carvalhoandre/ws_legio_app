@@ -37,7 +37,7 @@ public abstract class AbstractEmailService implements EmailService {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo("legiomariae@outlook.com.br");
 		sm.setFrom(sender);
-		sm.setSubject("Pré Ata de número: " + obj.getNumber());
+		sm.setSubject("Pré Ata de número: " + obj.getId());
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText(obj.toString());
 		return sm;
@@ -67,7 +67,7 @@ public abstract class AbstractEmailService implements EmailService {
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		mmh.setFrom(sender);
-		mmh.setSubject("Pré Ata de número: " + obj.getNumber());
+		mmh.setSubject("Pré Ata de número: " + obj.getId());
 		return mimeMessage;
 	}
 }
