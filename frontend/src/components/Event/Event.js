@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Platform, ActivityIndicator, Text } from 'react-native';
 import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
 import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createEvent } from '../../service/api'
 import { connect } from 'react-redux';
 import { addEvent } from '../../config/store/actions/event'
+import { formatDate } from '../../utils/format'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const initialState = {
     name: "",
@@ -16,6 +18,9 @@ const initialState = {
     visible: false,
     title: '',
     body: '',
+    date: new Date(),
+    mode: 'date',
+    show: false
 }
 
 class Event extends Component {
@@ -34,6 +39,7 @@ class Event extends Component {
             guests: this.state.guests,
             ativos: this.state.ativos,
             auxiliares: this.state.auxiliares,
+            dateEvent: formatDate(this.state.date)
         }
         createEvent(newObj)
             .then(() => {
@@ -52,6 +58,22 @@ class Event extends Component {
         validations.push(validName)
 
         const validForm = validations.reduce((t, a) => t && a)
+
+
+        const onChange = (event, selectedDate) => {
+            const currentDate = selectedDate || date;
+            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ date: currentDate })
+        };
+
+        const showMode = (currentMode) => {
+            this.setState({ show: true })
+            this.setState({ mode: currentMode })
+        };
+
+        const showDatepicker = () => {
+            showMode('date');
+        };
 
         return (
             this.state.loading ?
@@ -85,6 +107,22 @@ class Event extends Component {
                         style={styles.input}
                         onChangeText={name => this.setState({ name: name })}
                     />
+
+                    <View>
+                        <Text>Data do Evento</Text>
+                        <Button onPress={showDatepicker} title={`${formatDate(this.state.date)}`} />
+                    </View>
+
+                    {this.state.show && (
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={this.state.date}
+                            mode={this.state.mode}
+                            display="default"
+                            onChange={onChange}
+                            dateFormat='shortdate'
+                        />
+                    )}
 
                     <TextInput
                         type="number"

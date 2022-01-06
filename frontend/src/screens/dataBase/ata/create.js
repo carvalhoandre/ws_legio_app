@@ -14,7 +14,7 @@ import Treasury from '../../../components/Treasury';
 import Legios from '../../../components/Attendence/Legios'
 
 const initialState = {
-    id: 1,
+    id: 8,
     inicio: moment().locale('pt-br').format('H:mm'),
     ata: 'Lida, aprovada e assinada',
     one: true,
@@ -109,7 +109,7 @@ export default class CreateAta extends Component {
                             title='Lida, aprovada com ressalvas e assinada'
                             checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
                             uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                            checked={this.state.one}
+                            checked={this.state.two}
                             onPress={() => this.setState({
                                 one: false,
                                 two: true,
@@ -121,10 +121,10 @@ export default class CreateAta extends Component {
                         <CheckBox
                             containerStyle={styles.option}
                             textStyle={styles.textOption}
-                            title='Lida, aprovada com ressalvas e assinada'
+                            title='Não houve leitura da ata'
                             checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
                             uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                            checked={this.state.one}
+                            checked={this.state.three}
                             onPress={() => this.setState({
                                 one: false,
                                 two: false,
@@ -237,7 +237,10 @@ export default class CreateAta extends Component {
                         checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
                         uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
                         checked={this.state.coleta}
-                        onPress={() => this.setState({ coleta : !coleta })}
+                        onPress={(() => {
+                            let colect = !this.state.coleta
+                            this.setState({ coleta: colect })
+                        })}
                     />
                 </View>
             )
@@ -341,7 +344,7 @@ export default class CreateAta extends Component {
     }
 
     returnButtons = () => {
-        if (this.state.id > 1 && this.state.id < 10) {
+        if (this.state.id > 1 && this.state.id < 8) {
             return (<>{this.left()}{this.rigth()}</>)
         }
 
@@ -349,7 +352,7 @@ export default class CreateAta extends Component {
             return (<>{this.rigth()}</>)
         }
 
-        if (this.state.id === 10) {
+        if (this.state.id === 8) {
             return (<>{this.left()}</>)
         }
     }
