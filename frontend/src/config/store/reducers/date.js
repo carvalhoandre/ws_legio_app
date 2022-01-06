@@ -1,24 +1,23 @@
-import { CREATE_WORK, DELETE_WORK  } from '../actions/actionTypes'
+import { DATE_IN, DATE_OUT } from '../actions/actionTypes'
 
 const initialState = {
-    work: [],
+    number: null,
+    moment: null
 }
-
-const array = []
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_WORK:
-            array.push(action.payload.work)
+        case DATE_IN:
             return {
                 ...state,
-                work: array
+                number: action.payload.number,
+                moment: action.payload.moment
             }
-        case DELETE_WORK:
+        case DATE_OUT:
             return {
                 ...state,
-                work: [],
-                array: []
+                number: null,
+                moment: null
             }
         default:
             return state

@@ -6,8 +6,6 @@ import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createWork } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
-import { connect } from 'react-redux';
-import { addWork } from '../../config/store/actions/work'
 
 const initialState = {
     work: 0,
@@ -24,7 +22,7 @@ const initialState = {
     body: '',
 }
 
-class Work extends Component {
+export default class Work extends Component {
     state = {
         ...initialState
     }
@@ -56,7 +54,6 @@ class Work extends Component {
             .then(() => {
                 this.setState({ loading: false })
                 this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
-                this.props.addWork(newObj);
             }, error => {
                 this.setState({ loading: false })
                 this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -317,11 +314,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addWork: work => dispatch(addWork(work))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Work);

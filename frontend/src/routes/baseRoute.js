@@ -1,15 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Data from '../screens/dataBase/dataBase';
-import CreateAta from '../screens/dataBase/ata/create';
+import AtaCreate from '../screens/dataBase/ata/AtaCreate';
 import CreateMember from '../screens/dataBase/member/create'
+import AtaSearch from '../screens/dataBase/ata/AtaSearch';
+import AtaFound from '../screens/dataBase/ata/AtaFound';
 
 const Stack = createNativeStackNavigator();
 
 function BaseRoute() {
     return (
         <Stack.Navigator
-            initialRouteName="CreateAta"
+            initialRouteName="DataMain"
         >
             <Stack.Screen
                 name="DataMain"
@@ -19,8 +21,8 @@ function BaseRoute() {
                 }} 
             />
             <Stack.Screen
-                name="CreateAta"
-                component={CreateAta}
+                name="AtaCreate"
+                component={AtaCreate}
                 options={{
                     headerShown: false,
                 }} 
@@ -28,6 +30,20 @@ function BaseRoute() {
             <Stack.Screen
                 name="CreateLegio"
                 component={CreateMember}
+                options={{
+                    headerShown: false,
+                }} 
+            />
+            <Stack.Screen
+                name="AtaSearch"
+                component={AtaSearch}
+                options={{
+                    headerShown: false,
+                }} 
+            />
+            <Stack.Screen
+                name="AtaFound"
+                component={AtaFound}
                 options={{
                     headerShown: false,
                 }} 

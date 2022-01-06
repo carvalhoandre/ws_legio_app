@@ -1,15 +1,9 @@
 
 import { createStore, combineReducers } from "redux"
-import eventReducer from './reducers/event'
-import treasuryReducer from './reducers/treasury'
-import recruitmentReducer from './reducers/recruitment'
-import workReducer from './reducers/work'
+import DateReducer from './reducers/date'
 
 const reducers = combineReducers({
-    event: eventReducer,
-    treasury: treasuryReducer,
-    recruitment: recruitmentReducer,
-    work: workReducer
+    date: DateReducer
 })
 
 const storeConfig = () => {

@@ -11,7 +11,7 @@ const DataBase = () => {
 
     const [expanded, setExpanded] = useState(false);
     const handlePress = () => setExpanded(!expanded);
-    
+
     const [expandedUser, setExpandedUser] = useState(false);
     const handlePressUser = () => setExpandedUser(!expandedUser);
 
@@ -26,13 +26,18 @@ const DataBase = () => {
                     expanded={expanded}
                     onPress={handlePress}
                 >
-                    <List.Item title="Criar" 
+                    <List.Item title="Criar"
                         onPress={(() => {
                             navigation.navigate('CreateAta')
                         })}
                         titleStyle={styles.subtitle}
                     />
-                    <List.Item title="Buscar" titleStyle={styles.subtitle} />
+                    <List.Item title="Buscar" titleStyle={styles.subtitle}
+                        onPress={(() => {
+                            navigation.navigate('AtaSearch')
+                        })}
+                        titleStyle={styles.subtitle}
+                    />
                 </List.Accordion>
 
                 <List.Accordion
@@ -43,7 +48,7 @@ const DataBase = () => {
                     expanded={expandedUser}
                     onPress={handlePressUser}
                 >
-                    <List.Item title="Adicionar novo membro" 
+                    <List.Item title="Adicionar novo membro"
                         onPress={(() => {
                             navigation.navigate('CreateLegio')
                         })}
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     },
     option: {
         backgroundColor: "#FFF",
-    },  
+    },
     title: {
         fontSize: commonStyles.fontSize.normal,
         fontFamily: commonStyles.fontFamily.WorkSans,

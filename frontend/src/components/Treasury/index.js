@@ -6,9 +6,7 @@ import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createTreasury } from '../../service/api'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { connect } from 'react-redux';
 import { formatDate } from '../../utils/format'
-import { addTreasury } from '../../config/store/actions/treasury'
 
 const initialState = {
     saldoAnterior: null,
@@ -27,7 +25,7 @@ const initialState = {
     show: false
 }
 
-class Treasury extends Component {
+export default class Treasury extends Component {
     state = {
         ...initialState
     }
@@ -61,7 +59,6 @@ class Treasury extends Component {
                     body: `Adicionado com sucesso! Sub Total: ${newObj.subTotal}
                 Total em Caixa: ${newObj.totalEmCaixa}`, visible: true, title: "👏👏👏"
                 })
-                this.props.addTreasury(newObj);
             }, error => {
                 this.setState({ loading: false })
                 this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -298,11 +295,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addTreasury: treasury => dispatch(addTreasury(treasury))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Treasury);

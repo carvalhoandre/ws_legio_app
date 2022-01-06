@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { getRecruitmentForDate, deleteRecruitment } from '../../service/api';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import RecruitmentList from './RecruitmentList';
 import { Button } from 'react-native-elements'
-import moment from 'moment'
-import 'moment/locale/pt-br'
+import { connect } from 'react-redux';
+import { backDate } from '../../config/store/actions/date'
 
-export default function RecruitmentAll() {
+function FoundRecruitment(props) {
     const [recruitment, setRecruitment] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [result, setResult] = useState(false);
     const [message, setMessage] = useState({
         title: '',
         message: '',
     })
+    const [data, setData] = useState(props.moment)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        const date = moment().locale('pt-br').format('DD-MM-YYYY')
-        getRecruitmentForDate(date)
+        getRecruitmentForDate(data)
             .then((response) => {
-                const date = response.data
-                if (date > 1) {
-                    setRecruitment(date)
-                    setResult(true)
+                const obj = response.data
+                console.log(obj)
+                if (obj.length >= 1) {
+                    setRecruitment(obj)
                 }
             })
             .catch(error => {
@@ -73,17 +71,7 @@ export default function RecruitmentAll() {
                     </Dialog.Actions>
                 </Dialog>
             </Portal>
-
-            {result ?
-                <RecruitmentList
-                    recruitment={recruitment}
-                    deleteForId={deleteForId}
-                    showRecruitment={showRecruitment}
-                />
-                :
-                null
-            }
-
+           
         </View>
     );
 
@@ -100,3 +88,18 @@ const styles = StyleSheet.create({
         height: '100%'
     }
 })
+
+const mapStateToProps = ({ date }) => {
+    return {
+        number: date.number,
+        moment: date.moment
+    }
+}
+
+const mapDispatchToProps = dispatchEvent => {
+    return {
+        backDate: () => dispatchEvent(backDate())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoundRecruitment);

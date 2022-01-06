@@ -4,8 +4,6 @@ import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
 import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createEvent } from '../../service/api'
-import { connect } from 'react-redux';
-import { addEvent } from '../../config/store/actions/event'
 import { formatDate } from '../../utils/format'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -23,7 +21,7 @@ const initialState = {
     show: false
 }
 
-class Event extends Component {
+export default class Event extends Component {
     state = {
         ...initialState
     }
@@ -45,7 +43,6 @@ class Event extends Component {
             .then(() => {
                 this.setState({ loading: false })
                 this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
-                this.props.addEvent(newObj);
             }, error => {
                 this.setState({ loading: false })
                 this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -58,7 +55,6 @@ class Event extends Component {
         validations.push(validName)
 
         const validForm = validations.reduce((t, a) => t && a)
-
 
         const onChange = (event, selectedDate) => {
             const currentDate = selectedDate || date;
@@ -296,11 +292,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addEvent: event => dispatch(addEvent(event))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Event);

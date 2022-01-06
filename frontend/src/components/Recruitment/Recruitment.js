@@ -6,8 +6,6 @@ import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createRecruitment } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
-import { connect } from 'react-redux';
-import { addRecruitment } from '../../config/store/actions/recruitment'
 
 const initialState = {
     quantity: null,
@@ -19,7 +17,7 @@ const initialState = {
     body: '',
 }
 
-class Recruitment extends Component {
+export default class Recruitment extends Component {
 
     state = {
         ...initialState
@@ -43,7 +41,6 @@ class Recruitment extends Component {
                 .then(() => {
                     this.setState({ loading: false })
                     this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
-                    this.props.addRecruitment(newObj);
                 }, error => {
                     this.setState({ loading: false })
                     this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
@@ -256,11 +253,3 @@ const styles = StyleSheet.create({
 
     }
 })
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addRecruitment: recruitment => dispatch(addRecruitment(recruitment))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Recruitment);

@@ -37,7 +37,7 @@ const initialState = {
     body: '',
 }
 
-export default class CreateAta extends Component {
+export default class AtaCreate extends Component {
 
     state = {
         ...initialState
