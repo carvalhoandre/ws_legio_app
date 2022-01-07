@@ -35,6 +35,14 @@ public class RecruitmentResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PostMapping("/update")
+	public ResponseEntity<Void> update(@Valid @RequestBody Recruitment obj) {
+		obj = service.Update(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 		service.delete(id);

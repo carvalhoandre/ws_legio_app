@@ -33,7 +33,7 @@ export function deleteRecruitment(id) {
     return axios.delete(`${API_URL}/recruitment/${id}`)
 }
 
-export function createRecruitment(recruitment) {
+export function alterRecruitment(recruitment) {
     return axios.post(`${API_URL}/recruitment`, recruitment)
 }
 
