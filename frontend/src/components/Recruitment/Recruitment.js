@@ -63,7 +63,6 @@ export default class Recruitment extends Component {
                 </View>
                 :
                 <>
-
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
                             <Dialog.Title>{this.state.title}</Dialog.Title>
@@ -128,7 +127,6 @@ export default class Recruitment extends Component {
                             disabledStyle={styles.buttonDisabled}
                         />
                     </View>
-
                 </>
         )
     }
@@ -144,26 +142,6 @@ const styles = StyleSheet.create({
     spinner: {
         flex: 1,
         justifyContent: "center"
-    },
-
-    container: {
-        paddingBottom: 20,
-        paddingTop: 20,
-        paddingLeft: 30,
-        paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#E5E5E5',
-        shadowColor: '#a7b0c0',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
-        elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 24,
-
     },
 
     scrollView: {

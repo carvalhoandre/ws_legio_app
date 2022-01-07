@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getRecruitmentForDate, deleteRecruitment } from '../../service/api';
+import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
 import { StyleSheet, View, Text } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import RecruitmentList from './RecruitmentList';
@@ -44,8 +44,30 @@ function FoundRecruitment(props) {
             })
     }
 
+    const newRecruitment = (recruitment) => {
+        let newObj = {
+            id: recruitment.id,
+            date: recruitment.date,
+            quantity: parseInt(recruitment.quantity, 10),
+            person: recruitment.person,
+            attendancing: parseInt(recruitment.attendancing, 10)
+        }
+
+        updateRecruitment(newObj)
+            .then(() => {
+                let or = !teste
+                setTeste(or)
+                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setVisible(true)
+            })
+            .catch((error) => {
+                setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setVisible(true)
+            })
+    }
+
     return (
-        <View style={styles.container}>
+        <>
             <Portal>
                 <Dialog visible={visible} onDismiss={hideDialog}>
                     <Dialog.Title>{message.title}</Dialog.Title>
@@ -66,11 +88,12 @@ function FoundRecruitment(props) {
                 <RecruitmentList
                     recruitment={recruitment}
                     deleteForId={deleteForId}
+                    newRecruitment={newRecruitment}
                 />
                 :
                 <Text>Não há recrutamentos na data informada</Text>
             }
-        </View>
+        </>
     );
 
 }
@@ -79,12 +102,8 @@ const styles = StyleSheet.create({
     buttons: {
         backgroundColor: '#FFF',
         justifyContent: 'flex-start',
+        border: 'none'
     },
-
-    container: {
-        flex: 1,
-        height: '100%'
-    }
 })
 
 const mapStateToProps = ({ date }) => {

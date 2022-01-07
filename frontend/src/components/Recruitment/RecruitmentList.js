@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import RecruitmentCard from './RecruitmentCard';
 
-export default function RecruitmentList({ recruitment, deleteForId }) {
+export default function RecruitmentList({ recruitment, deleteForId, newRecruitment }) {
     const array = []
     recruitment.forEach(element => {
         array.push(
@@ -10,6 +10,7 @@ export default function RecruitmentList({ recruitment, deleteForId }) {
                 key={element.id}
                 recruitment={element}
                 deleteForId={deleteForId}
+                newRecruitment={newRecruitment}
             />
         )
     });

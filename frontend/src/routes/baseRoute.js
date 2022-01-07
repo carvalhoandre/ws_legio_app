@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 function BaseRoute() {
     return (
         <Stack.Navigator
-            initialRouteName="DataMain"
+            initialRouteName="AtaSearch"
         >
             <Stack.Screen
                 name="DataMain"
