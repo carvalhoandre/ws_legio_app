@@ -26,7 +26,14 @@ export default {
     },
 
     fontFamily: {
+        WorkSans: 'WorkSans',
         OldEnglish: 'Old English Text MT',
-        WorkSans: 'WorkSans'
+        superTitle: 'Inter_900Black',
+        title: 'Inter_700Bold',
+        subtitle: 'Inter_600SemiBold',
+        text: ' Inter_400Regular',
+        bold: 'Inter_500Medium',
+        sitacao: 'Inter_100Thin',
+        italic: 'Inter_300Light'
     }
 }

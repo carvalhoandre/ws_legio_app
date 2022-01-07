@@ -1,6 +1,5 @@
 package com.legioapp.services;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,9 +81,14 @@ public class LegioService {
 
 	}
 	
-	public List<Legio> findForBirthday() {
-		Date myDate = new Date();
-		List<Legio> obj = repo.findForBirthday(myDate);
+	public List<Legio> findForBirthday(String date) {
+		List<Legio> obj = repo.findForBirthday(date);
+		return obj;
+	}
+	
+	public List<Legio> findBirthdayMonth(String mes) {
+		String newObj = ("___"+mes);
+		List<Legio> obj = repo.findBirthdayMonth(newObj);
 		return obj;
 	}
 }

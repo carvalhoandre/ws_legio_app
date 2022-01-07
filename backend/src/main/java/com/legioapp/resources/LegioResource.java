@@ -60,9 +60,15 @@ public class LegioResource {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping("/birthday")
-	public ResponseEntity<List<Legio>> findBirthday(){
-		List<Legio> list = service.findForBirthday();
+	@GetMapping("/birthday/{date}")
+	public ResponseEntity<List<Legio>> findBirthday(@PathVariable String date){
+		List<Legio> list = service.findForBirthday(date);
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping("/month/{mes}")
+	public ResponseEntity<List<Legio>> findBirthMonth(@PathVariable String mes){
+		List<Legio> list = service.findBirthdayMonth(mes);
 		return ResponseEntity.ok(list);
 	}
 }

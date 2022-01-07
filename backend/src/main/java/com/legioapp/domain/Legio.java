@@ -2,7 +2,6 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.ChargeType;
 
@@ -35,8 +33,7 @@ public class Legio implements Serializable{
 	private Integer type;
 	
 	@CollectionTable(name="aniversario")
-	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date birthday;
+	private String birthday;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="legio")
@@ -45,7 +42,7 @@ public class Legio implements Serializable{
 	public Legio() {
 	}	
 	
-	public Legio(Integer id, String name, ChargeType type, Date birthday) {
+	public Legio(Integer id, String name, ChargeType type, String birthday) {
 		this.id = id;
 		this.name = name;
 		this.type = (type==null) ? null: type.getCod();
@@ -76,11 +73,11 @@ public class Legio implements Serializable{
 		this.name = name;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

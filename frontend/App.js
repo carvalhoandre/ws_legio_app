@@ -6,6 +6,7 @@ import Routes from './src/routes/Routes';
 import { Provider as PaperProvider } from 'react-native-paper';
 import storeConfig from './src/config/store/storeConfig'
 import { Provider } from 'react-redux';
+import { useFonts, Inter_900Black, Inter_100Thin, Inter_200ExtraLight, Inter_300Light, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold } from '@expo-google-fonts/inter';
 
 export default class App extends Component {
 
@@ -26,6 +27,19 @@ export default class App extends Component {
         display: Font.FontDisplay.FALLBACK,
       },
     })
+
+    useFonts({
+      Inter_900Black,
+      Inter_100Thin, 
+      Inter_200ExtraLight, 
+      Inter_300Light, 
+      Inter_400Regular, 
+      Inter_500Medium, 
+      Inter_600SemiBold, 
+      Inter_700Bold, 
+      Inter_800ExtraBold
+    });
+
     this.setState({ fontsLoaded: true });
   }
 
@@ -35,7 +49,7 @@ export default class App extends Component {
 
   render() {
     const store = storeConfig()
-    
+
     if (this.state.fontsLoaded) {
       return (
         <Provider store={store}>
