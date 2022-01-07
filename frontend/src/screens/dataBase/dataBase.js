@@ -28,7 +28,7 @@ const DataBase = () => {
                 >
                     <List.Item title="Criar"
                         onPress={(() => {
-                            navigation.navigate('CreateAta')
+                            navigation.navigate('AtaCreate')
                         })}
                         titleStyle={styles.subtitle}
                     />

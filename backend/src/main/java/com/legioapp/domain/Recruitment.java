@@ -3,15 +3,13 @@ package com.legioapp.domain;
 import java.io.Serializable;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.PersonType;
 
 @Entity
@@ -25,19 +23,14 @@ public class Recruitment implements Serializable{
 	
 	private String date;
 	
-	@CollectionTable(name="quantidade")
+	@Column(name="quantidade")
 	private Integer quantity;
 	
-	@CollectionTable(name="pessoa")
+	@Column(name="pessoa")
 	private Integer person;
 	
 	@CollectionTable(name="comparecimento")
 	private Integer attendancing;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ata")
-	private Ata ata;
 
 	public Recruitment() {
 	}
@@ -80,14 +73,6 @@ public class Recruitment implements Serializable{
 
 	public void setPerson(PersonType person) {
 		this.person = person.getCod();
-	}
-	
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
 	}
 
 	public Integer getAttendancing() {

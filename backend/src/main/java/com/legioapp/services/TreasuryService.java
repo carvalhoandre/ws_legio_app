@@ -55,13 +55,13 @@ public class TreasuryService {
 	}
 	
 	public void UpdateData(Treasury newObj, Treasury obj) {
-		newObj.setAta(obj.getAta());
 		newObj.setColetaDoDia(obj.getColetaDoDia());
 		newObj.setDespesas(obj.getDespesas());
 		newObj.setDiaDaColeta(obj.getDiaDaColeta());
 		newObj.setSaldoAnterior(obj.getSaldoAnterior());
 		newObj.setSubTotal(obj.getSubTotal());
 		newObj.setTotalEmCaixa(obj.getTotalEmCaixa());
+		newObj.setColetaDoDia(obj.getContribuicao());
 	}
 	
 	public List<Treasury> findAll() {

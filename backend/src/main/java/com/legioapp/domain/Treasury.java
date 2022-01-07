@@ -2,17 +2,12 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_treasury")
@@ -25,32 +20,27 @@ public class Treasury implements Serializable{
 	
 	private String date;
 	
-	@CollectionTable(name="saldo_anterior")
+	@Column(name="saldo_anterior")
 	private Float saldoAnterior;
 	
-	@CollectionTable(name="coleta_do_dia")
+	@Column(name="coleta_do_dia")
 	private Float coletaDoDia;
 	
-	@Column(unique=true)
-	@CollectionTable(name="data_da_coleta")
+	@Column(unique=true, name="data_da_coleta")
 	private String diaDaColeta;
 	
+	private Float contribuicao;
 	private Float despesas;
 	private Float subTotal;
 	
-	@CollectionTable(name="total_em_caixa")
+	@Column(name="total_em_caixa")
 	private Float totalEmCaixa;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ata")
-	private Ata ata;
 	
 	public Treasury() {
 	}
 
 	public Treasury(Integer id, String date, Float saldoAnterior, Float coletaDoDia, String diaDaColeta, Float despesas,
-			Float subTotal, Float totalEmCaixa) {
+			Float subTotal, Float totalEmCaixa, Float contribuicao) {
 		this.id = id;
 		this.date = date;
 		this.saldoAnterior = saldoAnterior;
@@ -59,6 +49,7 @@ public class Treasury implements Serializable{
 		this.despesas = despesas;
 		this.subTotal = subTotal;
 		this.totalEmCaixa = totalEmCaixa;
+		this.contribuicao = contribuicao;
 	}
 	
 	public Integer getId() {
@@ -125,12 +116,12 @@ public class Treasury implements Serializable{
 		this.totalEmCaixa = totalEmCaixa;
 	}
 
-	public Ata getAta() {
-		return ata;
+	public Float getContribuicao() {
+		return contribuicao;
 	}
 
-	public void setAta(Ata ata) {
-		this.ata = ata;
+	public void setContribuicao(Float contribuicao) {
+		this.contribuicao = contribuicao;
 	}
 
 	@Override

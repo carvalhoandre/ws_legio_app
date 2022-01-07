@@ -56,7 +56,6 @@ public class WorkService {
 	
 	public void UpdateData(Work newObj, Work obj) {
 		newObj.setAdult(obj.getAdult());
-		newObj.setAta(obj.getAta());
 		newObj.setChildren(obj.getChildren());
 		newObj.setElderly(obj.getElderly());
 		newObj.setHours(obj.getHours());

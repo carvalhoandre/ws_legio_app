@@ -3,6 +3,7 @@ package com.legioapp.domain;
 import java.io.Serializable;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.AttendanceType;
 
 @Entity
@@ -23,6 +23,7 @@ public class Attendance implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(unique=true)
 	private String date;
 	
 	@ManyToOne
@@ -33,11 +34,6 @@ public class Attendance implements Serializable{
 	@CollectionTable(name="presenca_ou_falta")
 	private Integer attendance;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ata")
-	private Ata ata;
-
 	public Attendance() {
 	}
 
@@ -78,14 +74,6 @@ public class Attendance implements Serializable{
 
 	public void setAttendance(AttendanceType attendance) {
 		this.attendance = attendance.getCod();
-	}
-
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
 	}
 
 	@Override

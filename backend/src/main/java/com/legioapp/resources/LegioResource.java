@@ -51,4 +51,10 @@ public class LegioResource {
 		List<Legio> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/birthday")
+	public ResponseEntity<List<Legio>> findBirthday(){
+		List<Legio> list = service.findForBirthday();
+		return ResponseEntity.ok(list);
+	}
 }

@@ -16,6 +16,7 @@ const initialState = {
     hours: null,
     subTotal: '',
     totalEmCaixa: '',
+    contribuicao: '',
     loading: false,
     visible: false,
     title: '',
@@ -40,7 +41,8 @@ export default class Treasury extends Component {
         let newC = parseFloat(this.state.coletaDoDia, 10)
         let newD = parseFloat(this.state.despesas, 10)
         let newCDD = parseFloat(this.state.coletaDoDia, 10)
-        let tot = newSA + newC - newD
+        let newCTB = parseFloat(this.state.contribuicao, 10)
+        let tot = newSA + newC - newD - newCTB
         let sub = newSA + newC
         let newDate = formatDate(this.state.date)
 
@@ -48,6 +50,7 @@ export default class Treasury extends Component {
             saldoAnterior: newSA,
             coletaDoDia: newCDD,
             diaDaColeta: newDate,
+            contribuicao: newCTB,
             despesas: newC,
             subTotal: sub,
             totalEmCaixa: tot,
@@ -156,8 +159,20 @@ export default class Treasury extends Component {
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
+                        label="Contribuição ao Conselho Superior"
+                        value={this.state.contribuicao}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={contribuicao => this.setState({ contribuicao })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
                         label="Despesas"
-                        value={this.state.desdespesas}
+                        value={this.state.despesas}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}

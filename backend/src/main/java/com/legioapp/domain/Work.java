@@ -2,16 +2,13 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.legioapp.domain.enums.WorkType;
 
 @Entity
@@ -25,37 +22,32 @@ public class Work implements Serializable{
 	
 	private String date;
 	
-	@CollectionTable(name="trabalho")
+	@Column(name="trabalho")
 	private Integer work;
 	
-	@CollectionTable(name="contato_jovem")
+	@Column(name="contato_jovem")
 	private Integer yong;
 	
-	@CollectionTable(name="contato_adulto")
+	@Column(name="contato_adulto")
 	private Integer adult;
 	
-	@CollectionTable(name="contato_crianca")
+	@Column(name="contato_crianca")
 	private Integer children;
 	
-	@CollectionTable(name="contato_idoso")
+	@Column(name="contato_idoso")
 	private Integer elderly;
 	
-	@CollectionTable(name="total")
+	@Column(name="total")
 	private Integer total;
 	
-	@CollectionTable(name="duracao")
+	@Column(name="duracao")
 	private Float hours;
 	
-	@CollectionTable(name="observação")
+	@Column(name="observação")
 	private String observation;
 	
-	@CollectionTable(name="legionarioa")
+	@Column(name="legionarioa")
 	private String legio;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ata")
-	private Ata ata;
 
 	public Work() {
 	}
@@ -138,14 +130,6 @@ public class Work implements Serializable{
 
 	public void setHours(Float hours) {
 		this.hours = hours;
-	}
-
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
 	}
 
 	public Integer getChildren() {

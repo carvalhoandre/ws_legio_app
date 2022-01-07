@@ -4,21 +4,20 @@ import { View } from 'react-native';
 import LegioCard from './LegioCard';
 
 export default function LegioList({ legios, selectedLegios, onSelectLegio }) {
-    const test = []
+    const array = []
     legios.forEach(element => {
-        test.push(
+        array.push(
             <LegioCard
                 key={element.id}
                 legio={element}
                 onSelectLegio={onSelectLegio}
                 isSelected={checkIsSelected(selectedLegios, element)}
             />
-            
         )
     });
     return (
         <View>
-            {test}
+            {array}
         </View>
     )
 }

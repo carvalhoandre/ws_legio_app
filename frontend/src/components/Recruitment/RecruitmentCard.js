@@ -1,45 +1,45 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, Text } from 'react-native';
-import { Button, ListItem } from 'react-native-elements'
+import { View, StyleSheet, Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
+import commonStyles from '../../styles/commonStyles'
 
-export default function RecruitmentCard({ recruitment, deleteForId, showRecruitment }) {
+export default function RecruitmentCard({ recruitment, deleteForId }) {
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>Recrutamentos recentemente adicionados:</Text>
-            <ListItem.Swipeable
-                leftContent={
-                    <Button
-                        title="Info"
-                        icon={{ name: 'info', color: 'white' }}
-                        buttonStyle={{ minHeight: '100%' }}
-                        onPress={showRecruitment(
-                            recruitment.id,
-                            recruitment.quantity,
-                            recruitment.person,
-                            recruitment.attendancing
-                        )}
-                    />
-                }
-                rightContent={
-                    <Button
-                        title="Delete"
-                        icon={{ name: 'delete', color: 'white' }}
-                        buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
-                        onPress={deleteForId(recruitment.id)}
-                    />
-                }
+        <View style={styles.container}>
+            <Text style={styles.name}>{recruitment.person}</Text>
+            <Text style={styles.name}>Quantidade: {recruitment.quantity}</Text>
+            <Text style={styles.name}>Comparecimentos: {recruitment.attendancing}</Text>
+            <Button
+                onPress={(() => {
+                    deleteForId(recruitment.id)
+                })}
+                contentStyle={styles.buttons}
             >
-                <ListItem.Content>
-                    <ListItem.Title>{recruitment.id}</ListItem.Title>
-                </ListItem.Content>
-                <ListItem.Chevron />
-            </ListItem.Swipeable>
-        </SafeAreaView >
+                <Icon name={"checkmark"} size={30} color={commonStyles.colors.primaryHoverColor} />
+            </Button>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    buttons: {
+        backgroundColor: '#FFF',
+        justifyContent: 'flex-start',
+    },
+
+    name: {
+        color: commonStyles.colors.textColor,
+        fontSize: 18,
+    },
+    text: {
+        color: '#FFF',
+        fontSize: 18,
+    },
     container: {
-        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     }
 })

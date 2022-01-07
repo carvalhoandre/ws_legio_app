@@ -2,16 +2,12 @@ package com.legioapp.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_event")
@@ -24,25 +20,21 @@ public class Event implements Serializable{
 	
 	private String date;
 	
-	@CollectionTable(name="titulo")
+	@Column(name="titulo")
 	private String name;
 	
-	@CollectionTable(name="data_evento")
+	@Column(name="data_evento")
 	private String dateEvent;
 	
-	@CollectionTable(name="quantidade_convidados")
+	@Column(name="quantidade_convidados")
 	private Integer guests;
 	
-	@CollectionTable(name="quantidade_ativos")
+	@Column(name="quantidade_ativos")
 	private Integer ativos;
 	
-	@CollectionTable(name="quantidade_auxilixares")
+	@Column(name="quantidade_auxilixares")
 	private Integer auxiliares;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ata")
-	private Ata ata;
+
 
 	public Event() {
 	}
@@ -111,14 +103,6 @@ public class Event implements Serializable{
 
 	public void setDateEvent(String dateEvent) {
 		this.dateEvent = dateEvent;
-	}
-
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAta(Ata ata) {
-		this.ata = ata;
 	}
 
 	@Override

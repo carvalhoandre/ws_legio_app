@@ -1,5 +1,6 @@
 package com.legioapp.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,5 +80,11 @@ public class LegioService {
 	public Legio fromDTO(LegioDTO objDto) {
 		return new Legio(objDto.getId(), objDto.getName(), null, null);
 
+	}
+	
+	public List<Legio> findForBirthday() {
+		Date myDate = new Date();
+		List<Legio> obj = repo.findForBirthday(myDate);
+		return obj;
 	}
 }

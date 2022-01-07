@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.legioapp.domain.Ata;
 import com.legioapp.domain.AtaExtenso;
 import com.legioapp.repositories.AtaExtensoRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
@@ -27,7 +26,7 @@ public class AtaExtensoService {
 	public AtaExtenso find(Integer  id) {
 		Optional<AtaExtenso> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Ata.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + AtaExtenso.class.getName()));
 	}
 	
 	public AtaExtenso insert(AtaExtenso obj) {

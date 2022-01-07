@@ -70,7 +70,6 @@ public class AttendanceService {
 	}
 	
 	public void UpdateData(Attendance newObj, Attendance obj) {
-		newObj.setAta(obj.getAta());
 		newObj.setDate(obj.getDate());
 		newObj.setLegio(obj.getLegio());
 		newObj.setAttendance(obj.getAttendance());

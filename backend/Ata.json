@@ -32,6 +32,7 @@
             "total": 9,
             "hours": 1.10,
             "legios": "Jailson e Janny"
+            
         },
         {
             "work": 0,
@@ -73,38 +74,7 @@
         "diaDaColeta": "27/11/2021",
         "despesas": 289.00,
         "subTotal": 337.32,
+        "contribuicao": 0.00,
         "totalEmCaixa": 337.32
     }]
 }
-
-/* {
-    id: 1,
-    // page1
-    number: null,
-    dataExtenso: moment().locale('pt-br').format('LL HH:MM'),
-    date: moment().locale('pt-br').format('DD-MM-YYYY'),
-    participation: '',
-    /* page 2 */
-    capituloEspiritual: '',
-    paginaEspiritual: '',
-    titleEspiritual: '',
-    /* page 3 */
-    saldoAnterior: null,
-    coletaDoDia: null,
-    diaDaColeta: '',
-    despesas: null,
-    subTotal: null,
-    totalEmCaixa: null,
-    //page5 
-    /* work */
-    //page6
-    allocutionAutor: '',
-    allocutionAssunto: '',
-    paginaEstudo: '',
-    paragrafoEstudo: '',
-    //others
-    loading: false,
-    visible: false,
-    title: '',
-    body: '',
-} */

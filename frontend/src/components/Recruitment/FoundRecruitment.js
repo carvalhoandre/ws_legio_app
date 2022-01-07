@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRecruitmentForDate, deleteRecruitment } from '../../service/api';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import RecruitmentList from './RecruitmentList';
 import { Button } from 'react-native-elements'
@@ -15,42 +15,33 @@ function FoundRecruitment(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
+    const [teste, setTeste] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
         getRecruitmentForDate(data)
             .then((response) => {
-                const obj = response.data
-                console.log(obj)
-                if (obj.length >= 1) {
-                    setRecruitment(obj)
-                }
+                setRecruitment(response.data)
             })
-            .catch(error => {
-                setMessage({ title: 'Error 😵😵😵', message: error })
+            .catch(() => {
+                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
                 setVisible(true)
             })
-    }, [])
+    }, [teste])
 
     const deleteForId = (id) => {
         deleteRecruitment(id)
             .then(() => {
-                setMessage({ title: '🥳', message: 'Deletado com sucesso' })
+                let or = !teste
+                setTeste(or)
+                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
                 setVisible(true)
             })
-            .catch(error => {
-                setMessage({ title: 'Error 😵😵😵', message: error })
+            .catch((error) => {
+                setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
             })
-    }
-
-    const showRecruitment = (id, quantity, person, attendancing) => {
-        setMessage({
-            title: `Recrutamento de n° ${id}`,
-            message: `Foram chamados ${quantity} ${person} e compareceram ${attendancing}`
-        })
-        setVisible(true)
     }
 
     return (
@@ -71,7 +62,14 @@ function FoundRecruitment(props) {
                     </Dialog.Actions>
                 </Dialog>
             </Portal>
-           
+            {recruitment.length >= 1 ?
+                <RecruitmentList
+                    recruitment={recruitment}
+                    deleteForId={deleteForId}
+                />
+                :
+                <Text>Não há recrutamentos na data informada</Text>
+            }
         </View>
     );
 

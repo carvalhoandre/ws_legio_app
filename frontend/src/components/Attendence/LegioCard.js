@@ -6,21 +6,24 @@ import commonStyles from '../../styles/commonStyles'
 
 export default function LegioCard({ legio, onSelectLegio, isSelected }) {
     return (
-        <View style={styles.container}>
-            <Button
-                onPress={(() => {
-                    onSelectLegio(legio)  
-                })}
-                contentStyle={styles.buttons}
-            >
-                {isSelected ?
-                    <Icon name={"checkmark"} size={30} color={commonStyles.colors.primaryHoverColor} />
-                    :
-                    <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
-                }
-            </Button>
-            <Text style={styles.name}>{legio.name}</Text>
-        </View>
+        legio.type === "ATIVO" ?
+            <View style={styles.container}>
+                <Button
+                    onPress={(() => {
+                        onSelectLegio(legio)
+                    })}
+                    contentStyle={styles.buttons}
+                >
+                    {isSelected ?
+                        <Icon name={"checkmark"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                        :
+                        <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                    }
+                </Button>
+                <Text style={styles.name}>{legio.name}</Text>
+            </View>
+            :
+            null
     )
 }
 
@@ -38,10 +41,10 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 18,
     },
-     container: {
+    container: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center'
-     }
+    }
 })

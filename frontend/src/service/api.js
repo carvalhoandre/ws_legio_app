@@ -30,7 +30,11 @@ export function createRecruitment(recruitment) {
 }
 
 export function deleteRecruitment(id) {
-    return axios.delete(`${API_URL}/${id}`)
+    return axios.delete(`${API_URL}/recruitment/${id}`)
+}
+
+export function createRecruitment(recruitment) {
+    return axios.post(`${API_URL}/recruitment`, recruitment)
 }
 
 //work
