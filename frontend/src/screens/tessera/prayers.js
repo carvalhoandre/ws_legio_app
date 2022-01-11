@@ -16,7 +16,6 @@ const Prayers = () => {
 
     return (
         <>
-
             <View style={styles.container}>
                 <Text style={styles.title}>Orações da Legião</Text>
 
@@ -44,6 +43,7 @@ const Prayers = () => {
                         icon={open ? 'close' : 'check'}
                         fabStyle={styles.button}
                         color={"#FFF"}
+                        style={styles.fontOption}
                         actions={[
                             {
                                 icon: 'chevron-right',                                
@@ -57,7 +57,7 @@ const Prayers = () => {
                                 label: 'Catena',
                                 onPress: (() => {
                                     navigation.navigate('Catena');
-                                }),
+                                })
                             },
                             {
                                 icon: 'chevron-right',        
@@ -105,31 +105,39 @@ const Prayers = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 2,
+        flex: 1,
         padding: 25,
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 20
     },
+
     title: {
-        fontFamily: commonStyles.fontFamily.OldEnglish,
-        color: commonStyles.colors.primaryHoverColor,
-        fontSize: commonStyles.fontSize.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.title,
     },
+
     subtitle: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small,
         marginBottom: 20,
     },
     paragraph: {
-        lineHeight: 23,
+        lineHeight: 28,
         textAlign: 'justify',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        marginBottom: 10,
+        fontFamily: commonStyles.fontFamily.text,
+        marginBottom: 15,
         fontSize: commonStyles.fontSize.normal,
     },
     button: {
         backgroundColor: commonStyles.colors.firstColorLight,
+    },
+
+    fontOption: {
+        color: commonStyles.colors.textColor,
+        fontFamily: commonStyles.fontFamily.title
     }
 })
 

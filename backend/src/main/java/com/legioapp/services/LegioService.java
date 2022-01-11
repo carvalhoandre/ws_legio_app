@@ -59,6 +59,7 @@ public class LegioService {
 		newObj.setBirthday(obj.getBirthday());
 		newObj.setType(obj.getType());
 		newObj.setAttendance(obj.getAttendance());
+		newObj.setInitial(obj.getInitial());
 	}
 	
 	public List<Legio> findAll() {
@@ -77,7 +78,7 @@ public class LegioService {
 	}
 	
 	public Legio fromDTO(LegioDTO objDto) {
-		return new Legio(objDto.getId(), objDto.getName(), null, null);
+		return new Legio(objDto.getId(), objDto.getName(), null, null, null);
 
 	}
 	

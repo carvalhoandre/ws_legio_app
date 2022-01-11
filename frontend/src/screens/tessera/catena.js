@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class Catena extends Component {
 
@@ -15,7 +16,7 @@ export default class Catena extends Component {
                     </Text>
 
                     <Text style={styles.paragraph}>
-                        A minh’alma + engrandece ao Senhor*
+                        A minh'alma <Icon name={"christianity"} size={20} color={"#000"} /> engrandece ao Senhor*
                     </Text>
 
                     <Text style={styles.paragraph}>
@@ -96,25 +97,31 @@ const styles = StyleSheet.create({
     paragraph: {
         lineHeight: 22,
         textAlign: "justify",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         marginBottom: 15,
         fontSize: commonStyles.fontSize.normal,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.subtitle,
         fontSize: commonStyles.fontSize.normal,
     },
     repply: {
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         fontSize: commonStyles.fontSize.normal,
     },
-    bold: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+    observation: {
+        fontFamily: commonStyles.fontFamily.sitacao,
         color: commonStyles.colors.textColor,
+        textAlign: 'center',
+        fontSize: commonStyles.fontSize.small
     },
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+    }
 })

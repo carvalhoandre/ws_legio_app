@@ -35,6 +35,9 @@ public class Legio implements Serializable{
 	@CollectionTable(name="aniversario")
 	private String birthday;
 
+	@CollectionTable(name="data_entrada")
+	private String initial;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="legio")
 	private List<Attendance> attendance = new ArrayList<>();
@@ -42,11 +45,12 @@ public class Legio implements Serializable{
 	public Legio() {
 	}	
 	
-	public Legio(Integer id, String name, ChargeType type, String birthday) {
+	public Legio(Integer id, String name, ChargeType type, String birthday, String initial) {
 		this.id = id;
 		this.name = name;
 		this.type = (type==null) ? null: type.getCod();
 		this.birthday = birthday;
+		this.initial = initial;
 	}
 
 	public ChargeType getType() {
@@ -87,6 +91,14 @@ public class Legio implements Serializable{
 
 	public void setAttendance(List<Attendance> attendance) {
 		this.attendance = attendance;
+	}
+
+	public String getInitial() {
+		return initial;
+	}
+
+	public void setInitial(String initial) {
+		this.initial = initial;
 	}
 
 	@Override

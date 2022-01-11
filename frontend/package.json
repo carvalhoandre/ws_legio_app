@@ -8,7 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/great-vibes": "^0.2.0",
     "@expo-google-fonts/inter": "^0.2.0",
+    "@expo-google-fonts/josefin-sans": "^0.2.0",
     "@react-native-community/datetimepicker": "^5.0.2",
     "@react-native-community/picker": "^1.8.1",
     "@react-native-picker/picker": "^2.2.1",

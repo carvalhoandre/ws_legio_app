@@ -73,21 +73,22 @@ export default class Work extends Component {
         return (
             this.state.loading ?
                 <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
                 </View>
                 :
                 <>
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                            <Dialog.Title>{this.state.title}</Dialog.Title>
+                            <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>{this.state.body}</Paragraph>
+                                <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
                                     title="Ok"
                                     type="outline"
                                     onPress={this.hideDialog}
+                                    buttonStyle={styles.dialogButton}
                                 />
                             </Dialog.Actions>
                         </Dialog>
@@ -95,7 +96,7 @@ export default class Work extends Component {
 
                     <Picker
                         selectedValue={this.state.person}
-                        style={{ height: 50, width: 150 }}
+                        style={{ height: 50, width: '100%', marginTop: 10 }}
                         onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
                     >
                         <Picker.Item label="Visita" value={0} style={styles.textOption} />
@@ -175,6 +176,7 @@ export default class Work extends Component {
 
                     <TextInput
                         label="Observação"
+                        multiline={true}
                         value={this.state.observation}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
@@ -195,7 +197,6 @@ export default class Work extends Component {
                             disabledStyle={styles.buttonDisabled}
                         />
                     </View>
-
                 </>
         )
     }
@@ -203,65 +204,19 @@ export default class Work extends Component {
 
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        paddingTop: Platform.OS === "ios" ? 0 : 50,
-    },
 
     spinner: {
         flex: 1,
         justifyContent: "center"
     },
 
-    container: {
-        paddingBottom: 20,
-        paddingTop: 20,
-        paddingLeft: 30,
-        paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#E5E5E5',
-        shadowColor: '#a7b0c0',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
-        elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 24,
-
-    },
-
     scrollView: {
         marginHorizontal: 0,
     },
 
-    title: {
-        color: commonStyles.colors.titleColor,
-        fontWeight: '400',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.subtitle,
-        marginBottom: 30,
-    },
-
-    text: {
-        color: "#757575",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 11,
-        marginTop: -20,
-        marginBottom: 20
-    },
-
-    subtitle: {
-        color: commonStyles.colors.textColorLight,
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 16.5,
-    },
-
     input: {
         marginBottom: 20,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         backgroundColor: 'transparent'
     },
 
@@ -278,7 +233,7 @@ const styles = StyleSheet.create({
 
     buttonSend: {
         marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryHoverColor,
+        backgroundColor: commonStyles.colors.primaryColor,
         padding: 5,
         borderRadius: 8,
         margin: 'auto',
@@ -300,17 +255,34 @@ const styles = StyleSheet.create({
         height: 40
     },
 
-
     textButton: {
         color: "#FFF",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: "900",
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
+    },
+
+    dialogButton: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderColor: commonStyles.colors.bodyColor,
+        borderWidth: 0,
+    },
+
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.titleColor
     },
 
     textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
 
-    }
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
+    },
+
 })

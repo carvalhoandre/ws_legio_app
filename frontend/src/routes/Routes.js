@@ -3,8 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import commonStyles from '../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text, View, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
 /* screens */
 import Home from '../screens/home'
 import PrayersRoute from './prayersRoute'
@@ -12,14 +11,6 @@ import ReadingRoute from "../routes/readingRoute";
 import BaseRoute from "./baseRoute";
 
 const Tab = createBottomTabNavigator();
-
-const Settings = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Configurações</Text>
-        </View>
-    )
-}
 
 export default class Routes extends Component {
 
@@ -32,26 +23,23 @@ export default class Routes extends Component {
                         headerShown: false,
                     }}
                     screenOptions={({ route }) => ({
-                        tabBarActiveTintColor: commonStyles.colors.primaryHoverColor,
-                        tabBarInactiveTintColor: "#c1c3c7",
+                        tabBarActiveTintColor: "#11142D",
+                        tabBarInactiveTintColor: "#11142D",
                         tabBarShowLabel: false,
-                        tabBarIcon: ({ color, size }) => {
+                        tabBarIcon: ({ color, size, focused }) => {
                             let iconName;
                             switch (route.name) {
                                 case 'Home':
-                                    iconName = 'home-outline';
-                                    break;
-                                case 'Settings':
-                                    iconName = 'settings-outline';
+                                    iconName = focused ? 'home-sharp' : 'home-outline';
                                     break;
                                 case 'PrayersRoute':
-                                    iconName = 'flame-outline';
+                                    iconName = focused ? 'flame' : 'flame-outline';
                                     break;
                                 case 'Readings':
-                                    iconName = 'document-attach-outline';
+                                    iconName = focused ? 'document-attach':'document-attach-outline';
                                     break;
                                 case 'Database':
-                                    iconName = 'flask';
+                                    iconName = focused ? 'flask' : 'flask-outline';
                                     break;
                                 default:
                                     iconName = 'albums-outline';
@@ -61,16 +49,16 @@ export default class Routes extends Component {
                         },
                     })}
                 >
-                    <Tab.Screen 
-                        name="Home" 
+                    <Tab.Screen
+                        name="Home"
                         component={Home}
                         options={{
                             headerShown: false,
-                        }} 
+                        }}
                     />
-                    <Tab.Screen 
-                        name="PrayersRoute" 
-                        component={PrayersRoute} 
+                    <Tab.Screen
+                        name="PrayersRoute"
+                        component={PrayersRoute}
                         options={{
                             headerShown: false,
                         }}
@@ -78,35 +66,16 @@ export default class Routes extends Component {
                     <Tab.Screen
                         name="Database"
                         component={BaseRoute}
-                        options={() => ({
-                            headerShown: false,
-                            tabBarIcon: ({ tintColor }) => (
-                                <View>
-                                    <LinearGradient
-                                        style={styles.iconTabRound}
-                                        start={{ x: 0, y: 1 }}
-                                        end={{ x: 0, y: 0 }}
-                                        colors={[commonStyles.colors.primaryHoverColor, commonStyles.colors.firstColorLight]}
-                                    >
-                                        <Icon name="flask" size={26} color="#FFF" />
-                                    </LinearGradient>
-                                </View>
-                            )
-                        })}
+                        options={{
+                            headerShown: false
+                        }}
                     />
-                    <Tab.Screen 
-                        name="Readings" 
-                        component={ReadingRoute} 
+                    <Tab.Screen
+                        name="Readings"
+                        component={ReadingRoute}
                         options={{
                             headerShown: false,
-                        }}    
-                    />
-                    <Tab.Screen 
-                        name="Settings" 
-                        component={Settings}
-                        options={{
-                            headerShown: false,
-                        }} 
+                        }}
                     />
                 </Tab.Navigator>
             </NavigationContainer>
@@ -139,5 +108,5 @@ const styles = StyleSheet.create({
         fontSize: commonStyles.fontSize.small,
         textAlign: "center",
         justifyContent: "center",
-    }
+    },
 });

@@ -3,11 +3,11 @@ import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Opening = () => {
 
     const navigation = useNavigation();
-
     const [visible, setVisible] = useState(false);
 
     const showModal = () => setVisible(true);
@@ -53,7 +53,7 @@ const Opening = () => {
             <View style={styles.container}>
                 <Provider >
                     <Text style={styles.paragraph}>
-                        Em nome do Pai + e do Filho e do Espírito Santo. Amém.
+                        Em nome do Pai <Icon name={"christianity"} size={20} color={"#000"} /> e do Filho e do Espírito Santo. Amém.
                     </Text>
 
                     <Text style={styles.paragraph}>
@@ -104,14 +104,14 @@ const Opening = () => {
                             {list.map((u, i) => {
                                 return (
                                     <Button key={i} onPress={u.onPress}>
-                                        {u.title}
+                                        <Text style={styles.option}>{u.title}</Text>
                                     </Button>
                                 )
                             })}
                         </Modal>
                     </Portal>
                     <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={showModal}>
-                        Mistérios
+                        <Text style={styles.titleOption}>Mistérios</Text>
                     </Button>
 
                     <Text style={styles.jaculatory}>
@@ -176,37 +176,53 @@ const styles = StyleSheet.create({
     paragraph: {
         lineHeight: 22,
         textAlign: "justify",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         marginBottom: 15,
         fontSize: commonStyles.fontSize.normal,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.subtitle,
         fontSize: commonStyles.fontSize.normal,
     },
     repply: {
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         fontSize: commonStyles.fontSize.normal,
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        color: commonStyles.colors.textColorLight,
+        fontFamily: commonStyles.fontFamily.sitacao,
+        color: commonStyles.colors.textColor,
+        textAlign: 'center',
+        fontSize: commonStyles.fontSize.small
     },
     bold: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.textColor,
     },
     containerOptions: {
         backgroundColor: '#FFF',
         padding: 20,
         zIndex: 100,
-        position: 'absolute',
     },
+
+    titleOption: {
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.primaryColor,
+        textTransform: 'capitalize'
+    },
+
+    option: {
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.titleColor,
+        textTransform: 'capitalize',
+        textAlign: 'center',
+    }
 })
 
 export default Opening;

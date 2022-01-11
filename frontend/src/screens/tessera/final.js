@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 import { Button, Modal, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Final = () => {
 
@@ -55,13 +56,16 @@ const Final = () => {
                         gloriosa e bendita.
                     </Text>
 
-                    <Text style={styles.observation}>
+                    <Text style={styles.jaculatory}>
                         P. (Invocação própria do Praesidium)
                     </Text>
-
                     <Text style={styles.observation}>
                         Fora das reuniões do Praesidium reza-se sempre a invocação seguinte:
                     </Text>
+                    <Text style={styles.repply}>
+                        R. Rogai por nós
+                    </Text>
+
 
                     <Text style={styles.jaculatory}>
                         P. Maria Imaculada, Medianeira de todas as graças,
@@ -123,7 +127,7 @@ const Final = () => {
                     </Text>
 
                     <Text style={styles.paragraph}>
-                        Em nome do Pai + e do Filho e do Espírito Santo. Amém.
+                        Em nome do Pai <Icon name={"christianity"} size={20} color={"#000"} /> e do Filho e do Espírito Santo. Amém.
                     </Text>
 
                     <Portal>
@@ -131,14 +135,14 @@ const Final = () => {
                             {list.map((u, i) => {
                                 return (
                                     <Button key={i} onPress={u.onPress}>
-                                        {u.title}
+                                        <Text style={styles.option}>{u.title}</Text>
                                     </Button>
                                 )
                             })}
                         </Modal>
                     </Portal>
                     <Button style={{ marginTop: 30 }} onPress={showModal}>
-                        Orações dos Fundadores
+                        <Text style={styles.titleOption}>Orações dos Fundadores</Text>
                     </Button>
                 </View>
             </Provider>
@@ -149,40 +153,63 @@ const Final = () => {
 const styles = StyleSheet.create({
     scrollView: {
         marginHorizontal: 0,
+        paddingBottom: 50
     },
     container: {
-        padding: 20,
+        padding: 25,
     },
     paragraph: {
-        lineHeight: 22,
+        lineHeight: 35,
         textAlign: "justify",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        marginBottom: 15,
+        fontFamily: commonStyles.fontFamily.text,
+        marginBottom: 20,
         fontSize: commonStyles.fontSize.normal,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.subtitle,
         fontSize: commonStyles.fontSize.normal,
-
     },
     repply: {
+        marginTop: 5,
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         fontSize: commonStyles.fontSize.normal,
-        marginBottom: 20,
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        color: commonStyles.colors.textColorLight,
-        marginBottom: 15,
+        fontFamily: commonStyles.fontFamily.sitacao,
+        color: commonStyles.colors.textColor,
+        textAlign: 'center',
+        fontSize: commonStyles.fontSize.small,
+        marginBottom: 5
+    },
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
     },
     containerOptions: {
         backgroundColor: '#FFF',
         padding: 20,
+        zIndex: 100,
+        marginTop: 800
+    },
+
+    titleOption: {
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.primaryColor,
+        textTransform: 'capitalize',
+    },
+
+    option: {
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.titleColor,
+        textTransform: 'capitalize',
+        textAlign: 'center',
     }
 })
 

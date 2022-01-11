@@ -28,8 +28,8 @@ export default class Recruitment extends Component {
     });
 
     send = async () => {
-        if (this.state.person < this.state.attendancing) {
-            this.setState({ body: `Quantidade de comparecimento maior que de recrutamento`, visible: true, title: "👀" })
+        if (this.state.quantity < this.state.attendancing) {
+            this.setState({ body: `Quantidade de comparecimento maior que de recrutamento`, visible: true, title: "Erro 👀" })
         } else {
             this.setState({ loading: true })
             let newObj = {
@@ -59,21 +59,22 @@ export default class Recruitment extends Component {
         return (
             this.state.loading ?
                 <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
                 </View>
                 :
                 <>
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                            <Dialog.Title>{this.state.title}</Dialog.Title>
+                            <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>{this.state.body}</Paragraph>
+                                <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
                                     title="Ok"
                                     type="outline"
                                     onPress={this.hideDialog}
+                                    buttonStyle={styles.dialogButton}
                                 />
                             </Dialog.Actions>
                         </Dialog>
@@ -81,7 +82,7 @@ export default class Recruitment extends Component {
 
                     <Picker
                         selectedValue={this.state.person}
-                        style={{ height: 50, width: 150 }}
+                        style={{ height: 50, width: '100%' }}
                         onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
                     >
                         <Picker.Item label="Criança" value={0} style={styles.textOption} />
@@ -187,9 +188,10 @@ const styles = StyleSheet.create({
         width: '100%'
     },
 
+    
     buttonSend: {
         marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryHoverColor,
+        backgroundColor: commonStyles.colors.primaryColor,
         padding: 5,
         borderRadius: 8,
         margin: 'auto',
@@ -211,23 +213,33 @@ const styles = StyleSheet.create({
         height: 40
     },
 
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
-
     textButton: {
         color: "#FFF",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: "900",
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
+    },
+
+    dialogButton: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderColor: commonStyles.colors.bodyColor,
+        borderWidth: 0,
+    },
+
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.titleColor
     },
 
     textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal,
+    },
 
-    }
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
+    },
 })

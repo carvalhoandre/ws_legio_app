@@ -29,8 +29,8 @@ function PrayersRoute() {
                 options={{
                     headerTitle: "Catena Legionis",
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -40,8 +40,8 @@ function PrayersRoute() {
                 options={{
                     headerTitle: "Orações Finais",
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -51,8 +51,8 @@ function PrayersRoute() {
                 options={{
                     headerTitle: "Orações Iniciais",
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -89,8 +89,8 @@ function PrayersRoute() {
                 component={Dolorosos}
                 options={{
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -99,8 +99,8 @@ function PrayersRoute() {
                 component={Gloriosos}
                 options={{
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -109,8 +109,8 @@ function PrayersRoute() {
                 component={Gozosos}
                 options={{
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        ffontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />
@@ -119,8 +119,8 @@ function PrayersRoute() {
                 component={Luminosos}
                 options={{
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
                     }
                 }}
             />

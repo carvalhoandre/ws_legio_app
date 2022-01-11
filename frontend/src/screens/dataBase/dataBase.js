@@ -22,7 +22,7 @@ const DataBase = () => {
                     title="Ata"
                     titleStyle={styles.title}
                     style={styles.option}
-                    left={(() => <Icon name={"create-outline"} size={20} color={commonStyles.colors.primaryHoverColor} />)}
+                    left={(() => <Icon name={"create-outline"} size={25} color={commonStyles.colors.primaryColor} />)}
                     expanded={expanded}
                     onPress={handlePress}
                 >
@@ -44,7 +44,7 @@ const DataBase = () => {
                     title="Legionários"
                     titleStyle={styles.title}
                     style={styles.option}
-                    left={(() => <Icon name={"people-outline"} size={20} color={commonStyles.colors.primaryHoverColor} />)}
+                    left={(() => <Icon name={"people-outline"} size={25} color={commonStyles.colors.primaryColor} />)}
                     expanded={expandedUser}
                     onPress={handlePressUser}
                 >
@@ -53,6 +53,7 @@ const DataBase = () => {
                             navigation.navigate('CreateLegio')
                         })}
                         titleStyle={styles.subtitle}
+                        style={styles.option}
                     />
                     <List.Item title="Buscar" titleStyle={styles.subtitle} />
                 </List.Accordion>
@@ -71,16 +72,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
     },
     title: {
-        fontSize: commonStyles.fontSize.normal,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontSize: commonStyles.fontSize.medium,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
-        fontWeight: '500'
     },
     subtitle: {
-        fontSize: commonStyles.fontSize.small,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontSize: commonStyles.fontSize.normal,
+        fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.textColor,
-        fontWeight: '300'
     }
 })
 

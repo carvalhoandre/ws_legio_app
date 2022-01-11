@@ -11,6 +11,10 @@ export function getLegios() {
     return axios.get(`${API_URL}/legio`);
 }
 
+export function getBirthdayMonth(month) {
+    return axios.get(`${API_URL}/legio/month/${month}`);
+}
+
 // attendance
 export function createAttendance(creds) {
     return axios.post(`${API_URL}/attendance`, creds)

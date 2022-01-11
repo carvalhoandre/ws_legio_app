@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements'
 import { createTreasury } from '../../service/api'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { formatDate } from '../../utils/format'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialState = {
     saldoAnterior: null,
@@ -96,21 +97,22 @@ export default class Treasury extends Component {
         return (
             this.state.loading ?
                 <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
                 </View>
                 :
                 <>
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                            <Dialog.Title>{this.state.title}</Dialog.Title>
+                            <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>{this.state.body}</Paragraph>
+                                <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
                                     title="Ok"
                                     type="outline"
                                     onPress={this.hideDialog}
+                                    buttonStyle={styles.dialogButton}
                                 />
                             </Dialog.Actions>
                         </Dialog>
@@ -129,8 +131,16 @@ export default class Treasury extends Component {
                     />
 
                     <View>
-                        <Text>Data da coleta Anterior</Text>
-                        <Button onPress={showDatepicker} title={`${formatDate(this.state.date)}`} />
+                        <Text style={styles.labelText}>Data da coleta Anterior</Text>
+                        <Button
+                            onPress={showDatepicker}
+                            title={`${formatDate(this.state.date)}`}
+                            buttonStyle={styles.button}
+                            titleStyle={styles.buttonText}
+                            icon={
+                                <Icon name={"calendar-sharp"} size={20} color={"#FFF"} />
+                            }
+                        />
                     </View>
 
                     {this.state.show && (
@@ -199,11 +209,6 @@ export default class Treasury extends Component {
 
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        paddingTop: Platform.OS === "ios" ? 0 : 50,
-    },
-
     spinner: {
         flex: 1,
         justifyContent: "center"
@@ -227,6 +232,18 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 24,
 
+    },
+
+    textOption: {
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
+
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
     },
 
     scrollView: {
@@ -257,12 +274,15 @@ const styles = StyleSheet.create({
 
     input: {
         marginBottom: 20,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         backgroundColor: 'transparent'
     },
 
     button: {
-        justifyContent: 'flex-start',
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.bodyColor,
+        marginTop: 5,
+        borderWidth: 0
     },
 
     containerButton: {
@@ -274,7 +294,7 @@ const styles = StyleSheet.create({
 
     buttonSend: {
         marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryHoverColor,
+        backgroundColor: commonStyles.colors.primaryColor,
         padding: 5,
         borderRadius: 8,
         margin: 'auto',
@@ -296,17 +316,27 @@ const styles = StyleSheet.create({
         height: 40
     },
 
-
     textButton: {
         color: "#FFF",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: "900",
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
     },
 
-    textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
+    dialogButton: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderColor: commonStyles.colors.bodyColor,
+        borderWidth: 0,
+    },
 
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.containerColor
+    },
+
+    labelText: {
+        fontFamily: commonStyles.fontFamily.bold,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.titleColor
     }
 })

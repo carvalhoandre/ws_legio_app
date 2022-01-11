@@ -14,22 +14,22 @@ import Treasury from '../../../components/Treasury';
 import Legios from '../../../components/Attendence/Legios'
 
 const initialState = {
-    id: 8,
+    id: 1,
     inicio: moment().locale('pt-br').format('H:mm'),
-    ata: 'Lida, aprovada e assinada',
+    ata: '',
     one: true,
     two: false,
     three: false,
-    participation: 'participação do membro auxiliar Raquel',
-    capituloEspiritual: '8',
-    paginaEspiritual: '318',
-    titleEspiritual: 'Liturgia da Palavra',
+    participation: '',
+    capituloEspiritual: '',
+    paginaEspiritual: '',
+    titleEspiritual: '',
     coleta: true,
-    allocutionAutor: 'Edenilson',
-    allocutionAssunto: '"a Festa de Cristo Rei',
-    paginaEstudo: '345',
-    paragrafoEstudo: '4',
-    assunto: 'Planejamento',
+    allocutionAutor: '',
+    allocutionAssunto: '',
+    paginaEstudo: '',
+    paragrafoEstudo: '',
+    assunto: '',
     //others
     loading: false,
     visible: false,
@@ -82,8 +82,9 @@ export default class AtaCreate extends Component {
 
         if (this.state.id === 1) {
             return (
+
                 <View styles={{ margin: 'auto' }}>
-                    <Text>Inicio: {this.state.inicio}</Text>
+                    <Text style={styles.subtitle}>Inicio: {this.state.inicio}</Text>
 
                     <View style={styles.check}>
                         <Text style={styles.subtitle}>Ata</Text>
@@ -92,8 +93,8 @@ export default class AtaCreate extends Component {
                             containerStyle={styles.option}
                             textStyle={styles.textOption}
                             title='Lida, aprovada e assinada'
-                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
+                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
                             checked={this.state.one}
                             onPress={() => this.setState({
                                 one: true,
@@ -107,8 +108,8 @@ export default class AtaCreate extends Component {
                             containerStyle={styles.option}
                             textStyle={styles.textOption}
                             title='Lida, aprovada com ressalvas e assinada'
-                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
+                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
                             checked={this.state.two}
                             onPress={() => this.setState({
                                 one: false,
@@ -122,8 +123,8 @@ export default class AtaCreate extends Component {
                             containerStyle={styles.option}
                             textStyle={styles.textOption}
                             title='Não houve leitura da ata'
-                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
+                            checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                            uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
                             checked={this.state.three}
                             onPress={() => this.setState({
                                 one: false,
@@ -132,11 +133,12 @@ export default class AtaCreate extends Component {
                                 ata: 'Não houve leitura da ata'
                             })}
                         />
-
                     </View>
 
                     <Text style={styles.subtitle}>Leitura Espiritual</Text>
                     <TextInput
+                        type="number"
+                        keyboardType="number-pad"
                         label="Capítulo"
                         value={this.state.capituloEspiritual}
                         underlineColor={"#A6B0BF"}
@@ -146,6 +148,8 @@ export default class AtaCreate extends Component {
                         onChangeText={capituloEspiritual => this.setState({ capituloEspiritual })}
                     />
                     <TextInput
+                        type="number"
+                        keyboardType="number-pad"
                         label="Página"
                         value={this.state.paginaEspiritual}
                         underlineColor={"#A6B0BF"}
@@ -170,9 +174,12 @@ export default class AtaCreate extends Component {
         if (this.state.id === 2) {
             return (
                 <View styles={{ margin: 'auto' }}>
+                    <Text style={styles.subtitle}>Chamada</Text>
+
                     <Legios />
 
                     <TextInput
+                        multiline={true}
                         label="Visitantes"
                         value={this.state.participation}
                         underlineColor={"#A6B0BF"}
@@ -188,7 +195,7 @@ export default class AtaCreate extends Component {
         if (this.state.id === 3) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Tesouraria</Text>
+                    <Text style={styles.subtitle}>Tesouraria</Text>
 
                     <Treasury />
                 </View>
@@ -198,7 +205,7 @@ export default class AtaCreate extends Component {
         if (this.state.id === 4) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Trabalhos</Text>
+                    <Text style={styles.subtitle}>Trabalhos</Text>
 
                     <Work />
                 </View>
@@ -208,7 +215,7 @@ export default class AtaCreate extends Component {
         if (this.state.id === 5) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Alocução</Text>
+                    <Text style={styles.subtitle}>Alocução</Text>
 
                     <TextInput
                         label="Autor"
@@ -234,8 +241,8 @@ export default class AtaCreate extends Component {
                         containerStyle={styles.option}
                         textStyle={styles.textOption}
                         title='Coleta Secreta'
-                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryHoverColor} />}
-                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryHoverColor} />}
+                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
                         checked={this.state.coleta}
                         onPress={(() => {
                             let colect = !this.state.coleta
@@ -249,7 +256,7 @@ export default class AtaCreate extends Component {
         if (this.state.id === 6) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Recrutamento</Text>
+                    <Text style={styles.subtitle}>Recrutamento</Text>
 
                     <Recruitment />
                 </View>
@@ -259,7 +266,7 @@ export default class AtaCreate extends Component {
         if (this.state.id === 7) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Estudo do Manual</Text>
+                    <Text style={styles.subtitle}>Estudo do Manual</Text>
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
@@ -290,11 +297,11 @@ export default class AtaCreate extends Component {
         if (this.state.id === 8) {
             return (
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.title}>Eventos</Text>
+                    <Text style={styles.subtitle}>Eventos</Text>
 
                     <Event />
                     <TextInput
-                        label="Visitantes"
+                        label="Outros Assuntos"
                         value={this.state.assunto}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
@@ -303,11 +310,12 @@ export default class AtaCreate extends Component {
                         onChangeText={assassunto => this.setState({ assunto })}
                     />
 
+                    <Text style={styles.obs}>Obs: Antes de Salvar ferifique os dados</Text>
                     <Button
                         onPress={this.send}
                         contentStyle={styles.buttonSend}
                     >
-                        <Text>Enviar</Text>
+                        <Icon name={"save-sharp"} size={45} color={commonStyles.colors.primaryColor} />
                     </Button>
                 </View>
             )
@@ -323,7 +331,7 @@ export default class AtaCreate extends Component {
                 }}
                 contentStyle={styles.buttons}
             >
-                <Icon name={"chevron-forward-outline"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                <Icon name={"chevron-forward-outline"} size={35} color={commonStyles.colors.primaryColor} />
             </Button>
         )
     }
@@ -338,7 +346,7 @@ export default class AtaCreate extends Component {
 
                 contentStyle={styles.buttons}
             >
-                <Icon name={"chevron-back-outline"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                <Icon name={"chevron-back-outline"} size={35} color={commonStyles.colors.primaryColor} />
             </Button>
         )
     }
@@ -361,7 +369,7 @@ export default class AtaCreate extends Component {
         return (
             this.state.loading ?
                 <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
                 </View>
                 :
                 <SafeAreaView
@@ -370,17 +378,17 @@ export default class AtaCreate extends Component {
                 >
                     <Portal>
                         <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                            <Dialog.Title>{this.state.title}</Dialog.Title>
+                            <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>{this.state.body}</Paragraph>
+                                <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
+                                    title="Ok"
                                     type="outline"
                                     onPress={this.hideDialog}
-                                >
-                                    <Text>Ok</Text>
-                                </Button>
+                                    buttonStyle={styles.dialogButton}
+                                />
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
@@ -405,12 +413,17 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === "ios" ? 0 : 50,
     },
 
+    spinner: {
+        flex: 1,
+        justifyContent: "center"
+    },
+
     container: {
         paddingBottom: 20,
         paddingTop: 20,
         paddingLeft: 30,
         paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
+        backgroundColor: commonStyles.colors.containerColor,
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#E5E5E5',
@@ -422,73 +435,59 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 15,
         marginBottom: 24,
-
     },
-
+    
+    dialogButton: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderColor: commonStyles.colors.bodyColor,
+        borderWidth: 0,
+    }, textButton: {
+        color: "#FFF",
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
+    },
     scrollView: {
         marginHorizontal: 0,
     },
 
-    title: {
-        color: commonStyles.colors.textColorHover,
-        fontWeight: '400',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.subtitle,
-        marginBottom: 30,
-    },
-
     subtitle: {
-        color: "#757575",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 18,
+        color: commonStyles.colors.textHover,
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.subtitle,
         marginLeft: 13,
         marginTop: 5,
         marginBottom: 2.5,
         fontWeight: '800'
     },
 
-    icon: {
-        width: 20,
-        height: 20
-    },
-
     check: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        marginBottom: 20,
+        marginBottom: 5,
+        marginTop: 20
     },
 
     input: {
         marginBottom: 20,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal,
         backgroundColor: 'transparent'
     },
 
     option: {
         backgroundColor: 'transparent',
+        borderColor: 'transparent'
     },
 
     textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
-
+        color: commonStyles.colors.textHover,
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
     },
 
     button: {
         justifyContent: 'flex-start',
-    },
-
-    buttonText: {
-        color: '#787F84',
-        fontWeight: '600',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-    },
-
-    iconNavigate: {
-        width: 40,
-        height: 40
     },
 
     buttons: {
@@ -505,16 +504,16 @@ const styles = StyleSheet.create({
 
     buttonSend: {
         marginBottom: 30,
-        marginTop: 20,
-        backgroundColor: commonStyles.colors.primaryColor,
-        padding: 5,
-        borderRadius: 8,
+        backgroundColor: 'transparent',
+        borderWidth: 0
+
     },
 
-    textButton: {
-        color: "#FFF",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '600',
-    },
-
+    obs: {
+        fontFamily: commonStyles.fontFamily.light,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.medium,
+        textAlign: 'center',
+        marginTop: 10
+    }
 })

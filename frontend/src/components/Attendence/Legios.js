@@ -53,13 +53,13 @@ export default function Legios() {
                 legio: {
                     id: element.id
                 },
-                attendance: 0
+                attendance: 1
             })
         })
 
         createAllAttendance(payload)
             .then(() => {
-                setMessage({ title: 'sucesso', message: 'sucesso' })
+                setMessage({ title: '😁😁😁', message: 'Chamada salva!' })
                 setVisible(true)
             }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
@@ -75,15 +75,16 @@ export default function Legios() {
         <View style={styles.container}>
             <Portal>
                 <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title>{message.title}</Dialog.Title>
+                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                     <Dialog.Content>
-                        <Paragraph>{message.message}</Paragraph>
+                        <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                     </Dialog.Content>
                     <Dialog.Actions>
                         <Button
                             title="Ok"
                             type="outline"
                             onPress={hideDialog}
+                            style={styles.buttons}
                         />
                     </Dialog.Actions>
                 </Dialog>
@@ -113,15 +114,22 @@ const styles = StyleSheet.create({
     },
 
     textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
 
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
     },
 
     buttons: {
-        backgroundColor: '#FFF',
+        backgroundColor: commonStyles.colors.containerColor,
         justifyContent: 'flex-start',
+        borderColor: commonStyles.colors.containerColor,
+        borderWidth: 0,
     },
 
     container: {

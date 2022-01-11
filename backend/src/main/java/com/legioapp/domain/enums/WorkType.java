@@ -4,7 +4,9 @@ public enum WorkType {
 	
 	VISITA(1, "Visita"),
 	ROSARIO(2, "Rosario"),
-	OFICIO(3, "Oficio");
+	OFICIO(3, "Oficio"),
+	LIGACAO(4, "Ligacao"),
+	PROPAGACAO(5, "Propagacao");
 	
 	private int cod;
 	private String desc;

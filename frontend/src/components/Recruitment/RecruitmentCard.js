@@ -120,7 +120,7 @@ export default class RecruitmentCard extends Component {
 const styles = StyleSheet.create({
     buttons: {
         backgroundColor: '#FFF',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
     },
 
     name: {
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 18,
     },
+    
     container: {
         paddingBottom: 20,
         paddingTop: 20,
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 15,
         marginBottom: 24,
-
     },
 
     input: {

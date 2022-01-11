@@ -15,9 +15,9 @@ export default function LegioCard({ legio, onSelectLegio, isSelected }) {
                     contentStyle={styles.buttons}
                 >
                     {isSelected ?
-                        <Icon name={"checkmark"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                        <Icon name={"checkmark"} size={30} color={commonStyles.colors.primaryColor}/>
                         :
-                        <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                        <Icon name={"close"} size={30} color={commonStyles.colors.primaryColor}/>
                     }
                 </Button>
                 <Text style={styles.name}>{legio.name}</Text>
@@ -29,13 +29,15 @@ export default function LegioCard({ legio, onSelectLegio, isSelected }) {
 
 const styles = StyleSheet.create({
     buttons: {
-        backgroundColor: '#FFF',
+        backgroundColor: commonStyles.colors.bodyColor,
         justifyContent: 'flex-start',
     },
 
     name: {
         color: commonStyles.colors.textColor,
-        fontSize: 18,
+        fontSize: commonStyles.fontSize.normal,
+        fontFamily: commonStyles.fontFamily.text,
+        color: commonStyles.colors.textColor,
     },
     text: {
         color: '#FFF',
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        marginTop: 5
+    },
 })

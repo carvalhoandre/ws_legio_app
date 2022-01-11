@@ -101,8 +101,7 @@ function FoundRecruitment(props) {
 const styles = StyleSheet.create({
     buttons: {
         backgroundColor: '#FFF',
-        justifyContent: 'flex-start',
-        border: 'none'
+        justifyContent: 'flex-start'
     },
 })
 

@@ -29,7 +29,7 @@ export default class Frank extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 50,
+        paddingTop: 80,
         paddingEnd: 50,
         paddingLeft: 20,
         paddingRight: 20,
@@ -37,28 +37,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontFamily: commonStyles.fontFamily.OldEnglish,
-        color: commonStyles.colors.primaryHoverColor,
-        fontSize: commonStyles.fontSize.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.primaryColor,
+        fontSize: 24,
         marginBottom: 20,
         textAlign: 'center'
     },
-    subtitle: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.small,
-        marginBottom: 20,
-    },
     paragraph: {
-        lineHeight: 23,
+        lineHeight: 30,
         textAlign: 'justify',
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         marginBottom: 10,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.medium,
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         color: commonStyles.colors.textColorLight,
         marginBottom: 15,
-    },
+    }
 })
