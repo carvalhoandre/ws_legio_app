@@ -38,8 +38,23 @@ export default class AtaCard extends Component {
         return (
             this.state.edit === true ?
                 <View style={styles.container}>
-                    <Text style={styles.subtitle}>Ata</Text>
+                     <View style={styles.fieldButton}>
+                         <Button
+                            title=""
+                            type="outline"
+                            buttonStyle={styles.buttonCancel}
+                            titleStyle={styles.textButton}
+                            onPress={(() => {
+                                let newEdit = !this.state.edit
+                                this.setState({ edit: newEdit })
+                            })}
+                            icon={
+                                <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                            }
+                                             />
+                     </View>
 
+                    
                     <CheckBox
                         containerStyle={styles.option}
                         textStyle={styles.textOption}
@@ -96,7 +111,7 @@ export default class AtaCard extends Component {
                         onChangeText={participation => this.setState({ participation })}
                     />
 
-                    <Text style={styles.text}>Leitura Espiritual</Text>
+                    <Text style={styles.title}>Leitura Espiritual</Text>
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
@@ -132,7 +147,7 @@ export default class AtaCard extends Component {
                         onChangeText={titleEspiritual => this.setState({ titleEspiritual })}
                     />
 
-                    <Text style={styles.text}>Alocução</Text>
+                    <Text style={styles.title}>Alocução</Text>
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
@@ -168,7 +183,7 @@ export default class AtaCard extends Component {
                         })}
                     />
 
-                    <Text style={styles.text}>Estudo do Manual</Text>
+                    <Text style={styles.title}>Estudo do Manual</Text>
                     <TextInput
                         type="number"
                         keyboardType="number-pad"
@@ -218,14 +233,14 @@ export default class AtaCard extends Component {
                     />
 
                     <Button
-                        title="Cancelar"
+                        title=""
                         type="outline"
-                        buttonStyle={styles.buttonCancel}
+                        buttonStyle={styles.buttonDelete}
                         titleStyle={styles.textButton}
-                        onPress={(() => {
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        })}
+                        onPress={() => { this.deleteForId(this.state.id) }}
+                        icon={
+                            <Icon name={"trash"} size={20} color={"#FFF"} />
+                        }
                     />
                 </View>
                 :
@@ -239,7 +254,7 @@ export default class AtaCard extends Component {
                     <Text style={styles.text}>
                         Participantes (Conviados): {this.state.participation}
                     </Text>
-                    <Text style={styles.text}>Leitura Espiritual</Text>
+                    <Text style={styles.subtitle}>Leitura Espiritual</Text>
                     <Text style={styles.text}>
                         Cápitulo: {this.state.capituloEspiritual}
                     </Text>
@@ -249,7 +264,7 @@ export default class AtaCard extends Component {
                     <Text style={styles.text}>
                         Título: {this.state.titleEspiritual}
                     </Text>
-                    <Text style={styles.text}>Alocução</Text>
+                    <Text style={styles.subtitle}>Alocução</Text>
                     <Text style={styles.text}>
                         Autor: {this.state.allocutionAutor}
                     </Text>
@@ -257,21 +272,21 @@ export default class AtaCard extends Component {
                         Assunto: {this.state.allocutionAssunto}
                     </Text>
 
-                    <Text style={styles.text}>
+                    <Text style={styles.subtitle}>
                         Coleta:
                         {this.state.coleta === true ? `Foi pasasda a coleta secreta` : 'Não foi pasasda a coleta secreta'}
                     </Text>
-                    <Text style={styles.text}>Estudo do Manual</Text>
+                    <Text style={styles.subtitle}>Estudo do Manual</Text>
                     <Text style={styles.text}>
                         Página: {this.state.paginaEstudo}
                     </Text>
                     <Text style={styles.text}>
                         Páragrafo: {this.state.paragrafoEstudo}
                     </Text>
-                    <Text style={styles.text}>
+                    <Text style={styles.subtitle}>
                         Assuntos: {this.state.assuntos}
                     </Text>
-                    <Text style={styles.text}>
+                    <Text style={styles.subtitle}>
                         Hora Final: {this.state.horaFinal}
                     </Text>
 
@@ -286,17 +301,6 @@ export default class AtaCard extends Component {
                         }}
                         icon={
                             <Icon name={"pencil"} size={20} color={"#FFF"} />
-                        }
-                    />
-
-                    <Button
-                        title=""
-                        type="outline"
-                        buttonStyle={styles.buttonCancel}
-                        titleStyle={styles.textButton}
-                        onPress={() => { this.deleteForId(this.state.id) }}
-                        icon={
-                            <Icon name={"trash"} size={20} color={"#FFF"} />
                         }
                     />
                 </View>
@@ -321,9 +325,10 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.normal
+        fontSize: commonStyles.fontSize.normal,
+        marginTop: 10,
     },
 
     text: {
@@ -393,11 +398,21 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
 
-    buttonCancel: {
+    buttonDelete: {
         backgroundColor: commonStyles.colors.primaryHoverColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 15,
         borderWidth: 0,
+    },
+
+    buttonCancel: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 0,
+        width: "20%"
+    },
+
+    fieldButton: {
+        alignItems: 'flex-end'
     },
 
     textButton: {
@@ -425,8 +440,16 @@ const styles = StyleSheet.create({
 
     textOption: {
         color: commonStyles.colors.textHover,
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontFamily: commonStyles.fontFamily.text,
         fontSize: commonStyles.fontSize.small,
     },
 
+    subtitle: {
+        textAlign: 'center',
+        marginTop: 15,
+        marginBottom: 5,
+        fontFamily: commonStyles.fontFamily.text,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.small
+    }
 })

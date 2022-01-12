@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Platform, SafeAreaView, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Platform, SafeAreaView, ScrollView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import FoundRecruitment from '../../../components/Recruitment/FoundRecruitment'
 import FoundAta from '../../../components/Ata/FoundAta'
@@ -20,17 +20,12 @@ export default class AtaFound extends Component {
     state = {
         ...initialState
     }
-
-    alterLoading = async (newLoad) => {
-        this.setState({ loading: newLoad })
-    }
-
     returnIndicator = () => {
         if (this.state.id === 1) {
             return (
                 <>
                     <Text style={styles.subtitle}>Ata</Text>
-                    <FoundAta alterLoading={this.alterLoading} />
+                    <FoundAta />
                 </>
             )
         }
@@ -149,11 +144,6 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         paddingTop: Platform.OS === "ios" ? 0 : 50,
-    },
-
-    spinner: {
-        flex: 1,
-        justifyContent: "center"
     },
 
     scrollView: {

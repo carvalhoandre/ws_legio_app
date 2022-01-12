@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAtaForDate, deleteAta, updateAta } from '../../service/api';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import AtaList from './AtaList';
 import { Button } from 'react-native-elements'
@@ -17,56 +17,63 @@ function FoundAta(props) {
     })
     const [data, setData] = useState(props.moment)
     const [teste, setTeste] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        props.alterLoading(true)
+        setLoading(true)
         getAtaForDate(data)
             .then((response) => {
                 setAta(response.data)
-                props.alterLoading(false)
+                setLoading(false)
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar Ata' })
                 setVisible(true)
-                props.alterLoading(false)
+                setLoading(false)
             })
     }, [teste])
 
     const deleteForId = (id) => {
-        props.alterLoading(true)
+        setLoading(true)
         deleteAta(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Ata deleteada com sucesso' })
                 setVisible(true)
-                props.alterLoading(false)
+                setLoading(false)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
-                props.alterLoading(false)
+                setLoading(false)
             })
     }
 
     const newAta = (ata) => {
-        props.alterLoading(true)
+        setLoading(true)
+
+        let newCap =  parseInt(ata.capituloEspiritual, 10)
+        let newPE =  parseInt(ata.paginaEspiritual, 10)
+        let newPA =  parseInt(ata.paginaEstudo, 10)
+        let newPR =  parseInt(ata.paragrafoEstudo, 10)
+
         let newObj = {
             id: ata.id,
             date: ata.date,
             inicio: ata.inicio,
             ata: ata.ata,
             participation: ata.participation,
-            capituloEspiritual: parseInt(ata.capituloEspiritual, 10),
-            paginaEspiritual: parseInt(ata.paginaEspiritual, 10),
+            capituloEspiritual: newCap,
+            paginaEspiritual: newPE,
             titleEspiritual: ata.titleEspiritual,
             allocutionAutor: ata.allocutionAutor,
             allocutionAssunto: ata.allocutionAssunto,
             coleta: ata.coleta,
-            paginaEstudo: parseInt(ata.paginaEstudo, 10),
-            paragrafoEstudo: parseInt(ata.paragrafoEstudo, 10),
+            paginaEstudo: newPA,
+            paragrafoEstudo: newPR,
             assuntos: ata.assuntos,
             horaFinal: ata.horaFinal
         }
@@ -77,16 +84,21 @@ function FoundAta(props) {
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
                 setVisible(true)
-                props.alterLoading(false)
+                setLoading(false)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
-                props.alterLoading(false)
+                setLoading(false)
             })
     }
 
     return (
+        loading === true ?
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+            </View>
+            :
             <>
                 <Portal>
                     <Dialog visible={visible} onDismiss={hideDialog}>
@@ -129,7 +141,16 @@ const styles = StyleSheet.create({
 
     spinner: {
         flex: 1,
-        justifyContent: "center"
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: commonStyles.colors.background,
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
 
     container: {

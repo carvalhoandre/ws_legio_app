@@ -20,9 +20,6 @@ public class AtaExtensoService {
 	@Autowired
 	private AtaExtensoRepository repo;
 	
-	@Autowired
-	private EmailService emailService;
-	
 	public AtaExtenso find(Integer  id) {
 		Optional<AtaExtenso> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -51,23 +48,23 @@ public class AtaExtensoService {
 	public AtaExtenso Update(AtaExtenso obj) {
 		AtaExtenso newObj = find(obj.getId());
 		UpdateData(newObj, obj);
-		emailService.sendOrderConfirmationHtmlEmail(newObj);
 		return repo.save(newObj);
 	}
 	
 	public void UpdateData(AtaExtenso newObj, AtaExtenso obj) {
+		newObj.setInicio(obj.getInicio());
+		newObj.setAta(obj.getAta());
 		newObj.setParticipation(obj.getParticipation());
-		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
-		newObj.setAllocutionAutor(obj.getAllocutionAutor());
 		newObj.setCapituloEspiritual(obj.getCapituloEspiritual());
-		newObj.setHoraFinal(obj.getHoraFinal());
 		newObj.setPaginaEspiritual(obj.getPaginaEspiritual());
+		newObj.setTitleEspiritual(obj.getTitleEspiritual());
+		newObj.setAllocutionAutor(obj.getAllocutionAutor());
+		newObj.setAllocutionAssunto(obj.getAllocutionAssunto());
+		newObj.setColeta(obj.getColeta());
 		newObj.setPaginaEstudo(obj.getPaginaEstudo());
 		newObj.setParagrafoEstudo(obj.getParagrafoEstudo());
-		newObj.setTitleEspiritual(obj.getTitleEspiritual());
 		newObj.setAssuntos(obj.getAssuntos());
-		newObj.setColeta(obj.getColeta());
-		newObj.setInicio(obj.getInicio());
+		newObj.setHoraFinal(obj.getHoraFinal());
 	}
 	
 	public List<AtaExtenso> findAll() {
