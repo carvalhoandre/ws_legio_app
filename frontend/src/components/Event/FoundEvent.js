@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { getEventForDate, deleteEvent, updateEvent } from '../../service/api';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import RecruitmentList from './RecruitmentList';
+import EventList from './EventList';
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { backDate } from '../../config/store/actions/date'
 import commonStyles from '../../styles/commonStyles'
+import { formatDate } from '../../utils/format'
 
-function FoundRecruitment(props) {
-    const [recruitment, setRecruitment] = useState([]);
+function FoundEvent(props) {
+    const [event, setEvent] = useState([]);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState({
         title: '',
@@ -21,9 +22,9 @@ function FoundRecruitment(props) {
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        getRecruitmentForDate(data)
+        getEventForDate(data)
             .then((response) => {
-                setRecruitment(response.data)
+                setEvent(response.data)
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
@@ -32,11 +33,11 @@ function FoundRecruitment(props) {
     }, [teste])
 
     const deleteForId = (id) => {
-        deleteRecruitment(id)
+        deleteEvent(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Evento deletado com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -45,20 +46,26 @@ function FoundRecruitment(props) {
             })
     }
 
-    const newRecruitment = (recruitment) => {
+    const newEvent = (event) => {
+        let newAt = parseInt(event.ativos, 10)
+        let newG = parseInt(event.guests, 10)
+        let newAu = parseInt(event.auxiliares, 10)
+
         let newObj = {
-            id: recruitment.id,
-            date: recruitment.date,
-            quantity: parseInt(recruitment.quantity, 10),
-            person: recruitment.person,
-            attendancing: parseInt(recruitment.attendancing, 10)
+            id: event.id,
+            date: event.date,
+            name: event.name,
+            guests: newG,
+            ativos: newAt,
+            auxiliares: newAu,
+            dateEvent: formatDate(event.date)
         }
 
-        updateRecruitment(newObj)
+        updateEvent(newObj)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Evento alterado com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -68,36 +75,36 @@ function FoundRecruitment(props) {
     }
 
     return (
-        <>
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
-                    <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.body}</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button
-                            title="Ok"
-                            type="outline"
-                            onPress={hideDialog}
-                            buttonStyle={styles.dialogButton}
-                        />
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
-            {recruitment.length >= 1 ?
-                <RecruitmentList
-                    recruitment={recruitment}
-                    deleteForId={deleteForId}
-                    newRecruitment={newRecruitment}
-                />
-                :
-                <View style={styles.container}>
-                    <Text style={styles.title}>Não há recrutamentos na data informada</Text>
-                    <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
-                </View>
-            }
-        </>
+            <>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                title="Ok"
+                                type="outline"
+                                onPress={hideDialog}
+                                buttonStyle={styles.dialogButton}
+                            />
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                {event.length >= 1 ?
+                    <EventList
+                        event={event}
+                        deleteForId={deleteForId}
+                        newEvent={newEvent}
+                    />
+                    :
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Não há eventos na data informada</Text>
+                        <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
+                    </View>
+                }
+            </>
     );
 
 }
@@ -106,6 +113,11 @@ const styles = StyleSheet.create({
     buttons: {
         backgroundColor: '#FFF',
         justifyContent: 'flex-start'
+    },
+
+    spinner: {
+        flex: 1,
+        justifyContent: "center"
     },
 
     container: {
@@ -151,7 +163,7 @@ const styles = StyleSheet.create({
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
     },
-    
+
     fest: {
         height: 150,
         width: 160,
@@ -171,4 +183,4 @@ const mapDispatchToProps = dispatchEvent => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoundRecruitment);
+export default connect(mapStateToProps, mapDispatchToProps)(FoundEvent);

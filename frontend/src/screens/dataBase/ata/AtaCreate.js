@@ -10,8 +10,8 @@ import Recruitment from '../../../components/Recruitment/Recruitment';
 import Work from '../../../components/Work/Work';
 import Event from '../../../components/Event/Event';
 import { createAtaExtenso } from '../../../service/api'
-import Treasury from '../../../components/Treasury';
-import Legios from '../../../components/Attendence/Legios'
+import Treasury from '../../../components/Treasury/Treasury';
+import Legios from '../../../components/Legio/Legios'
 
 const initialState = {
     id: 1,
@@ -29,7 +29,7 @@ const initialState = {
     allocutionAssunto: '',
     paginaEstudo: '',
     paragrafoEstudo: '',
-    assunto: '',
+    assuntos: '',
     //others
     loading: false,
     visible: false,
@@ -63,7 +63,7 @@ export default class AtaCreate extends Component {
             coleta: this.state.coleta,
             paginaEstudo: this.state.paginaEstudo,
             paragrafoEstudo: this.state.paragrafoEstudo,
-            assuntos: this.state.assunto,
+            assuntos: this.state.assuntos,
             horaFinal: hora
         }
 
@@ -302,20 +302,21 @@ export default class AtaCreate extends Component {
                     <Event />
                     <TextInput
                         label="Outros Assuntos"
-                        value={this.state.assunto}
+                        value={this.state.assuntos}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={assassunto => this.setState({ assunto })}
+                        onChangeText={assuntos => this.setState({ assuntos })}
                     />
 
                     <Text style={styles.obs}>Obs: Antes de Salvar ferifique os dados</Text>
+
                     <Button
                         onPress={this.send}
                         contentStyle={styles.buttonSend}
                     >
-                        <Icon name={"save-sharp"} size={45} color={commonStyles.colors.primaryColor} />
+                        <Icon name={"save"} size={25} color={"#FFF"} />
                     </Button>
                 </View>
             )
@@ -436,12 +437,13 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 24,
     },
-    
+
     dialogButton: {
         backgroundColor: commonStyles.colors.containerColor,
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
-    }, textButton: {
+    },
+    textButton: {
         color: "#FFF",
         fontFamily: commonStyles.fontFamily.subtitle,
         fontSize: commonStyles.fontSize.normal,
@@ -453,11 +455,10 @@ const styles = StyleSheet.create({
     subtitle: {
         color: commonStyles.colors.textHover,
         fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.subtitle,
+        fontSize: commonStyles.fontSize.medium,
         marginLeft: 13,
         marginTop: 5,
         marginBottom: 2.5,
-        fontWeight: '800'
     },
 
     check: {
@@ -471,7 +472,7 @@ const styles = StyleSheet.create({
     input: {
         marginBottom: 20,
         fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         backgroundColor: 'transparent'
     },
 
@@ -483,7 +484,7 @@ const styles = StyleSheet.create({
     textOption: {
         color: commonStyles.colors.textHover,
         fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
 
     button: {
@@ -503,16 +504,26 @@ const styles = StyleSheet.create({
     },
 
     buttonSend: {
-        marginBottom: 30,
-        backgroundColor: 'transparent',
-        borderWidth: 0
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 10,
+        borderWidth: 0,
+        height: 40,
+        width: "100%",
+        marginBottom: 10
+    },
 
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
     obs: {
         fontFamily: commonStyles.fontFamily.light,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.small,
         textAlign: 'center',
         marginTop: 10
     }

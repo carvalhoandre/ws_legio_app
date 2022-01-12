@@ -1,22 +1,27 @@
 import React, { Component } from 'react'
 import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
-import { View, StyleSheet, Text, Platform, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
-import 'moment/locale/pt-br'
+import { View, StyleSheet, Text, Platform, SafeAreaView, ScrollView, ActivityIndicator, Image } from 'react-native';
 import commonStyles from '../../../styles/commonStyles';
 import { CheckBox, Button } from 'react-native-elements'
 import { createLegio } from '../../../service/api'
+import { formatDateMonth } from '../../../utils/format'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialState = {
     name: '',
     type: 0,
-    birthday: '',
+    birthday: new Date(),
+    initial: new Date(),
     loading: false,
     visible: false,
     ativo: false,
     adjuntor: false,
     auxiliar: false,
     title: '',
-    body: ''
+    body: '',
+    mode: 'date',
+    show: false
 }
 
 
@@ -27,13 +32,7 @@ export default class CreateMember extends Component {
     }
 
     hideDialog = () => this.setState({
-        visible: false,
-        name: '',
-        birthday: '',
-        type: 0,
-        adjuntor: false,
-        auxiliar: false,
-        ativo: false
+        ...initialState
     });
 
     send = async () => {
@@ -41,7 +40,8 @@ export default class CreateMember extends Component {
         let newObj = {
             name: this.state.name,
             type: this.state.type,
-            birthday: this.state.birthday,
+            birthday: formatDateMonth(this.state.birthday),
+            initial: formatDateMonth(this.state.initial)
         }
         createLegio(newObj)
             .then(() => {
@@ -56,15 +56,35 @@ export default class CreateMember extends Component {
     render() {
         const validations = []
         const validName = (this.state.name.length >= 2)
-        const validBirthday = (this.state.birthday.length >= 4)
-        validations.push(validBirthday, validName)
+        validations.push(validName)
 
         const validForm = validations.reduce((t, a) => t && a)
+
+        const onChangeB = (event, selectedDate) => {
+            const currentDate = selectedDate || this.state.birthday;
+            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ birthday: currentDate })
+        };
+
+        const onChangeI = (event, selectedDate) => {
+            const currentDate = selectedDate || this.state.initial;
+            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ initial: currentDate })
+        };
+
+        const showMode = (currentMode) => {
+            this.setState({ show: true })
+            this.setState({ mode: currentMode })
+        };
+
+        const showDatepicker = () => {
+            showMode('date');
+        };
 
         return (
             this.state.loading ?
                 <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryHoverColor} />
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
                 </View>
                 :
                 <SafeAreaView
@@ -76,23 +96,28 @@ export default class CreateMember extends Component {
                     >
                         <Portal>
                             <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                                <Dialog.Title>{this.state.title}</Dialog.Title>
+                                <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                                 <Dialog.Content>
-                                    <Paragraph>{this.state.body}</Paragraph>
+                                    <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
                                 </Dialog.Content>
                                 <Dialog.Actions>
                                     <Button
                                         title="Ok"
                                         type="outline"
                                         onPress={this.hideDialog}
+                                        buttonStyle={styles.dialogButton}
                                     />
                                 </Dialog.Actions>
                             </Dialog>
                         </Portal>
-                        <View style={styles.container}>
-                            <View styles={{ margin: 'auto' }}>
-                                <Text style={styles.title}>Adicionar novo membro</Text>
 
+                        <>
+                            <Text style={styles.subtitle}>Salve Maria!</Text>
+                            <Text style={styles.title}>Adicione o novo membro</Text>
+                            <View style={styles.container}>
+                                <View style={styles.imageView}>
+                                    <Image source={require('../../../../assets/icons/filter.png')} style={styles.fest} />
+                                </View>
                                 <TextInput
                                     label="Nome"
                                     value={this.state.name}
@@ -103,18 +128,51 @@ export default class CreateMember extends Component {
                                     onChangeText={name => this.setState({ name })}
                                 />
 
-                                <TextInput
-                                    label="Aniversário"
-                                    value={this.state.birthday}
-                                    underlineColor={"#A6B0BF"}
-                                    activeOutlineColor={commonStyles.colors.primaryColor}
-                                    activeUnderlineColor={commonStyles.colors.primaryColor}
-                                    style={styles.input}
-                                    onChangeText={birthday => this.setState({ birthday })}
+                                <Text style={styles.text}>Data de aniversário:</Text>
+                                <Button
+                                    onPress={showDatepicker}
+                                    title={`${formatDateMonth(this.state.birthday)}`}
+                                    buttonStyle={styles.button}
+                                    titleStyle={styles.buttonText}
+                                    icon={
+                                        <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.firstColor} />
+                                    }
                                 />
-                                <Text style={styles.text}>dia/mes/ano</Text>
 
-                                <Text style={styles.subtitle}>Membro:</Text>
+                                {this.state.show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={this.state.birthday}
+                                        mode={this.state.mode}
+                                        display="default"
+                                        onChange={onChangeB}
+                                        dateFormat='shortdate'
+                                    />
+                                )}
+
+                                <Text style={styles.text}>Data de "entrada":</Text>
+                                <Button
+                                    onPress={showDatepicker}
+                                    title={`${formatDateMonth(this.state.initial)}`}
+                                    buttonStyle={styles.button}
+                                    titleStyle={styles.buttonText}
+                                    icon={
+                                        <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.firstColor} />
+                                    }
+                                />
+
+                                {this.state.show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={this.state.initial}
+                                        mode={this.state.mode}
+                                        display="default"
+                                        onChange={onChangeI}
+                                        dateFormat='shortdate'
+                                    />
+                                )}
+
+                                <Text style={styles.text}>Membro:</Text>
                                 <CheckBox
                                     containerStyle={styles.option}
                                     textStyle={styles.textOption}
@@ -123,6 +181,12 @@ export default class CreateMember extends Component {
                                     onPress={(() => {
                                         this.setState({ type: 0, adjuntor: false, auxiliar: false, ativo: true })
                                     })}
+                                    checkedIcon={
+                                        <Icon name={"radio-button-on"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
+                                    uncheckedIcon={
+                                        <Icon name={"radio-button-off"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
                                 />
                                 <CheckBox
                                     containerStyle={styles.option}
@@ -132,6 +196,12 @@ export default class CreateMember extends Component {
                                     onPress={(() => {
                                         this.setState({ type: 1, adjuntor: false, auxiliar: true, ativo: false })
                                     })}
+                                    checkedIcon={
+                                        <Icon name={"radio-button-on"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
+                                    uncheckedIcon={
+                                        <Icon name={"radio-button-off"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
                                 />
                                 <CheckBox
                                     containerStyle={styles.option}
@@ -141,24 +211,29 @@ export default class CreateMember extends Component {
                                     onPress={(() => {
                                         this.setState({ type: 2, adjuntor: true, auxiliar: false, ativo: false })
                                     })}
+                                    checkedIcon={
+                                        <Icon name={"radio-button-on"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
+                                    uncheckedIcon={
+                                        <Icon name={"radio-button-off"} size={20} color={commonStyles.colors.primaryColor} />
+                                    }
                                 />
-                            </View>
 
-                            <View style={styles.containerButton}>
                                 <Button
-                                    title="Enviar"
-                                    type="outline"
-                                    buttonStyle={styles.buttonSend}
-                                    titleStyle={styles.textButton}
-                                    disabledTitleStyle={styles.textButton}
                                     onPress={this.send}
+                                    title={"Enviar"}
                                     disabled={!validForm}
+                                    buttonStyle={styles.buttonSend}
+                                    titleStyle={styles.buttonTextSend}
                                     disabledStyle={styles.buttonDisabled}
+                                    icon={
+                                        <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                                    }
                                 />
                             </View>
-                        </View>
+                        </>
                     </ScrollView>
-                </SafeAreaView>
+                </SafeAreaView >
         )
     }
 }
@@ -168,6 +243,8 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         paddingTop: Platform.OS === "ios" ? 0 : 50,
+        paddingLeft: 10,
+        paddingRight: 10
     },
 
     spinner: {
@@ -180,7 +257,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingLeft: 30,
         paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
+        backgroundColor: commonStyles.colors.containerColor,
         borderWidth: 1,
         borderRadius: 10,
         borderColor: '#E5E5E5',
@@ -189,46 +266,69 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 12,
         elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 24,
-
+        marginBottom: 15
     },
 
     scrollView: {
         marginHorizontal: 0,
     },
 
-    title: {
-        color: commonStyles.colors.titleColor,
-        fontWeight: '400',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.subtitle,
-        marginBottom: 30,
+    textOption: {
+        fontFamily: commonStyles.fontFamily.text,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.normal
     },
 
-    text: {
-        color: "#757575",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 11,
-        marginTop: -20,
-        marginBottom: 20
+    title: {
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium,
+        color: commonStyles.colors.titleColor,
+        marginBottom: 30
     },
 
     subtitle: {
-        color: commonStyles.colors.textColorLight,
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 16.5,
+        fontFamily: commonStyles.fontFamily.josefin,
+        color: commonStyles.colors.subtitleColor,
+        fontSize: commonStyles.fontSize.small
     },
+
+    text: {
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.normal,
+        color: commonStyles.colors.subtitleColor,
+        marginBottom: 10
+    },
+
+    fest: {
+        height: 190,
+        width: 220,
+        alignItems: 'center'
+    },
+
+    imageView: {
+        alignItems: 'center'
+    },
+
 
     input: {
         marginBottom: 20,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         backgroundColor: 'transparent'
     },
 
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.titleColor,
+        marginLeft: 10
+    },
+
     button: {
-        justifyContent: 'flex-start',
+        backgroundColor: commonStyles.colors.bodyColor,
+        borderColor: commonStyles.colors.bodyColor,
+        marginTop: 5,
+        borderWidth: 2,
+        marginBottom: 5
     },
 
     containerButton: {
@@ -239,51 +339,46 @@ const styles = StyleSheet.create({
     },
 
     buttonSend: {
-        marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryHoverColor,
-        padding: 5,
-        borderRadius: 8,
-        margin: 'auto',
-        borderWidth: 2,
-        borderColor: commonStyles.colors.firstColorLight,
-        marginTop: 24,
-        width: 132,
-        height: 40,
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
     },
 
-    buttonDisabled: {
-        borderWidth: 2,
-        borderColor: commonStyles.colors.disabeldColor,
-        backgroundColor: commonStyles.colors.disabeldColor,
-        borderRadius: 8,
-        marginBottom: 30,
-        marginTop: 24,
-        width: 132,
-        height: 40
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
-
-    textButton: {
-        color: "#FFF",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: "900",
+    dialogButton: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderColor: commonStyles.colors.bodyColor,
+        borderWidth: 0,
     },
 
     textOption: {
-        color: '#36393B',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontWeight: '400',
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
 
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
+    },
+
+    buttonDisabled: {
+        backgroundColor: commonStyles.colors.disabeldColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
     },
 
     option: {
-        backgroundColor: commonStyles.colors.bodyColor,
-        borderColor: commonStyles.colors.bodyColor,
-    },
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 0
+    }
 })

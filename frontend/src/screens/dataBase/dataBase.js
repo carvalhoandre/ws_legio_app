@@ -31,12 +31,14 @@ const DataBase = () => {
                             navigation.navigate('AtaCreate')
                         })}
                         titleStyle={styles.subtitle}
+                        style={styles.option}
                     />
                     <List.Item title="Buscar" titleStyle={styles.subtitle}
                         onPress={(() => {
                             navigation.navigate('AtaSearch')
                         })}
                         titleStyle={styles.subtitle}
+                        style={styles.option}
                     />
                 </List.Accordion>
 
@@ -55,7 +57,11 @@ const DataBase = () => {
                         titleStyle={styles.subtitle}
                         style={styles.option}
                     />
-                    <List.Item title="Buscar" titleStyle={styles.subtitle} />
+                    <List.Item
+                        title="Buscar"
+                        titleStyle={styles.subtitle}
+                        style={styles.option}
+                    />
                 </List.Accordion>
 
             </List.Section>
@@ -69,16 +75,16 @@ const styles = StyleSheet.create({
         marginTop: Platform === 'ios' ? 30 : 30,
     },
     option: {
-        backgroundColor: "#FFF",
+        backgroundColor: commonStyles.colors.minimalistColor,
     },
     title: {
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.small,
         fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
     },
     subtitle: {
-        fontSize: commonStyles.fontSize.normal,
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.small,
+        fontFamily: commonStyles.fontFamily.text,
         color: commonStyles.colors.textColor,
     }
 })

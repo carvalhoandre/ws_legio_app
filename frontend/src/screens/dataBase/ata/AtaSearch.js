@@ -17,7 +17,7 @@ function AtaSearch(props) {
     const navigation = useNavigation();
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
+        const currentDate = selectedDate || dateSelected;
         setShow(Platform.OS === 'ios');
         setDateSelected(currentDate);
     };
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: commonStyles.fontFamily.text,
         fontSize: commonStyles.fontSize.small,
-        color: commonStyles.colors.titleColor
+        color: commonStyles.colors.titleColor,
+        marginLeft: 10
     },
 
     fest: {
@@ -161,7 +162,8 @@ const styles = StyleSheet.create({
     buttonTextSend: {
         fontFamily: commonStyles.fontFamily.text,
         fontSize: commonStyles.fontSize.small,
-        color: commonStyles.colors.containerColor
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     }
 })
 

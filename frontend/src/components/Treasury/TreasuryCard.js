@@ -4,80 +4,149 @@ import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../../styles/commonStyles'
-import { Picker } from '@react-native-picker/picker'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { formatDate } from '../../utils/format'
 
-export default class RecruitmentCard extends Component {
+export default class TreasuryCard extends Component {
     constructor(props) {
         super(props)
-        this.recruitment = props.recruitment
+        this.treasury = props.treasury
         this.deleteForId = props.deleteForId
-        this.newRecruitment = props.newRecruitment
+        this.newTreasury = props.newTreasury
         this.state = {
-            id: this.recruitment.id,
-            date: this.recruitment.date,
-            quantity: this.recruitment.quantity,
-            person: this.recruitment.person,
-            attendancing: this.recruitment.attendancing,
-            edit: false
+            id: this.treasury.id,
+            date: this.treasury.date,
+            saldoAnterior: this.treasury.saldoAnterior,
+            coletaDoDia: this.treasury.coletaDoDia,
+            contribuicao: this.treasury.contribuicao,
+            diaDaColeta: this.treasury.diaDaColeta,
+            despesas: this.treasury.despesas,
+            subTotal: this.treasury.subTotal,
+            totalEmCaixa: this.treasury.totalEmCaixa,
+            edit: false,
+            mode: 'date',
+            show: false
         }
     }
 
     render() {
+        const validations = []
+        const validSaldo = (this.state.saldoAnterior !== null)
+        const validColeta = (this.state.coletaDoDia !== null)
+        const validDespesas = (this.state.despesas !== null)
+
+        validations.push(validColeta, validDespesas, validSaldo)
+
+        const validForm = validations.reduce((t, a) => t && a)
+
+        const onChange = (event, selectedDate) => {
+            const currentDate = selectedDate || date;
+            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ date: currentDate })
+        };
+
+        const showMode = (currentMode) => {
+            this.setState({ show: true })
+            this.setState({ mode: currentMode })
+        };
+
+        const showDatepicker = () => {
+            showMode('date');
+        };
+
         return (
             this.state.edit === true ?
                 <View style={styles.container}>
-                    <Picker
-                        selectedValue={this.state.person}
-                        style={{ height: 50, width: '100%' }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
-                    >
-                        <Picker.Item label="Criança" value={0} style={styles.textOption} />
-                        <Picker.Item label="Adolescente" value={1} style={styles.textOption} />
-                        <Picker.Item label="Jovem" value={2} style={styles.textOption} />
-                        <Picker.Item label="Adulto" value={3} style={styles.textOption} />
-                        <Picker.Item label="Idoso" value={4} style={styles.textOption} />
-                    </Picker>
-
-                    <TextInput
+                     <TextInput
                         type="number"
                         keyboardType="number-pad"
-                        label="Quantidade"
-                        value={this.state.quantity.toString()}
+                        label="Saldo Anterior"
+                        value={this.state.saldoAnterior.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={quantity => this.setState({ quantity: quantity })}
+                        onChangeText={saldoAnterior => this.setState({ saldoAnterior })}
                     />
 
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Comparecimentos"
-                        value={this.state.attendancing.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={attendancing => this.setState({ attendancing: attendancing })}
-                    />
-
-                    <View style={styles.containerButton}>
+                    <View>
+                        <Text style={styles.labelText}>Data da coleta Anterior</Text>
                         <Button
-                            title="Salvar"
-                            type="outline"
-                            buttonStyle={styles.buttonSend}
-                            titleStyle={styles.buttonTextSend}
-                            onPress={(() => {
-                                this.newRecruitment(this.state)
-                                let newEdit = !this.state.edit
-                                this.setState({ edit: newEdit })
-                            })}
+                            onPress={showDatepicker}
+                            title={`${formatDate(this.state.diaDaColeta)}`}
+                            buttonStyle={styles.button}
+                            titleStyle={styles.buttonText}
                             icon={
-                                <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                                <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.titleColor} />
                             }
                         />
                     </View>
+
+                    {this.state.show && (
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={this.state.diaDaColeta}
+                            mode={this.state.mode}
+                            display="default"
+                            onChange={onChange}
+                            dateFormat='shortdate'
+                        />
+                    )}
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Valor da coleta anterior"
+                        value={this.state.coletaDoDia.toString()}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={coletaDoDia => this.setState({ coletaDoDia })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Contribuição ao Conselho Superior"
+                        value={this.state.contribuicao.toString()}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={contribuicao => this.setState({ contribuicao })}
+                    />
+
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Despesas"
+                        value={this.state.despesas.toString()}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={despesas => this.setState({ despesas })}
+                    />
+
+                    <Button
+                        title="Salvar"
+                        type="outline"
+                        buttonStyle={styles.buttonSend}
+                        titleStyle={styles.buttonTextSend}
+                        disabled={!validForm}
+                        disabledTitleStyle={styles.textButton}
+                        disabledStyle={styles.buttonDisabled}
+                        onPress={(() => {
+                            this.newTreasury(this.state)
+                            let newEdit = !this.state.edit
+                            this.setState({ edit: newEdit })
+                        })}
+                        icon={
+                            <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                        }
+                    />
+                
                     <Button
                         title="Cancelar"
                         type="outline"
@@ -91,11 +160,23 @@ export default class RecruitmentCard extends Component {
                 </View>
                 :
                 <View style={styles.container}>
-                    <View style={styles.view}>
-                        <Text style={styles.title}>{this.state.person}</Text>
-                    </View>
                     <Text style={styles.text}>
-                        Quantidade: {this.state.quantity} Comparecimentos: {this.state.attendancing}
+                        Saldo Anterior: {this.state.saldoAnterior}
+                    </Text>
+                    <Text style={styles.text}>
+                        Coleta do dia {this.state.diaDaColeta}: {this.state.coletaDoDia}
+                    </Text>
+                    <Text style={styles.text}>
+                        Contribuição ao Conselho Superior: {this.state.contribuicao}
+                    </Text>
+                    <Text style={styles.text}>
+                        Despesas: {this.state.despesas}
+                    </Text>
+                    <Text style={styles.text}>
+                        Sub Total: {this.state.subTotal}
+                    </Text>
+                    <Text style={styles.text}>
+                        Total em Caixa: {this.state.totalEmCaixa}
                     </Text>
 
                     <Button

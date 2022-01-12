@@ -1,64 +1,31 @@
 import React, { Component } from 'react'
-import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import 'moment/locale/pt-br'
-import commonStyles from '../../styles/commonStyles';
+import { View, StyleSheet, Text } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-elements'
-import { createWork } from '../../service/api'
-import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import commonStyles from '../../styles/commonStyles'
+import { Picker } from '@react-native-picker/picker';
 
-const initialState = {
-    work: 0,
-    yong: null,
-    adult: null,
-    children: null,
-    elderly: null,
-    hours: null,
-    observation: '',
-    legios: '',
-    loading: false,
-    visible: false,
-    title: '',
-    body: '',
-}
-
-export default class Work extends Component {
-    state = {
-        ...initialState
-    }
-
-    hideDialog = () => this.setState({
-        ...initialState
-    });
-
-    send = async () => {
-        this.setState({ loading: true })
-        let newA = parseInt(this.state.adult, 10)
-        let newC = parseInt(this.state.children, 10)
-        let newY = parseInt(this.state.yong, 10)
-        let newE = parseInt(this.state.elderly, 10)
-        let tot = newA + newC + newY + newE
-        let newH = parseFloat(this.state.hours, 10)
-        let newObj = {
-            work: this.state.work,
-            yong: newY,
-            adult: newA,
-            children: newC,
-            elderly: newE,
-            total: tot,
-            hours: newH,
-            legios: this.state.legios,
-            observation: this.state.observation
+export default class WorkCard extends Component {
+    constructor(props) {
+        super(props)
+        this.work = props.work
+        this.deleteForId = props.deleteForId
+        this.newWork = props.newWork
+        this.state = {
+            id: this.work.id,
+            date: this.work.date,
+            work: this.work.work,
+            yong: this.work.yong,
+            adult: this.work.adult,
+            children: this.work.children,
+            elderly: this.work.elderly,
+            total: this.work.total,
+            hours: this.work.hours,
+            observation: this.work.observation,
+            legio: this.work.legio,
+            edit: false,
         }
-        createWork(newObj)
-            .then(() => {
-                this.setState({ loading: false })
-                this.setState({ body: `Adicionado com sucesso!`, visible: true, title: "👏👏👏" })
-            }, error => {
-                this.setState({ loading: false })
-                this.setState({ body: `Erro: ${error}`, visible: true, title: "😱😰😰" })
-            })
     }
 
     render() {
@@ -72,29 +39,8 @@ export default class Work extends Component {
         const validForm = validations.reduce((t, a) => t && a)
 
         return (
-            this.state.loading ?
-                <View style={styles.spinner}>
-                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
-                </View>
-                :
-                <>
-                    <Portal>
-                        <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-                            <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
-                            <Dialog.Content>
-                                <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
-                            </Dialog.Content>
-                            <Dialog.Actions>
-                                <Button
-                                    title="Ok"
-                                    type="outline"
-                                    onPress={this.hideDialog}
-                                    buttonStyle={styles.dialogButton}
-                                />
-                            </Dialog.Actions>
-                        </Dialog>
-                    </Portal>
-
+            this.state.edit === true ?
+                <View style={styles.container}>
                     <Picker
                         selectedValue={this.state.person}
                         style={{ height: 50, width: '100%', marginTop: 10 }}
@@ -109,7 +55,7 @@ export default class Work extends Component {
                         type="number"
                         keyboardType="number-pad"
                         label="Quantidade de Jovens"
-                        value={this.state.yong}
+                        value={this.state.yong.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -121,7 +67,7 @@ export default class Work extends Component {
                         type="number"
                         keyboardType="number-pad"
                         label="Quantidade de adultos"
-                        value={this.state.adult}
+                        value={this.state.adult.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -133,7 +79,7 @@ export default class Work extends Component {
                         type="number"
                         keyboardType="number-pad"
                         label="Quantidade de crianças"
-                        value={this.state.children}
+                        value={this.state.children.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -145,7 +91,7 @@ export default class Work extends Component {
                         type="number"
                         keyboardType="number-pad"
                         label="Quantidade de idosos"
-                        value={this.state.elderly}
+                        value={this.state.elderly.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -157,7 +103,7 @@ export default class Work extends Component {
                         type="number"
                         keyboardType="number-pad"
                         label="Horas de trabalho"
-                        value={this.state.hours}
+                        value={this.state.hours.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -167,7 +113,7 @@ export default class Work extends Component {
 
                     <TextInput
                         label="Dupla"
-                        value={this.state.legios}
+                        value={this.state.legios.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -178,7 +124,7 @@ export default class Work extends Component {
                     <TextInput
                         label="Observação"
                         multiline={true}
-                        value={this.state.observation}
+                        value={this.state.observation.toString()}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
@@ -186,47 +132,140 @@ export default class Work extends Component {
                         onChangeText={observation => this.setState({ observation })}
                     />
 
-                    <View style={styles.containerButton}>
-                        <Button
-                            title="Salvar"
-                            type="outline"
-                            buttonStyle={styles.buttonSend}
-                            titleStyle={styles.textButton}
-                            disabledTitleStyle={styles.textButton}
-                            onPress={this.send}
-                            disabled={!validForm}
-                            disabledStyle={styles.buttonDisabled}
-                            icon={
-                                <Icon name={"send-sharp"} size={20} color={"#FFF"} />
-                            }
-                        />
-                    </View>
-                </>
+                    <Button
+                        title="Salvar"
+                        type="outline"
+                        buttonStyle={styles.buttonSend}
+                        titleStyle={styles.buttonTextSend}
+                        disabled={!validForm}
+                        disabledTitleStyle={styles.textButton}
+                        disabledStyle={styles.buttonDisabled}
+                        onPress={(() => {
+                            this.newWork(this.state)
+                            let newEdit = !this.state.edit
+                            this.setState({ edit: newEdit })
+                        })}
+                        icon={
+                            <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                        }
+                    />
+
+                    <Button
+                        title="Cancelar"
+                        type="outline"
+                        buttonStyle={styles.buttonCancel}
+                        titleStyle={styles.textButton}
+                        onPress={(() => {
+                            let newEdit = !this.state.edit
+                            this.setState({ edit: newEdit })
+                        })}
+                    />
+                </View>
+                :
+                <View style={styles.container}>
+                    <Text style={styles.text}>
+                        Trabalho: {this.state.work}
+                    </Text>
+
+                    <Text style={styles.text}>
+                        Contato com: 
+                        {this.state.yong >= 1 ? ` ${this.state.yong} Jovens. ` : null}
+                        {this.state.adult >= 1 ? `${this.state.adult} Adultos. ` : null}
+                        {this.state.children >= 1 ? `${this.state.children} Crianças. ` : null}
+                        {this.state.elderly >= 1 ? `${this.state.elderly} Idosos. ` : null}
+                        {this.state.total >= 1 ? `total de ${this.state.total} contatos. ` : null}
+
+                    </Text>
+                    <Text style={styles.text}>
+                        Dupla: {this.state.legio}
+                    </Text>
+                    <Text style={styles.text}>
+                        Observação: {this.state.observation}
+                    </Text>
+                    <Text style={styles.text}>
+                        Horas de trabalho: {this.state.hours}
+                    </Text>
+                
+                    <Button
+                        title=""
+                        type="outline"
+                        buttonStyle={styles.buttonSend}
+                        titleStyle={styles.textButton}
+                        onPress={() => {
+                            let newEdit = !this.state.edit
+                            this.setState({ edit: newEdit })
+                        }}
+                        icon={
+                            <Icon name={"pencil"} size={20} color={"#FFF"} />
+                        }
+                    />
+
+                    <Button
+                        title=""
+                        type="outline"
+                        buttonStyle={styles.buttonCancel}
+                        titleStyle={styles.textButton}
+                        onPress={() => { this.deleteForId(this.state.id) }}
+                        icon={
+                            <Icon name={"trash"} size={20} color={"#FFF"} />
+                        }
+                    />
+                </View>
         )
     }
 }
 
-
 const styles = StyleSheet.create({
-    spinner: {
-        flex: 1,
-        justifyContent: "center"
+    buttons: {
+        backgroundColor: '#FFF',
+        justifyContent: 'flex-start'
+    },
+
+    name: {
+        color: commonStyles.colors.textColor,
+        fontSize: 18,
+    },
+
+    view: {
+        marginBottom: 5,
+        marginTop: 10
+    },
+
+    title: {
+        fontFamily: commonStyles.fontFamily.subtitle,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.normal
+    },
+
+    text: {
+        fontFamily: commonStyles.fontFamily.text,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small
+    },
+
+    container: {
+        paddingBottom: 20,
+        paddingTop: 20,
+        paddingLeft: 30,
+        paddingRight: 30,
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#E5E5E5',
+        shadowColor: '#a7b0c0',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.2,
+        shadowRadius: 12,
+        elevation: 1,
+        marginRight: 15,
+        marginLeft: 15,
+        marginBottom: 24,
     },
 
     textOption: {
         color: commonStyles.colors.subtitleColor,
         fontFamily: commonStyles.fontFamily.text,
         fontSize: commonStyles.fontSize.normal
-    },
-
-    titleOption: {
-        color: commonStyles.colors.titleColor,
-        fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.medium
-    },
-
-    scrollView: {
-        marginHorizontal: 0,
     },
 
     input: {
@@ -269,6 +308,13 @@ const styles = StyleSheet.create({
         fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.containerColor,
         marginLeft: 10
+    },
+
+    buttonCancel: {
+        backgroundColor: commonStyles.colors.primaryHoverColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
     },
 
     textButton: {

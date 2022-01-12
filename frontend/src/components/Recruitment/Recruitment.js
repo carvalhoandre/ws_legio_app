@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { TextInput, Portal, Dialog, Paragraph } from 'react-native-paper';
-import { View, StyleSheet, Platform, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import 'moment/locale/pt-br'
 import commonStyles from '../../styles/commonStyles';
 import { Button } from 'react-native-elements'
 import { createRecruitment } from '../../service/api'
 import { Picker } from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialState = {
     quantity: null,
@@ -126,6 +127,9 @@ export default class Recruitment extends Component {
                             onPress={this.send}
                             disabled={!validForm}
                             disabledStyle={styles.buttonDisabled}
+                            icon={
+                                <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                            }
                         />
                     </View>
                 </>
@@ -135,82 +139,67 @@ export default class Recruitment extends Component {
 
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        paddingTop: Platform.OS === "ios" ? 0 : 50,
-    },
-
     spinner: {
         flex: 1,
         justifyContent: "center"
+    },
+
+    textOption: {
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
+
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
     },
 
     scrollView: {
         marginHorizontal: 0,
     },
 
-    title: {
-        color: commonStyles.colors.titleColor,
-        fontWeight: '400',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.subtitle,
-        marginBottom: 30,
-    },
-
-    text: {
-        color: "#757575",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 11,
-        marginTop: -20,
-        marginBottom: 20
-    },
-
-    subtitle: {
-        color: commonStyles.colors.textColorLight,
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 16.5,
-    },
-
     input: {
         marginBottom: 20,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         backgroundColor: 'transparent'
     },
 
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.titleColor,
+        marginLeft: 10
+    },
+
     button: {
-        justifyContent: 'flex-start',
-    },
-
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
-
-    
-    buttonSend: {
-        marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryColor,
-        padding: 5,
-        borderRadius: 8,
-        margin: 'auto',
+        backgroundColor: commonStyles.colors.bodyColor,
+        borderColor: commonStyles.colors.bodyColor,
+        marginTop: 5,
         borderWidth: 2,
-        borderColor: commonStyles.colors.firstColorLight,
-        marginTop: 24,
-        width: 132,
-        height: 40,
+        marginBottom: 5
     },
 
     buttonDisabled: {
-        borderWidth: 2,
-        borderColor: commonStyles.colors.disabeldColor,
         backgroundColor: commonStyles.colors.disabeldColor,
-        borderRadius: 8,
-        marginBottom: 30,
-        marginTop: 24,
-        width: 132,
-        height: 40
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonSend: {
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
     textButton: {
@@ -225,21 +214,9 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
 
-    buttonText: {
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
+    labelText: {
+        fontFamily: commonStyles.fontFamily.bold,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor
-    },
-
-    textOption: {
-        color: commonStyles.colors.subtitleColor,
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
-    },
-
-    titleOption: {
-        color: commonStyles.colors.titleColor,
-        fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.medium
-    },
+    }
 })

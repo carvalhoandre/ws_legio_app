@@ -1,12 +1,131 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Platform, SafeAreaView, ScrollView } from 'react-native';
-import commonStyles from '../../../styles/commonStyles';
+import { View, StyleSheet, Platform, SafeAreaView, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { Button } from 'react-native-paper';
 import FoundRecruitment from '../../../components/Recruitment/FoundRecruitment'
+import FoundAta from '../../../components/Ata/FoundAta'
+import FoundWork from '../../../components/Work/FoundWork'
+import FoundChamada from '../../../components/Chamada/FoundChamada'
+import FoundEvent from '../../../components/Event/FoundEvent'
+import FoundTreasury from '../../../components/Treasury/FoundTreasury'
+import commonStyles from '../../../styles/commonStyles';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+const initialState = {
+    id: 1,
+    loading: false,
+}
 
 export default class AtaFound extends Component {
 
+    state = {
+        ...initialState
+    }
+
+    alterLoading = async (newLoad) => {
+        this.setState({ loading: newLoad })
+    }
+
+    returnIndicator = () => {
+        if (this.state.id === 1) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Ata</Text>
+                    <FoundAta alterLoading={this.alterLoading} />
+                </>
+            )
+        }
+        if (this.state.id === 2) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Presenças</Text>
+                    <FoundChamada />
+                </>
+            )
+        }
+        if (this.state.id === 3) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Tesouraria</Text>
+                    <FoundTreasury />
+                </>
+            )
+        }
+        if (this.state.id === 4) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Trabalhos</Text>
+                    <FoundWork />
+                </>
+            )
+        }
+        if (this.state.id === 5) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Eventos</Text>
+                    <FoundEvent />
+                </>
+            )
+        }
+        if (this.state.id === 6) {
+            return (
+                <>
+                    <Text style={styles.subtitle}>Recrutamento</Text>
+                    <FoundRecruitment />
+                </>
+            )
+        }
+    }
+
+    rigth = () => {
+        return (
+            <Button
+                onPress={() => {
+                    const id = this.state.id + 1
+                    this.setState({ id })
+                }}
+                contentStyle={styles.buttons}
+            >
+                <Icon name={"chevron-forward-outline"} size={35} color={commonStyles.colors.primaryColor} />
+            </Button>
+        )
+    }
+
+    left = () => {
+        return (
+            <Button
+                onPress={() => {
+                    const id = this.state.id - 1
+                    this.setState({ id })
+                }}
+
+                contentStyle={styles.buttons}
+            >
+                <Icon name={"chevron-back-outline"} size={35} color={commonStyles.colors.primaryColor} />
+            </Button>
+        )
+    }
+
+    returnButtons = () => {
+        if (this.state.id > 1 && this.state.id < 6) {
+            return (<>{this.left()}{this.rigth()}</>)
+        }
+
+        if (this.state.id === 1) {
+            return (<>{this.rigth()}</>)
+        }
+
+        if (this.state.id === 6) {
+            return (<>{this.left()}</>)
+        }
+    }
+
     render() {
         return (
+            this.state.loading ?
+                <View style={styles.spinner}>
+                    <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+                </View>
+                :
                 <SafeAreaView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                     style={styles.main}
@@ -14,9 +133,12 @@ export default class AtaFound extends Component {
                     <ScrollView
                         contentContainerStyle={styles.scrollView}
                     >
-                        <View style={styles.container}>
-                           <FoundRecruitment />
+
+                        {this.returnIndicator()}
+                        <View style={styles.containerButton}>
+                            {this.returnButtons()}
                         </View>
+
                     </ScrollView>
                 </SafeAreaView>
         )
@@ -29,27 +151,34 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === "ios" ? 0 : 50,
     },
 
-    container: {
-        paddingBottom: 20,
-        paddingTop: 20,
-        paddingLeft: 30,
-        paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#E5E5E5',
-        shadowColor: '#a7b0c0',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
-        elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 24,
-
+    spinner: {
+        flex: 1,
+        justifyContent: "center"
     },
 
     scrollView: {
         marginHorizontal: 0,
     },
+
+    subtitle: {
+        color: commonStyles.colors.textHover,
+        fontFamily: commonStyles.fontFamily.subtitle,
+        fontSize: commonStyles.fontSize.medium,
+        marginLeft: 13,
+        marginTop: 5,
+        marginBottom: 2.5,
+    },
+
+    buttons: {
+        backgroundColor: 'transparent',
+        justifyContent: 'flex-end',
+    },
+
+    containerButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        width: '100%'
+    },
 })
+

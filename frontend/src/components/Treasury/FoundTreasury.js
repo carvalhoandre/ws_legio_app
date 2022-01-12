@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
+import { getTreasuryForDate, deleteTreasury, updateTreasury } from '../../service/api';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import RecruitmentList from './RecruitmentList';
+import TreasuryList from './TreasuryList';
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { backDate } from '../../config/store/actions/date'
 import commonStyles from '../../styles/commonStyles'
 
-function FoundRecruitment(props) {
-    const [recruitment, setRecruitment] = useState([]);
+function FoundTreasury(props) {
+    const [treasury, setTreasury] = useState([]);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState({
         title: '',
@@ -21,22 +21,22 @@ function FoundRecruitment(props) {
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        getRecruitmentForDate(data)
+        getTreasuryForDate(data)
             .then((response) => {
                 setRecruitment(response.data)
             })
             .catch(() => {
-                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar tesouraria' })
                 setVisible(true)
             })
     }, [teste])
 
     const deleteForId = (id) => {
-        deleteRecruitment(id)
+        deleteTreasury(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Tesouraria deleteada com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -45,20 +45,33 @@ function FoundRecruitment(props) {
             })
     }
 
-    const newRecruitment = (recruitment) => {
+    const newTreasury = (treasury) => {
+        let newSA = parseFloat(treasury.saldoAnterior, 10)
+        let newC = parseFloat(treasury.coletaDoDia, 10)
+        let newD = parseFloat(treasury.despesas, 10)
+        let newCDD = parseFloat(treasury.coletaDoDia, 10)
+        let newCTB = parseFloat(treasury.contribuicao, 10)
+        let tot = newSA + newC - newD - newCTB
+        let sub = newSA + newC
+        let newDate = formatDate(treasury.date)
+
         let newObj = {
-            id: recruitment.id,
-            date: recruitment.date,
-            quantity: parseInt(recruitment.quantity, 10),
-            person: recruitment.person,
-            attendancing: parseInt(recruitment.attendancing, 10)
+            id: treasury.id,
+            date: treasury.date,
+            saldoAnterior: newSA,
+            coletaDoDia: newCDD,
+            diaDaColeta: newDate,
+            contribuicao: newCTB,
+            despesas: newC,
+            subTotal: sub,
+            totalEmCaixa: tot,
         }
 
-        updateRecruitment(newObj)
+        updateTreasury(newObj)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -85,15 +98,15 @@ function FoundRecruitment(props) {
                     </Dialog.Actions>
                 </Dialog>
             </Portal>
-            {recruitment.length >= 1 ?
-                <RecruitmentList
-                    recruitment={recruitment}
+            {treasury.length >= 1 ?
+                <TreasuryList
+                    treasury={treasury}
                     deleteForId={deleteForId}
-                    newRecruitment={newRecruitment}
+                    newTreasury={newTreasury}
                 />
                 :
                 <View style={styles.container}>
-                    <Text style={styles.title}>Não há recrutamentos na data informada</Text>
+                    <Text style={styles.title}>Não há tesouraria na data informada</Text>
                     <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
                 </View>
             }
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
     },
-    
+
     fest: {
         height: 150,
         width: 160,
@@ -171,4 +184,4 @@ const mapDispatchToProps = dispatchEvent => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoundRecruitment);
+export default connect(mapStateToProps, mapDispatchToProps)(FoundTreasury);

@@ -75,7 +75,7 @@ const Final = () => {
                     </Text>
 
                     <Text style={styles.jaculatory}>
-                        P. S. Miguel e S. Gabriel,
+                        P. S. Miguel, S. Gabriel e São Rafael,
                     </Text>
                     <Text style={styles.repply}>
                         R. Rogai por nós

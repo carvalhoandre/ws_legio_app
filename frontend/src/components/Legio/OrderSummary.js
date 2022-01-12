@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 import commonStyles from '../../styles/commonStyles'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function OrderSummary({ amount, onSubmit }) {
     return (
@@ -9,12 +10,13 @@ export default function OrderSummary({ amount, onSubmit }) {
             <Text style={styles.text}>Legionarios Presentes: {amount}</Text>
 
             <Button
-                title="Salvar"
-                type="outline"
-                buttonStyle={styles.buttonSend}
-                titleStyle={styles.textButton}
-                disabledTitleStyle={styles.textButton}
                 onPress={onSubmit}
+                title={"Salvar"}
+                buttonStyle={styles.buttonSend}
+                titleStyle={styles.buttonTextSend}
+                icon={
+                    <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                }
             />
         </View>
     )
@@ -41,24 +43,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5
     },
-    
+
     buttonSend: {
-        marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryColor,
-        padding: 5,
-        borderRadius: 8,
-        margin: 'auto',
-        borderWidth: 2,
-        borderColor: commonStyles.colors.firstColorLight,
-        marginTop: 24,
-        width: 132,
-        height: 40,
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
     },
 
-    textButton: {
-        color: "#FFF",
-        fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.normal,
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
 })

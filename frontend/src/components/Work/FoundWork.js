@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
+import { getWorkForDate, deleteWork, updateWork } from '../../service/api';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import RecruitmentList from './RecruitmentList';
+import WorkList from './WorkList';
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { backDate } from '../../config/store/actions/date'
 import commonStyles from '../../styles/commonStyles'
 
-function FoundRecruitment(props) {
-    const [recruitment, setRecruitment] = useState([]);
+function FoundWork(props) {
+    const [work, setWork] = useState([]);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState({
         title: '',
@@ -21,22 +21,22 @@ function FoundRecruitment(props) {
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        getRecruitmentForDate(data)
+        getWorkForDate(data)
             .then((response) => {
-                setRecruitment(response.data)
+                setWork(response.data)
             })
             .catch(() => {
-                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar trabalhos' })
                 setVisible(true)
             })
     }, [teste])
 
     const deleteForId = (id) => {
-        deleteRecruitment(id)
+        deleteWork(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Trabalho deleteado com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -45,20 +45,33 @@ function FoundRecruitment(props) {
             })
     }
 
-    const newRecruitment = (recruitment) => {
+    const newWork = (work) => {
+        let newA = parseInt(work.adult, 10)
+        let newC = parseInt(work.children, 10)
+        let newY = parseInt(work.yong, 10)
+        let newE = parseInt(work.elderly, 10)
+        let tot = newA + newC + newY + newE
+        let newH = parseFloat(work.hours, 10)
+       
         let newObj = {
-            id: recruitment.id,
-            date: recruitment.date,
-            quantity: parseInt(recruitment.quantity, 10),
-            person: recruitment.person,
-            attendancing: parseInt(recruitment.attendancing, 10)
+            id: work.id,
+            date: work.date,
+            work: work.work,
+            yong: newY,
+            adult: newA,
+            children: newC,
+            elderly: newE,
+            total: tot,
+            hours: newH,
+            observation: work.observation,
+            legio: work.legio
         }
 
-        updateRecruitment(newObj)
+        updateWork(newObj)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
                 setVisible(true)
             })
             .catch((error) => {
@@ -85,15 +98,15 @@ function FoundRecruitment(props) {
                     </Dialog.Actions>
                 </Dialog>
             </Portal>
-            {recruitment.length >= 1 ?
-                <RecruitmentList
-                    recruitment={recruitment}
+            {work.length >= 1 ?
+                <WorkList
+                    work={work}
                     deleteForId={deleteForId}
-                    newRecruitment={newRecruitment}
+                    newWork={newWork}
                 />
                 :
                 <View style={styles.container}>
-                    <Text style={styles.title}>Não há recrutamentos na data informada</Text>
+                    <Text style={styles.title}>Não há trabalhos na data informada</Text>
                     <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
                 </View>
             }
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
     },
-    
+
     fest: {
         height: 150,
         width: 160,
@@ -171,4 +184,4 @@ const mapDispatchToProps = dispatchEvent => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoundRecruitment);
+export default connect(mapStateToProps, mapDispatchToProps)(FoundWork);

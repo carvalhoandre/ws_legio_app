@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
+import { getAtaForDate, deleteAta, updateAta } from '../../service/api';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import RecruitmentList from './RecruitmentList';
+import AtaList from './AtaList';
 import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { backDate } from '../../config/store/actions/date'
 import commonStyles from '../../styles/commonStyles'
 
-function FoundRecruitment(props) {
-    const [recruitment, setRecruitment] = useState([]);
+function FoundAta(props) {
+    const [ata, setAta] = useState([]);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState({
         title: '',
@@ -21,83 +21,102 @@ function FoundRecruitment(props) {
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
-        getRecruitmentForDate(data)
+        props.alterLoading(true)
+        getAtaForDate(data)
             .then((response) => {
-                setRecruitment(response.data)
+                setAta(response.data)
+                props.alterLoading(false)
             })
             .catch(() => {
-                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar Ata' })
                 setVisible(true)
+                props.alterLoading(false)
             })
     }, [teste])
 
     const deleteForId = (id) => {
-        deleteRecruitment(id)
+        props.alterLoading(true)
+        deleteAta(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Ata deleteada com sucesso' })
                 setVisible(true)
+                props.alterLoading(false)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
+                props.alterLoading(false)
             })
     }
 
-    const newRecruitment = (recruitment) => {
+    const newAta = (ata) => {
+        props.alterLoading(true)
         let newObj = {
-            id: recruitment.id,
-            date: recruitment.date,
-            quantity: parseInt(recruitment.quantity, 10),
-            person: recruitment.person,
-            attendancing: parseInt(recruitment.attendancing, 10)
+            id: ata.id,
+            date: ata.date,
+            inicio: ata.inicio,
+            ata: ata.ata,
+            participation: ata.participation,
+            capituloEspiritual: parseInt(ata.capituloEspiritual, 10),
+            paginaEspiritual: parseInt(ata.paginaEspiritual, 10),
+            titleEspiritual: ata.titleEspiritual,
+            allocutionAutor: ata.allocutionAutor,
+            allocutionAssunto: ata.allocutionAssunto,
+            coleta: ata.coleta,
+            paginaEstudo: parseInt(ata.paginaEstudo, 10),
+            paragrafoEstudo: parseInt(ata.paragrafoEstudo, 10),
+            assuntos: ata.assuntos,
+            horaFinal: ata.horaFinal
         }
 
-        updateRecruitment(newObj)
+        updateAta(newObj)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
                 setVisible(true)
+                props.alterLoading(false)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
+                props.alterLoading(false)
             })
     }
 
     return (
-        <>
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
-                    <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.body}</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button
-                            title="Ok"
-                            type="outline"
-                            onPress={hideDialog}
-                            buttonStyle={styles.dialogButton}
-                        />
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
-            {recruitment.length >= 1 ?
-                <RecruitmentList
-                    recruitment={recruitment}
-                    deleteForId={deleteForId}
-                    newRecruitment={newRecruitment}
-                />
-                :
-                <View style={styles.container}>
-                    <Text style={styles.title}>Não há recrutamentos na data informada</Text>
-                    <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
-                </View>
-            }
-        </>
+            <>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                title="Ok"
+                                type="outline"
+                                onPress={hideDialog}
+                                buttonStyle={styles.dialogButton}
+                            />
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                {ata.length >= 1 ?
+                    <AtaList
+                        ata={ata}
+                        deleteForId={deleteForId}
+                        newAta={newAta}
+                    />
+                    :
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Não há Ata na data informada</Text>
+                        <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
+                    </View>
+                }
+            </>
     );
 
 }
@@ -106,6 +125,11 @@ const styles = StyleSheet.create({
     buttons: {
         backgroundColor: '#FFF',
         justifyContent: 'flex-start'
+    },
+
+    spinner: {
+        flex: 1,
+        justifyContent: "center"
     },
 
     container: {
@@ -151,7 +175,7 @@ const styles = StyleSheet.create({
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
     },
-    
+
     fest: {
         height: 150,
         width: 160,
@@ -171,4 +195,4 @@ const mapDispatchToProps = dispatchEvent => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoundRecruitment);
+export default connect(mapStateToProps, mapDispatchToProps)(FoundAta);

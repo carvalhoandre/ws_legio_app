@@ -113,7 +113,7 @@ export default class Event extends Component {
                         buttonStyle={styles.button}
                         titleStyle={styles.buttonText}
                         icon={
-                            <Icon name={"calendar-sharp"} size={20} color={"#FFF"} />
+                            <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.titleColor} />
                         }
                     />
 
@@ -174,6 +174,9 @@ export default class Event extends Component {
                             onPress={this.send}
                             disabled={!validForm}
                             disabledStyle={styles.buttonDisabled}
+                            icon={
+                                <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                            }
                         />
                     </View>
                 </>
@@ -189,6 +192,18 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
 
+    textOption: {
+        color: commonStyles.colors.subtitleColor,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.normal
+    },
+
+    titleOption: {
+        color: commonStyles.colors.titleColor,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium
+    },
+
     scrollView: {
         marginHorizontal: 0,
     },
@@ -199,35 +214,40 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
 
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.titleColor,
+        marginLeft: 10
     },
 
-    buttonSend: {
-        marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryHoverColor,
-        padding: 5,
-        borderRadius: 8,
-        margin: 'auto',
+    button: {
+        backgroundColor: commonStyles.colors.bodyColor,
+        borderColor: commonStyles.colors.bodyColor,
+        marginTop: 5,
         borderWidth: 2,
-        borderColor: commonStyles.colors.firstColorLight,
-        marginTop: 24,
-        width: 132,
-        height: 40,
+        marginBottom: 5
     },
 
     buttonDisabled: {
-        borderWidth: 2,
-        borderColor: commonStyles.colors.disabeldColor,
         backgroundColor: commonStyles.colors.disabeldColor,
-        borderRadius: 8,
-        marginBottom: 30,
-        marginTop: 24,
-        width: 132,
-        height: 40
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonSend: {
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
     textButton: {
@@ -242,38 +262,9 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
 
-    buttonText: {
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
-        color: commonStyles.colors.titleColor
-    },
-
-    textOption: {
-        color: commonStyles.colors.subtitleColor,
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal
-    },
-
-    titleOption: {
-        color: commonStyles.colors.titleColor,
-        fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.medium
-    },
-    button: {
-        backgroundColor: commonStyles.colors.firstColor,
-        borderColor: commonStyles.colors.bodyColor,
-        marginTop: 5,
-        borderWidth: 0
-    },
-    buttonText: {
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
-        color: commonStyles.colors.containerColor
-    },
-
     labelText: {
         fontFamily: commonStyles.fontFamily.bold,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor
     }
 })

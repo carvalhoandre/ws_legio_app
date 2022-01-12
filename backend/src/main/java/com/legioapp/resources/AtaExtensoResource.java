@@ -58,4 +58,10 @@ public class AtaExtensoResource {
 		List<AtaExtenso> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<AtaExtenso>> findById(@PathVariable String date){
+		List<AtaExtenso> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
+	}
 }

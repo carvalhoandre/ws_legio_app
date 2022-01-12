@@ -29,7 +29,7 @@ export default function LegioCard({ legio, onSelectLegio, isSelected }) {
 
 const styles = StyleSheet.create({
     buttons: {
-        backgroundColor: commonStyles.colors.bodyColor,
+        backgroundColor: commonStyles.colors.containerColor,
         justifyContent: 'flex-start',
     },
 

@@ -138,7 +138,7 @@ export default class Treasury extends Component {
                             buttonStyle={styles.button}
                             titleStyle={styles.buttonText}
                             icon={
-                                <Icon name={"calendar-sharp"} size={20} color={"#FFF"} />
+                                <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.titleColor} />
                             }
                         />
                     </View>
@@ -190,18 +190,17 @@ export default class Treasury extends Component {
                         onChangeText={despesas => this.setState({ despesas })}
                     />
 
-                    <View style={styles.containerButton}>
-                        <Button
-                            title="Salvar"
-                            type="outline"
-                            buttonStyle={styles.buttonSend}
-                            titleStyle={styles.textButton}
-                            disabledTitleStyle={styles.textButton}
-                            onPress={this.send}
-                            disabled={!validForm}
-                            disabledStyle={styles.buttonDisabled}
-                        />
-                    </View>
+                    <Button
+                        onPress={this.send}
+                        title={"Enviar"}
+                        disabled={!validForm}
+                        buttonStyle={styles.buttonSend}
+                        titleStyle={styles.buttonTextSend}
+                        disabledStyle={styles.buttonDisabled}
+                        icon={
+                            <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                        }
+                    />
                 </>
         )
     }
@@ -212,26 +211,6 @@ const styles = StyleSheet.create({
     spinner: {
         flex: 1,
         justifyContent: "center"
-    },
-
-    container: {
-        paddingBottom: 20,
-        paddingTop: 20,
-        paddingLeft: 30,
-        paddingRight: 30,
-        backgroundColor: commonStyles.colors.bodyColor,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#E5E5E5',
-        shadowColor: '#a7b0c0',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
-        elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 24,
-
     },
 
     textOption: {
@@ -250,70 +229,46 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
     },
 
-    title: {
-        color: commonStyles.colors.titleColor,
-        fontWeight: '400',
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.subtitle,
-        marginBottom: 30,
-    },
-
-    text: {
-        color: "#757575",
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 11,
-        marginTop: -20,
-        marginBottom: 20
-    },
-
-    subtitle: {
-        color: commonStyles.colors.textColorLight,
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: 16.5,
-    },
-
     input: {
         marginBottom: 20,
         fontFamily: commonStyles.fontFamily.text,
         backgroundColor: 'transparent'
     },
 
+    buttonText: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.titleColor,
+        marginLeft: 10
+    },
+
     button: {
-        backgroundColor: commonStyles.colors.firstColor,
+        backgroundColor: commonStyles.colors.bodyColor,
         borderColor: commonStyles.colors.bodyColor,
         marginTop: 5,
-        borderWidth: 0
-    },
-
-    containerButton: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        width: '100%'
-    },
-
-    buttonSend: {
-        marginBottom: 30,
-        backgroundColor: commonStyles.colors.primaryColor,
-        padding: 5,
-        borderRadius: 8,
-        margin: 'auto',
         borderWidth: 2,
-        borderColor: commonStyles.colors.firstColorLight,
-        marginTop: 24,
-        width: 132,
-        height: 40,
+        marginBottom: 5
     },
 
     buttonDisabled: {
-        borderWidth: 2,
-        borderColor: commonStyles.colors.disabeldColor,
         backgroundColor: commonStyles.colors.disabeldColor,
-        borderRadius: 8,
-        marginBottom: 30,
-        marginTop: 24,
-        width: 132,
-        height: 40
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonSend: {
+        backgroundColor: commonStyles.colors.firstColor,
+        borderColor: commonStyles.colors.titleColor,
+        marginTop: 5,
+        borderWidth: 0,
+    },
+
+    buttonTextSend: {
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.containerColor,
+        marginLeft: 10
     },
 
     textButton: {
@@ -328,15 +283,9 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
 
-    buttonText: {
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal,
-        color: commonStyles.colors.containerColor
-    },
-
     labelText: {
         fontFamily: commonStyles.fontFamily.bold,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor
     }
 })

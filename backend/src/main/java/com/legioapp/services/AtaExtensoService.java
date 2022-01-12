@@ -84,4 +84,9 @@ public class AtaExtensoService {
 			return null;
 		}
 	}
+	
+	public List<AtaExtenso> findAllByDate(String date) {
+		List<AtaExtenso> obj = repo.findForDate(date);
+		return obj;
+	}
 }
