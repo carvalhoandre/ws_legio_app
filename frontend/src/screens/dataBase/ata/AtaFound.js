@@ -128,7 +128,6 @@ export default class AtaFound extends Component {
                     <ScrollView
                         contentContainerStyle={styles.scrollView}
                     >
-
                         {this.returnIndicator()}
                         <View style={styles.containerButton}>
                             {this.returnButtons()}

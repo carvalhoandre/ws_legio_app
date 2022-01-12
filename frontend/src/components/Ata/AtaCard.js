@@ -272,7 +272,7 @@ export default class AtaCard extends Component {
 
                     <Text style={styles.subtitle}>
                         Coleta:
-                        {this.state.coleta === true ? `Foi pasasda a coleta secreta` : 'Não foi pasasda a coleta secreta'}
+                        {this.state.coleta === true ? `Foi passada a coleta secreta` : 'Não foi passada a coleta secreta'}
                     </Text>
                     <Text style={styles.subtitle}>Estudo do Manual</Text>
                     <Text style={styles.text}>

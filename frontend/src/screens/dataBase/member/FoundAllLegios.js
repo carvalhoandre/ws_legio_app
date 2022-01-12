@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getEventForDate, deleteEvent, updateEvent } from '../../service/api';
-import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator, SafeAreaView, ScrollView } from 'react-native';
+import { getLegios, deleteLegio, updateLegio } from '../../../service/api';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
-import EventList from './EventList';
 import { Button } from 'react-native-elements'
-import { connect } from 'react-redux';
-import { backDate } from '../../config/store/actions/date'
-import commonStyles from '../../styles/commonStyles'
-import { formatDate } from '../../utils/format'
+import commonStyles from '../../../styles/commonStyles'
+import LegioList from './LegioList';
 
-function FoundEvent(props) {
-    const [event, setEvent] = useState([]);
+export default function FoundAllLegios() {
+    const [legio, setLegio] = useState([]);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState({
         title: '',
         message: '',
     })
-    const [data, setData] = useState(props.moment)
     const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -24,13 +20,13 @@ function FoundEvent(props) {
 
     useEffect(() => {
         setLoading(true)
-        getEventForDate(data)
+        getLegios()
             .then((response) => {
-                setEvent(response.data)
+                setLegio(response.data)
                 setLoading(false)
             })
-            .catch(() => {
-                setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+            .catch(error => {
+                setMessage({ title: 'Error 😵😵😵', message: error })
                 setLoading(false)
                 setVisible(true)
             })
@@ -38,11 +34,11 @@ function FoundEvent(props) {
 
     const deleteForId = (id) => {
         setLoading(true)
-        deleteEvent(id)
+        deleteLegio(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'Evento deletado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Legionario deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
             })
@@ -53,27 +49,21 @@ function FoundEvent(props) {
             })
     }
 
-    const newEvent = (event) => {
+    const newLegio = (legio) => {
         setLoading(true)
-        let newAt = parseInt(event.ativos, 10)
-        let newG = parseInt(event.guests, 10)
-        let newAu = parseInt(event.auxiliares, 10)
-
         let newObj = {
-            id: event.id,
-            date: event.date,
-            name: event.name,
-            guests: newG,
-            ativos: newAt,
-            auxiliares: newAu,
-            dateEvent: event.dateEvent
+            id: legio.id,
+            name: legio.name,
+            type: legio.type,
+            birthday: legio.birthday,
+            initial: legio.initial
         }
 
-        updateEvent(newObj)
+        updateLegio(newObj)
             .then(() => {
                 let or = !teste
                 setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'Evento alterado com sucesso' })
+                setMessage({ title: 'Sucesso', message: 'Cadastro alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
             })
@@ -107,16 +97,27 @@ function FoundEvent(props) {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
-                {event.length >= 1 ?
-                    <EventList
-                        event={event}
-                        deleteForId={deleteForId}
-                        newEvent={newEvent}
-                    />
+                {legio.length >= 1 ?
+                    <SafeAreaView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
+                        style={styles.main}
+                    >
+                        <ScrollView
+                            contentContainerStyle={styles.scrollView}
+                        >
+                            <Text style={styles.subtitle}>Salve Maria!</Text>
+                            <Text style={styles.title}>Legionários</Text>
+                            <LegioList
+                                legio={legio}
+                                deleteForId={deleteForId}
+                                newLegio={newLegio}
+                            />
+                        </ScrollView>
+                    </SafeAreaView>
                     :
                     <View style={styles.container}>
-                        <Text style={styles.title}>Não há eventos na data informada</Text>
-                        <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
+                        <Text style={styles.title}>Não há Legionarios Cadastrados</Text>
+                        <Image source={require('../../../../assets/icons/notFound.png')} style={styles.fest} />
                     </View>
                 }
             </>
@@ -125,14 +126,20 @@ function FoundEvent(props) {
 }
 
 const styles = StyleSheet.create({
+    main: {
+        flex: 1,
+        paddingTop: Platform.OS === "ios" ? 0 : 50,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+
+    scrollView: {
+        marginHorizontal: 0,
+    },
+
     buttons: {
         backgroundColor: '#FFF',
         justifyContent: 'flex-start'
-    },
-
-    spinner: {
-        flex: 1,
-        justifyContent: "center"
     },
 
     container: {
@@ -149,8 +156,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 12,
         elevation: 1,
-        marginRight: 15,
-        marginLeft: 15,
         marginBottom: 24,
         alignItems: 'center'
     },
@@ -170,9 +175,16 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
+        fontSize: commonStyles.fontSize.medium,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.normal
+        marginBottom: 30
+    },
+
+    subtitle: {
+        fontFamily: commonStyles.fontFamily.josefin,
+        color: commonStyles.colors.subtitleColor,
+        fontSize: commonStyles.fontSize.small
     },
 
     textOption: {
@@ -199,17 +211,4 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = ({ date }) => {
-    return {
-        number: date.number,
-        moment: date.moment
-    }
-}
 
-const mapDispatchToProps = dispatchEvent => {
-    return {
-        backDate: () => dispatchEvent(backDate())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(FoundEvent);

@@ -385,11 +385,11 @@ export default class AtaCreate extends Component {
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button
-                                    title="Ok"
-                                    type="outline"
                                     onPress={this.hideDialog}
-                                    buttonStyle={styles.dialogButton}
-                                />
+                                    contentStyle={styles.dialogButton}
+                                >
+                                    <Text>Ok</Text>
+                                </Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>

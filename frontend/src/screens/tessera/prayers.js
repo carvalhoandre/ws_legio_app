@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Platform } from 'react-native'
 import commonStyles from '../../styles/commonStyles'
 import { FAB, Portal, Provider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -106,16 +106,16 @@ const Prayers = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: Platform.OS === 'ios' ? 70 : 50,
     },
 
     title: {
         fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.title,
+        fontSize: commonStyles.fontSize.subtitle,
+        textAlign: 'center'
     },
 
     subtitle: {
@@ -123,13 +123,14 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small,
         marginBottom: 20,
+        textAlign: 'center'
     },
     paragraph: {
         lineHeight: 28,
         textAlign: 'justify',
         fontFamily: commonStyles.fontFamily.text,
         marginBottom: 15,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     button: {
         backgroundColor: commonStyles.colors.firstColorLight,

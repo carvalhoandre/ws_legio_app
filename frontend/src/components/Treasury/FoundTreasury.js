@@ -61,14 +61,13 @@ function FoundTreasury(props) {
         let newCTB = parseFloat(treasury.contribuicao, 10)
         let tot = newSA + newC - newD - newCTB
         let sub = newSA + newC
-        let newDate = formatDate(treasury.date)
 
         let newObj = {
             id: treasury.id,
             date: treasury.date,
             saldoAnterior: newSA,
             coletaDoDia: newCDD,
-            diaDaColeta: newDate,
+            diaDaColeta: treasury.diaDaColeta,
             contribuicao: newCTB,
             despesas: newC,
             subTotal: sub,

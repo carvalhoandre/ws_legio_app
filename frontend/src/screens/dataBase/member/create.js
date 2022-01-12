@@ -24,7 +24,6 @@ const initialState = {
     show: false
 }
 
-
 export default class CreateMember extends Component {
 
     state = {
@@ -150,28 +149,6 @@ export default class CreateMember extends Component {
                                     />
                                 )}
 
-                                <Text style={styles.text}>Data de "entrada":</Text>
-                                <Button
-                                    onPress={showDatepicker}
-                                    title={`${formatDateMonth(this.state.initial)}`}
-                                    buttonStyle={styles.button}
-                                    titleStyle={styles.buttonText}
-                                    icon={
-                                        <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.firstColor} />
-                                    }
-                                />
-
-                                {this.state.show && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        value={this.state.initial}
-                                        mode={this.state.mode}
-                                        display="default"
-                                        onChange={onChangeI}
-                                        dateFormat='shortdate'
-                                    />
-                                )}
-
                                 <Text style={styles.text}>Membro:</Text>
                                 <CheckBox
                                     containerStyle={styles.option}
@@ -218,6 +195,28 @@ export default class CreateMember extends Component {
                                         <Icon name={"radio-button-off"} size={20} color={commonStyles.colors.primaryColor} />
                                     }
                                 />
+
+                                <Text style={styles.text}>Data de "entrada":</Text>
+                                <Button
+                                    onPress={showDatepicker}
+                                    title={`${formatDateMonth(this.state.initial)}`}
+                                    buttonStyle={styles.button}
+                                    titleStyle={styles.buttonText}
+                                    icon={
+                                        <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.firstColor} />
+                                    }
+                                />
+
+                                {this.state.show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={this.state.initial}
+                                        mode={this.state.mode}
+                                        display="default"
+                                        onChange={onChangeI}
+                                        dateFormat='shortdate'
+                                    />
+                                )}
 
                                 <Button
                                     onPress={this.send}

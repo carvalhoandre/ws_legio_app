@@ -129,18 +129,18 @@ export default class WorkCard extends Component {
 
                     <TextInput
                         label="Dupla"
-                        value={this.state.legios.toString()}
+                        value={this.state.legio}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={legios => this.setState({ legios })}
+                        onChangeText={legio => this.setState({ legio })}
                     />
 
                     <TextInput
                         label="Observação"
                         multiline={true}
-                        value={this.state.observation.toString()}
+                        value={this.state.observation}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}

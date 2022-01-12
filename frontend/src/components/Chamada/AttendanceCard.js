@@ -41,9 +41,9 @@ export default class AttendanceCard extends Component {
 const styles = StyleSheet.create({
 
     title: {
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.normal
+        fontSize: commonStyles.fontSize.small
     },
 
     container: {

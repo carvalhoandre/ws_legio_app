@@ -36,30 +36,30 @@ export default function Home() {
     })
 
     return (
-        loading === true ?
-        <View style={styles.spinner}>
-            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
-        </View>
-        :
         <View style={styles.main}>
             <Text style={styles.vibes}>Porta do Céu</Text>
             <Text style={styles.josefin}>Salve Maria!</Text>
 
             <View style={styles.container}>
-                {sucess === true & list.length >= 1 ?
-                    <>
-                        <Text style={styles.titleContainer}>Aniversariantes do mês:</Text>
-                        <View style={styles.show}>
-                            <View style={styles.containerImage}>
-                                <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
-                            </View>
-                            <View style={styles.containerNames}>
-                                {list}
-                            </View>
-                        </View>
-                    </>
+                {loading === true ?
+                    <View style={styles.spinner}>
+                        <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+                    </View>
                     :
-                    <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
+                    sucess === true & list.length >= 1 ?
+                        <>
+                            <Text style={styles.titleContainer}>Aniversariantes do mês:</Text>
+                            <View style={styles.show}>
+                                <View style={styles.containerImage}>
+                                    <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
+                                </View>
+                                <View style={styles.containerNames}>
+                                    {list}
+                                </View>
+                            </View>
+                        </>
+                        :
+                        <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
                 }
             </View>
         </View>

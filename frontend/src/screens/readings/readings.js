@@ -55,11 +55,11 @@ const Readings = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: Platform === 'ios' ? 30 : 30,
+        paddingTop: Platform.OS === 'ios' ? 70 : 35,
     },
     title: {
-        fontSize: commonStyles.fontSize.normal,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontSize: commonStyles.fontSize.small,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
     },
     option: {

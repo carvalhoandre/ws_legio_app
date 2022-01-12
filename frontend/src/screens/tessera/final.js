@@ -47,7 +47,7 @@ const Final = () => {
             <Provider>
                 <View style={styles.container}>
                     <Text style={styles.paragraph}>
-                        Em nome do Pai + e do Filho e do Espírito Santo. Amém.
+                        Em nome do Pai <Icon name={"christianity"} size={20} color={commonStyles.colors.textColor} /> e do Filho e do Espírito Santo. Amém.
                     </Text>
 
                     <Text style={styles.paragraph}>
@@ -62,11 +62,6 @@ const Final = () => {
                     <Text style={styles.observation}>
                         Fora das reuniões do Praesidium reza-se sempre a invocação seguinte:
                     </Text>
-                    <Text style={styles.repply}>
-                        R. Rogai por nós
-                    </Text>
-
-
                     <Text style={styles.jaculatory}>
                         P. Maria Imaculada, Medianeira de todas as graças,
                     </Text>
@@ -127,7 +122,7 @@ const Final = () => {
                     </Text>
 
                     <Text style={styles.paragraph}>
-                        Em nome do Pai <Icon name={"christianity"} size={20} color={"#000"} /> e do Filho e do Espírito Santo. Amém.
+                        Em nome do Pai <Icon name={"christianity"} size={20} color={commonStyles.colors.textColor} /> e do Filho e do Espírito Santo. Amém.
                     </Text>
 
                     <Portal>
@@ -163,13 +158,13 @@ const styles = StyleSheet.create({
         textAlign: "justify",
         fontFamily: commonStyles.fontFamily.text,
         marginBottom: 20,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     repply: {
         marginTop: 5,
@@ -177,7 +172,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.light,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     observation: {
         fontFamily: commonStyles.fontFamily.sitacao,
@@ -194,19 +189,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         padding: 20,
         zIndex: 100,
-        marginTop: 800
+        marginTop: 1500
     },
 
     titleOption: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.primaryColor,
         textTransform: 'capitalize',
     },
 
     option: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor,
         textTransform: 'capitalize',
         textAlign: 'center',

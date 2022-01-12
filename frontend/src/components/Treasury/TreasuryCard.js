@@ -4,8 +4,6 @@ import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../../styles/commonStyles'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { formatDate } from '../../utils/format'
 
 export default class TreasuryCard extends Component {
     constructor(props) {
@@ -85,29 +83,17 @@ export default class TreasuryCard extends Component {
                         onChangeText={saldoAnterior => this.setState({ saldoAnterior })}
                     />
 
-                    <View>
-                        <Text style={styles.labelText}>Data da coleta Anterior</Text>
-                        <Button
-                            onPress={showDatepicker}
-                            title={`${formatDate(this.state.diaDaColeta)}`}
-                            buttonStyle={styles.button}
-                            titleStyle={styles.buttonText}
-                            icon={
-                                <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.titleColor} />
-                            }
-                        />
-                    </View>
-
-                    {this.state.show && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={this.state.diaDaColeta}
-                            mode={this.state.mode}
-                            display="default"
-                            onChange={onChange}
-                            dateFormat='shortdate'
-                        />
-                    )}
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Dia da coleta"
+                        value={this.state.diaDaColeta}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={diaDaColeta => this.setState({ diaDaColeta })}
+                    />
 
                     <TextInput
                         type="number"

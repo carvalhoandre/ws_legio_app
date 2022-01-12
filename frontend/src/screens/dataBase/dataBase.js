@@ -31,14 +31,14 @@ const DataBase = () => {
                             navigation.navigate('AtaCreate')
                         })}
                         titleStyle={styles.subtitle}
-                        style={styles.option}
+                        style={styles.optionList}
                     />
                     <List.Item title="Buscar" titleStyle={styles.subtitle}
                         onPress={(() => {
                             navigation.navigate('AtaSearch')
                         })}
                         titleStyle={styles.subtitle}
-                        style={styles.option}
+                        style={styles.optionList}
                     />
                 </List.Accordion>
 
@@ -55,12 +55,15 @@ const DataBase = () => {
                             navigation.navigate('CreateLegio')
                         })}
                         titleStyle={styles.subtitle}
-                        style={styles.option}
+                        style={styles.optionList}
                     />
                     <List.Item
                         title="Buscar"
                         titleStyle={styles.subtitle}
-                        style={styles.option}
+                        style={styles.optionList}
+                        onPress={(() => {
+                            navigation.navigate('FoundAllLegios')
+                        })}
                     />
                 </List.Accordion>
 
@@ -75,7 +78,20 @@ const styles = StyleSheet.create({
         marginTop: Platform === 'ios' ? 30 : 30,
     },
     option: {
-        backgroundColor: commonStyles.colors.minimalistColor,
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 1,
+        borderColor: '#E5E5E5',
+        elevation: 1,
+    },
+    optionList: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 1,
+        borderColor: '#E5E5E5',
+        shadowColor: '#a7b0c0',
+        shadowOffset: { width: 1, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        elevation: 1,
     },
     title: {
         fontSize: commonStyles.fontSize.small,

@@ -99,20 +99,20 @@ const styles = StyleSheet.create({
         textAlign: "justify",
         fontFamily: commonStyles.fontFamily.text,
         marginBottom: 15,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     repply: {
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.light,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     observation: {
         fontFamily: commonStyles.fontFamily.sitacao,

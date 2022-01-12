@@ -10,21 +10,21 @@ const Instructions = () => {
             <View style={styles.container}>
                 <Text style={styles.observation}>“O Serviço Legionário exige de cada membro da Legião: </Text>
                 <Text style={styles.item}>
-                    Primeiro: A assistência pontual e regular à reunião semanal do Praesidium, onde
+                    <Text style={styles.bold}>Primeiro:</Text> A assistência pontual e regular à reunião semanal do Praesidium, onde
                     deve apresentar em voz alta e compreensível o relatório exato do trabalho realizado.
                 </Text>
 
-                <Text style={styles.item}>Segundo: A reza diária da Catena.</Text>
+                <Text style={styles.item}><Text style={styles.bold}>Segundo:</Text> A reza diária da Catena.</Text>
 
                 <Text style={styles.item}>
-                    Terceiro: A execução de um trabalho legionário, ativo e bem definido, em espírito
+                    <Text style={styles.bold}>Terceiro:</Text> A execução de um trabalho legionário, ativo e bem definido, em espírito
                     de fé e união com Maria, de tal forma que, pelo legionário, seja Maria, a Mãe de Jesus, que
                     mais uma vez contemple e sirva a pessoa Adorável de seu divino Filho, naqueles por quem
                     o legionário trabalha e nos seus colegas de ação.
                 </Text>
 
                 <Text style={styles.item}>
-                    Quarto: Segredo absoluto sobre os assuntos tratados em reunião ou conhecidos na
+                    <Text style={styles.bold}>Quarto:</Text> Segredo absoluto sobre os assuntos tratados em reunião ou conhecidos na
                     realização da atividade legionária”.
                 </Text>
 
@@ -54,21 +54,30 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: commonStyles.fontSize.medium,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
         textAlign: "center",
         marginTop: 20
     },
     item: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         marginTop: 15,
         marginLeft: 10,
-        fontSize: commonStyles.fontSize.WorkSans,
+        fontSize: commonStyles.fontSize.small,
+        color: commonStyles.colors.titleColor,
+        lineHeight: 23
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        marginTop: 15,
+        marginLeft: 10,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor,
         lineHeight: 23
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         color: commonStyles.colors.textColorLight,
         marginTop: 15,
         lineHeight: 20,

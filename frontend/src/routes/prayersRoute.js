@@ -31,6 +31,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -42,6 +43,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -53,6 +55,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -91,6 +94,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -101,6 +105,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -111,6 +116,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         ffontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -121,6 +127,7 @@ function PrayersRoute() {
                     headerTitleStyle: {
                         fontFamily: commonStyles.fontFamily.josefin,
                         color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />

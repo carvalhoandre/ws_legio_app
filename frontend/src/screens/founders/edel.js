@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.primaryColor,
-        fontSize: 24,
+        fontSize: commonStyles.fontSize.medium,
         marginBottom: 20,
         textAlign: 'center'
     },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         fontFamily: commonStyles.fontFamily.text,
         marginBottom: 10,
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.small,
     },
     observation: {
         fontFamily: commonStyles.fontFamily.light,

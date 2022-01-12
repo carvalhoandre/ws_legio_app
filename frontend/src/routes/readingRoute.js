@@ -25,8 +25,9 @@ function ReadingRoute() {
                 options={{
                     headerTitle: "Ordem da Reunião",
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />
@@ -36,8 +37,9 @@ function ReadingRoute() {
                 options={{
                     headerTitle: "Instrução Permanente",
                     headerTitleStyle: {
-                        fontFamily: commonStyles.fontFamily.OldEnglish,
-                        color: commonStyles.colors.primaryHoverColor,
+                        fontFamily: commonStyles.fontFamily.josefin,
+                        color: commonStyles.colors.primaryColor,
+                        fontSize: commonStyles.fontSize.medium,
                     }
                 }}
             />

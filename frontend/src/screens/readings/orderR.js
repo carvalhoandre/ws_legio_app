@@ -63,23 +63,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        marginTop: 20
+        marginTop: 10
     },
     title: {
         fontSize: commonStyles.fontSize.medium,
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
         textAlign: "center",
         marginTop: 20
     },
     item: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.text,
         marginTop: 15,
         marginLeft: 10,
         fontSize: commonStyles.fontSize.normal
     },
     observation: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
+        fontFamily: commonStyles.fontFamily.light,
         color: commonStyles.colors.textColorLight,
         marginBottom: 5,
         marginLeft: 15,

@@ -77,27 +77,17 @@ export default class EventCard extends Component {
                         onChangeText={name => this.setState({ name: name })}
                     />
 
-                    <Text style={styles.labelText}>Data do Evento</Text>
-                    <Button
-                        onPress={showDatepicker}
-                        title={`${formatDate(this.state.date)}`}
-                        buttonStyle={styles.button}
-                        titleStyle={styles.buttonText}
-                        icon={
-                            <Icon name={"calendar-sharp"} size={20} color={commonStyles.colors.titleColor} />
-                        }
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Data do Evento"
+                        value={this.state.dateEvent.toString()}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={dateEvent => this.setState({ dateEvent: dateEvent })}
                     />
-
-                    {this.state.show && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={this.state.dateEvent}
-                            mode={this.state.mode}
-                            display="default"
-                            onChange={onChange}
-                            dateFormat='shortdate'
-                        />
-                    )}
 
                     <TextInput
                         type="number"
@@ -176,7 +166,7 @@ export default class EventCard extends Component {
                     <Text style={styles.subtitle}>
                         Comparecimentos:
                     </Text>
-                    
+
                     <Text style={styles.text}>
                         {this.state.guests >= 1 ? `Convidados: ${this.state.guests} ` : null}
                         {this.state.ativos >= 1 ? `Ativos: ${this.state.ativos} ` : null}

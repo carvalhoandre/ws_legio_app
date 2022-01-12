@@ -53,7 +53,7 @@ const Opening = () => {
             <View style={styles.container}>
                 <Provider >
                     <Text style={styles.paragraph}>
-                        Em nome do Pai <Icon name={"christianity"} size={20} color={"#000"} /> e do Filho e do Espírito Santo. Amém.
+                        Em nome do Pai <Icon name={"christianity"} size={20} color={commonStyles.colors.textColor} /> e do Filho e do Espírito Santo. Amém.
                     </Text>
 
                     <Text style={styles.paragraph}>
@@ -178,20 +178,20 @@ const styles = StyleSheet.create({
         textAlign: "justify",
         fontFamily: commonStyles.fontFamily.text,
         marginBottom: 15,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     jaculatory: {
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.subtitle,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     repply: {
         marginBottom: 15,
         lineHeight: 20,
         textAlign: "auto",
         fontFamily: commonStyles.fontFamily.light,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
     },
     observation: {
         fontFamily: commonStyles.fontFamily.sitacao,
@@ -211,14 +211,14 @@ const styles = StyleSheet.create({
 
     titleOption: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.primaryColor,
         textTransform: 'capitalize'
     },
 
     option: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.normal,
+        fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor,
         textTransform: 'capitalize',
         textAlign: 'center',

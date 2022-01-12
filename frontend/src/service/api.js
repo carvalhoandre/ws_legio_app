@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://legio-app.herokuapp.com"
 
-// legio
+// legios
 export function createLegio(creds) {
     return axios.post(`${API_URL}/legio`, creds)
 }
@@ -15,18 +15,21 @@ export function getBirthdayMonth(month) {
     return axios.get(`${API_URL}/legio/month/${month}`);
 }
 
+export function deleteLegio(id) {
+    return axios.delete(`${API_URL}/legio/${id}`)
+}
+
+export function updateLegio(legio) {
+    return axios.post(`${API_URL}/legio/update`, legio)
+}
+
 // attendance
 export function createAttendance(creds) {
     return axios.post(`${API_URL}/attendance`, creds)
 }
 
 export function createAllAttendance(creds) {
-    if (creds.length > 1) {
-        return axios.post(`${API_URL}/attendance/all`, creds)
-    }
-    else {
-        return axios.post(`${API_URL}/attendance`, creds)
-    }
+    return axios.post(`${API_URL}/attendance/all`, creds)
 }
 
 export function getAttendanceForDate(date) {

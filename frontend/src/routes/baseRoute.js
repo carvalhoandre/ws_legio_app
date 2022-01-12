@@ -5,6 +5,7 @@ import AtaCreate from '../screens/dataBase/ata/AtaCreate';
 import CreateMember from '../screens/dataBase/member/create'
 import AtaSearch from '../screens/dataBase/ata/AtaSearch';
 import AtaFound from '../screens/dataBase/ata/AtaFound';
+import FoundAllLegios from '../screens/dataBase/member/FoundAllLegios'
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,13 @@ function BaseRoute() {
             <Stack.Screen
                 name="CreateLegio"
                 component={CreateMember}
+                options={{
+                    headerShown: false,
+                }} 
+            />
+            <Stack.Screen
+                name="FoundAllLegios"
+                component={FoundAllLegios}
                 options={{
                     headerShown: false,
                 }} 
