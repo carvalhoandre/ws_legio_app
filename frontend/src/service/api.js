@@ -21,7 +21,12 @@ export function createAttendance(creds) {
 }
 
 export function createAllAttendance(creds) {
-    return axios.post(`${API_URL}/attendance/all`, creds)
+    if (creds.length > 1) {
+        return axios.post(`${API_URL}/attendance/all`, creds)
+    }
+    else {
+        return axios.post(`${API_URL}/attendance`, creds)
+    }
 }
 
 export function getAttendanceForDate(date) {

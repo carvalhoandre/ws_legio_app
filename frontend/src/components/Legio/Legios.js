@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getLegios, createAllAttendance } from '../../service/api';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { checkIsSelected } from '../../utils/helpers'
 import { Button } from 'react-native-elements'
 import commonStyles from '../../styles/commonStyles'
@@ -18,16 +18,20 @@ export default function Legios() {
         title: '',
         message: '',
     })
+    const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
+        setLoading(true)
         getLegios()
             .then((response) => {
                 setLegios(response.data)
+                setLoading(false)
             })
             .catch(error => {
                 setMessage({ title: 'Error 😵😵😵', message: error })
+                setLoading(false)
                 setVisible(true)
             })
     }, [])
@@ -45,6 +49,7 @@ export default function Legios() {
     }
 
     const handleSubmit = () => {
+        setLoading(true)
         const payload = []
         const date = moment().locale('pt-br').format('DD-MM-YYYY')
         selectedLegios.forEach(element => {
@@ -60,47 +65,50 @@ export default function Legios() {
         createAllAttendance(payload)
             .then(() => {
                 setMessage({ title: '😁😁😁', message: 'Chamada salva!' })
+                setLoading(false)
                 setVisible(true)
             }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
-                setVisible(true)
-            })
-            .catch((error) => {
-                setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     return (
-        <View style={styles.container}>
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
-                    <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.message}</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button
-                            title="Ok"
-                            type="outline"
-                            onPress={hideDialog}
-                            style={styles.buttons}
-                        />
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
+        loading === true ?
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+            </View>
+            :
+            <View style={styles.container}>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                title="Ok"
+                                type="outline"
+                                onPress={hideDialog}
+                                style={styles.buttons}
+                            />
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
 
-            <LegioList
-                legios={legios}
-                onSelectLegio={handleSelectLegio}
-                selectedLegios={selectedLegios}
-            />
+                <LegioList
+                    legios={legios}
+                    onSelectLegio={handleSelectLegio}
+                    selectedLegios={selectedLegios}
+                />
 
-            <OrderSummary
-                amount={selectedLegios.length}
-                onSubmit={handleSubmit}
-            />
-        </View>
+                <OrderSummary
+                    amount={selectedLegios.length}
+                    onSubmit={handleSubmit}
+                />
+            </View>
     );
 
 }
@@ -117,6 +125,11 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.subtitleColor,
         fontFamily: commonStyles.fontFamily.text,
         fontSize: commonStyles.fontSize.normal
+    },
+    
+    spinner: {
+        flex: 1,
+        justifyContent: "center"
     },
 
     titleOption: {

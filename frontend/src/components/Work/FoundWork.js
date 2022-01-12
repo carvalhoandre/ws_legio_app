@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getWorkForDate, deleteWork, updateWork } from '../../service/api';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import WorkList from './WorkList';
 import { Button } from 'react-native-elements'
@@ -17,35 +17,43 @@ function FoundWork(props) {
     })
     const [data, setData] = useState(props.moment)
     const [teste, setTeste] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
+        setLoading(true)
         getWorkForDate(data)
             .then((response) => {
                 setWork(response.data)
+                setLoading(false)
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar trabalhos' })
+                setLoading(false)
                 setVisible(true)
             })
     }, [teste])
 
     const deleteForId = (id) => {
+        setLoading(true)
         deleteWork(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Trabalho deleteado com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     const newWork = (work) => {
+        setLoading(true)
         let newA = parseInt(work.adult, 10)
         let newC = parseInt(work.children, 10)
         let newY = parseInt(work.yong, 10)
@@ -72,15 +80,22 @@ function FoundWork(props) {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     return (
+        loading === true ?
+        <View style={styles.spinner}>
+            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+        </View>
+        :
         <>
             <Portal>
                 <Dialog visible={visible} onDismiss={hideDialog}>
@@ -139,6 +154,20 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 24,
         alignItems: 'center'
+    },
+
+    spinner: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: commonStyles.colors.background,
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
 
     title: {

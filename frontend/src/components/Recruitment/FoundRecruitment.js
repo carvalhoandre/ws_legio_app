@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRecruitmentForDate, deleteRecruitment, updateRecruitment } from '../../service/api';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import RecruitmentList from './RecruitmentList';
 import { Button } from 'react-native-elements'
@@ -17,35 +17,43 @@ function FoundRecruitment(props) {
     })
     const [data, setData] = useState(props.moment)
     const [teste, setTeste] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
+        setLoading(true)
         getRecruitmentForDate(data)
             .then((response) => {
                 setRecruitment(response.data)
+                setLoading(false)
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+                setLoading(false)
                 setVisible(true)
             })
     }, [teste])
 
     const deleteForId = (id) => {
+        setLoading(true)
         deleteRecruitment(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     const newRecruitment = (recruitment) => {
+        setLoading(true)
         let newObj = {
             id: recruitment.id,
             date: recruitment.date,
@@ -59,15 +67,22 @@ function FoundRecruitment(props) {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     return (
+        loading === true ?
+        <View style={styles.spinner}>
+            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+        </View>
+        :
         <>
             <Portal>
                 <Dialog visible={visible} onDismiss={hideDialog}>
@@ -126,6 +141,20 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 24,
         alignItems: 'center'
+    },
+
+    spinner: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: commonStyles.colors.background,
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
 
     title: {

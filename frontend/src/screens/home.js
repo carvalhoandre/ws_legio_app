@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, ActivityIndicator } from 'react-native'
 import commonStyles from '../styles/commonStyles'
 import { formatGetMonth } from '../utils/format'
 import { getBirthdayMonth } from '../service/api'
@@ -7,17 +7,20 @@ import { getBirthdayMonth } from '../service/api'
 export default function Home() {
     const [legios, setLegios] = useState([])
     const [sucess, setsucess] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         let data = formatGetMonth(new Date())
-
+        setLoading(true)
         getBirthdayMonth(data)
             .then((response) => {
                 setLegios(response.data)
+                setLoading(false)
                 setsucess(true)
             })
             .catch(() => {
                 setsucess(false)
+                setLoading(false)
             })
     }, [])
 
@@ -33,6 +36,11 @@ export default function Home() {
     })
 
     return (
+        loading === true ?
+        <View style={styles.spinner}>
+            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+        </View>
+        :
         <View style={styles.main}>
             <Text style={styles.vibes}>Porta do Céu</Text>
             <Text style={styles.josefin}>Salve Maria!</Text>
@@ -64,6 +72,11 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.primaryColor,
         fontSize: 60,
         textAlign: 'center',
+    },
+
+    spinner: {
+        flex: 1,
+        justifyContent: "center",
     },
 
     josefin: {

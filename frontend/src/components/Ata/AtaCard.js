@@ -38,8 +38,8 @@ export default class AtaCard extends Component {
         return (
             this.state.edit === true ?
                 <View style={styles.container}>
-                     <View style={styles.fieldButton}>
-                         <Button
+                    <View style={styles.fieldButton}>
+                        <Button
                             title=""
                             type="outline"
                             buttonStyle={styles.buttonCancel}
@@ -51,10 +51,8 @@ export default class AtaCard extends Component {
                             icon={
                                 <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
                             }
-                                             />
-                     </View>
-
-                    
+                        />
+                    </View>
                     <CheckBox
                         containerStyle={styles.option}
                         textStyle={styles.textOption}
@@ -291,7 +289,7 @@ export default class AtaCard extends Component {
                     </Text>
 
                     <Button
-                        title=""
+                        title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
                         titleStyle={styles.textButton}
@@ -448,7 +446,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 15,
         marginBottom: 5,
-        fontFamily: commonStyles.fontFamily.text,
+        fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
     }

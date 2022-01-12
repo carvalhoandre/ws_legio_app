@@ -30,8 +30,8 @@ function FoundAta(props) {
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar Ata' })
-                setVisible(true)
                 setLoading(false)
+                setVisible(true)
             })
     }, [teste])
 

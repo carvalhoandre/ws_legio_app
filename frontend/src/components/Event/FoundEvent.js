@@ -18,35 +18,43 @@ function FoundEvent(props) {
     })
     const [data, setData] = useState(props.moment)
     const [teste, setTeste] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
+        setLoading(true)
         getEventForDate(data)
             .then((response) => {
                 setEvent(response.data)
+                setLoading(false)
             })
             .catch(() => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
+                setLoading(false)
                 setVisible(true)
             })
     }, [teste])
 
     const deleteForId = (id) => {
+        setLoading(true)
         deleteEvent(id)
             .then(() => {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Evento deletado com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     const newEvent = (event) => {
+        setLoading(true)
         let newAt = parseInt(event.ativos, 10)
         let newG = parseInt(event.guests, 10)
         let newAu = parseInt(event.auxiliares, 10)
@@ -66,15 +74,22 @@ function FoundEvent(props) {
                 let or = !teste
                 setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Evento alterado com sucesso' })
+                setLoading(false)
                 setVisible(true)
             })
             .catch((error) => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                setLoading(false)
                 setVisible(true)
             })
     }
 
     return (
+        loading === true ?
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+            </View>
+            :
             <>
                 <Portal>
                     <Dialog visible={visible} onDismiss={hideDialog}>
@@ -138,6 +153,20 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 24,
         alignItems: 'center'
+    },
+
+    spinner: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: commonStyles.colors.background,
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
 
     title: {

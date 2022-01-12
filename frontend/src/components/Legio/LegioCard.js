@@ -21,6 +21,7 @@ export default function LegioCard({ legio, onSelectLegio, isSelected }) {
                     }
                 </Button>
                 <Text style={styles.name}>{legio.name}</Text>
+                <Text style={styles.name}>{isSelected}</Text>
             </View>
             :
             null

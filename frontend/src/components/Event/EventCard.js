@@ -51,6 +51,22 @@ export default class EventCard extends Component {
         return (
             this.state.edit === true ?
                 <View style={styles.container}>
+                    <View style={styles.fieldButton}>
+                        <Button
+                            title=""
+                            type="outline"
+                            buttonStyle={styles.buttonCancel}
+                            titleStyle={styles.textButton}
+                            onPress={(() => {
+                                let newEdit = !this.state.edit
+                                this.setState({ edit: newEdit })
+                            })}
+                            icon={
+                                <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
+                            }
+                        />
+                    </View>
+
                     <TextInput
                         label="Nome"
                         value={this.state.name}
@@ -138,34 +154,37 @@ export default class EventCard extends Component {
                     />
 
                     <Button
-                        title="Cancelar"
+                        title=""
                         type="outline"
-                        buttonStyle={styles.buttonCancel}
+                        buttonStyle={styles.buttonDelete}
                         titleStyle={styles.textButton}
-                        onPress={(() => {
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        })}
+                        onPress={() => { this.deleteForId(this.state.id) }}
+                        icon={
+                            <Icon name={"trash"} size={20} color={"#FFF"} />
+                        }
                     />
                 </View>
                 :
                 <View style={styles.container}>
                     <View style={styles.view}>
-                        <Text style={styles.title}>{this.state.name}</Text>
+                        <Text style={styles.subtitle}>{this.state.name}</Text>
                     </View>
                     <Text style={styles.text}>
                         Data: {this.state.dateEvent}
                     </Text>
 
+                    <Text style={styles.subtitle}>
+                        Comparecimentos:
+                    </Text>
+                    
                     <Text style={styles.text}>
-                        Comparecimentos: 
-                        {this.state.guests >= 1 ? `Convidados: ${this.state.guests}`  : null } 
-                        {this.state.ativos >= 1 ? `Ativos: ${this.state.ativos}`  : null } 
-                        {this.state.auxiliares >= 1 ? `Auxiliares: ${this.state.auxiliares}`  : null } 
+                        {this.state.guests >= 1 ? `Convidados: ${this.state.guests} ` : null}
+                        {this.state.ativos >= 1 ? `Ativos: ${this.state.ativos} ` : null}
+                        {this.state.auxiliares >= 1 ? `Auxiliares: ${this.state.auxiliares} ` : null}
                     </Text>
 
                     <Button
-                        title=""
+                        title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
                         titleStyle={styles.textButton}
@@ -175,17 +194,6 @@ export default class EventCard extends Component {
                         }}
                         icon={
                             <Icon name={"pencil"} size={20} color={"#FFF"} />
-                        }
-                    />
-
-                    <Button
-                        title=""
-                        type="outline"
-                        buttonStyle={styles.buttonCancel}
-                        titleStyle={styles.textButton}
-                        onPress={() => { this.deleteForId(this.state.id) }}
-                        icon={
-                            <Icon name={"trash"} size={20} color={"#FFF"} />
                         }
                     />
                 </View>
@@ -210,9 +218,10 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontFamily: commonStyles.fontFamily.subtitle,
+        fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
-        fontSize: commonStyles.fontSize.normal
+        fontSize: commonStyles.fontSize.normal,
+        marginTop: 10,
     },
 
     text: {
@@ -238,12 +247,6 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 15,
         marginBottom: 24,
-    },
-
-    textOption: {
-        color: commonStyles.colors.subtitleColor,
-        fontFamily: commonStyles.fontFamily.text,
-        fontSize: commonStyles.fontSize.normal
     },
 
     input: {
@@ -288,11 +291,21 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
 
-    buttonCancel: {
+    buttonDelete: {
         backgroundColor: commonStyles.colors.primaryHoverColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 15,
         borderWidth: 0,
+    },
+
+    buttonCancel: {
+        backgroundColor: commonStyles.colors.containerColor,
+        borderWidth: 0,
+        width: "20%"
+    },
+
+    fieldButton: {
+        alignItems: 'flex-end'
     },
 
     textButton: {
@@ -311,5 +324,25 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.bold,
         fontSize: commonStyles.fontSize.small,
         color: commonStyles.colors.titleColor
+    },
+
+    option: {
+        backgroundColor: 'transparent',
+        borderColor: 'transparent'
+    },
+
+    textOption: {
+        color: commonStyles.colors.textHover,
+        fontFamily: commonStyles.fontFamily.text,
+        fontSize: commonStyles.fontSize.small,
+    },
+
+    subtitle: {
+        textAlign: 'center',
+        marginTop: 15,
+        marginBottom: 5,
+        fontFamily: commonStyles.fontFamily.subtitle,
+        color: commonStyles.colors.titleColor,
+        fontSize: commonStyles.fontSize.small
     }
 })
