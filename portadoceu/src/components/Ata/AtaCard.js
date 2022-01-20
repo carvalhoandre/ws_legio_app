@@ -147,8 +147,6 @@ export default class AtaCard extends Component {
 
                     <Text style={styles.title}>Alocução</Text>
                     <TextInput
-                        type="number"
-                        keyboardType="number-pad"
                         label="Autor"
                         value={this.state.allocutionAutor.toString()}
                         underlineColor={"#A6B0BF"}
@@ -243,56 +241,91 @@ export default class AtaCard extends Component {
                 </View>
                 :
                 <View style={styles.container}>
-                    <Text style={styles.text}>
-                        Inicio: {this.state.inicio}
+                    <Text style={styles.bold}>
+                        Inicio:
                     </Text>
                     <Text style={styles.text}>
+                        {this.state.inicio}
+                    </Text>
+                    <Text style={styles.bold}>
                         {this.state.ata}
                     </Text>
+                    <Text style={styles.bold}>
+                        Participantes (Conviados)
+                    </Text>
                     <Text style={styles.text}>
-                        Participantes (Conviados): {this.state.participation}
+                        {this.state.participation}
                     </Text>
                     <Text style={styles.subtitle}>Leitura Espiritual</Text>
-                    <Text style={styles.text}>
-                        Cápitulo: {this.state.capituloEspiritual}
+                    <Text style={styles.bold}>
+                        Cápitulo
                     </Text>
                     <Text style={styles.text}>
-                        Página: {this.state.paginaEspiritual}
+                        {this.state.capituloEspiritual}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Página
                     </Text>
                     <Text style={styles.text}>
-                        Título: {this.state.titleEspiritual}
+                        {this.state.paginaEspiritual}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Título
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.titleEspiritual}
                     </Text>
                     <Text style={styles.subtitle}>Alocução</Text>
-                    <Text style={styles.text}>
-                        Autor: {this.state.allocutionAutor}
+                    <Text style={styles.bold}>
+                        Autor
                     </Text>
                     <Text style={styles.text}>
-                        Assunto: {this.state.allocutionAssunto}
+                       {this.state.allocutionAutor}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Assunto
+                    </Text>
+                    <Text style={styles.text}>
+                       {this.state.allocutionAssunto}
                     </Text>
 
                     <Text style={styles.subtitle}>
-                        Coleta:
+                        Coleta
+                    </Text>
+                    <Text style={styles.text}>
                         {this.state.coleta === true ? `Foi passada a coleta secreta` : 'Não foi passada a coleta secreta'}
                     </Text>
                     <Text style={styles.subtitle}>Estudo do Manual</Text>
-                    <Text style={styles.text}>
-                        Página: {this.state.paginaEstudo}
+                    <Text style={styles.bold}>
+                        Página
                     </Text>
                     <Text style={styles.text}>
-                        Páragrafo: {this.state.paragrafoEstudo}
+                        {this.state.paginaEstudo}
                     </Text>
-                    <Text style={styles.subtitle}>
-                        Assuntos: {this.state.assuntos}
+                    <Text style={styles.bold}>
+                        Páragrafo
                     </Text>
-                    <Text style={styles.subtitle}>
-                        Hora Final: {this.state.horaFinal}
+                    <Text style={styles.text}>
+                       {this.state.paragrafoEstudo}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Assuntos
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.assuntos}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Hora Final
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.horaFinal}
                     </Text>
 
                     <Button
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -385,7 +418,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 
@@ -444,10 +477,17 @@ const styles = StyleSheet.create({
 
     subtitle: {
         textAlign: 'center',
-        marginTop: 15,
-        marginBottom: 5,
+        marginTop: 25,
+        marginBottom: 2,
         fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
-    }
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 15
+    },
 })

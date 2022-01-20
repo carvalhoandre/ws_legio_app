@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 

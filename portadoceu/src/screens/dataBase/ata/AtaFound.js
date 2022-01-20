@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         fontSize: commonStyles.fontSize.medium,
         marginLeft: 13,
         marginTop: 5,
-        marginBottom: 2.5,
+        marginBottom: 15,
     },
 
     buttons: {

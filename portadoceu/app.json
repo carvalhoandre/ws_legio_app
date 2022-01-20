@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "portadoceu",
-    "slug": "portadoceu",
-    "version": "1.0.0",
+    "name": "Porta do Céu",
+    "slug": "porta",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#F9F9F9"
       },
-      "package": "com.andrecarvalho.portadoceu"
+      "package": "com.andrecarvalho.porta"
     },
     "web": {
       "favicon": "./assets/favicon.png"

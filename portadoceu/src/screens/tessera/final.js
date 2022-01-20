@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         padding: 20,
         zIndex: 100,
-        marginTop: 1500
+        marginTop: 20
     },
 
     titleOption: {

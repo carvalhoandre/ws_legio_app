@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         elevation: 1,
     },
     optionList: {
-        backgroundColor: commonStyles.colors.containerColor,
+        backgroundColor: "#F0F0F0",
         borderWidth: 1,
         borderColor: '#E5E5E5',
         shadowColor: '#a7b0c0',

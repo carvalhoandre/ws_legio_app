@@ -84,10 +84,21 @@ export default class AtaCreate extends Component {
             return (
 
                 <View styles={{ margin: 'auto' }}>
-                    <Text style={styles.subtitle}>Inicio: {this.state.inicio}</Text>
+                    <TextInput
+                        type="number"
+                        keyboardType="number-pad"
+                        label="Inicio:"
+                        value={this.state.inicio}
+                        underlineColor={"#A6B0BF"}
+                        activeOutlineColor={commonStyles.colors.primaryColor}
+                        activeUnderlineColor={commonStyles.colors.primaryColor}
+                        style={styles.input}
+                        onChangeText={inicio => this.setState({ inicio })}
+                    />
 
                     <View style={styles.check}>
                         <Text style={styles.subtitle}>Ata</Text>
+
 
                         <CheckBox
                             containerStyle={styles.option}
@@ -300,6 +311,13 @@ export default class AtaCreate extends Component {
                     <Text style={styles.subtitle}>Eventos</Text>
 
                     <Event />
+                </View>
+            )
+        }
+
+        if (this.state.id === 9) {
+            return (
+                <View styles={{ margin: 'auto' }}>
                     <TextInput
                         label="Outros Assuntos"
                         value={this.state.assuntos}
@@ -353,7 +371,7 @@ export default class AtaCreate extends Component {
     }
 
     returnButtons = () => {
-        if (this.state.id > 1 && this.state.id < 8) {
+        if (this.state.id > 1 && this.state.id < 9) {
             return (<>{this.left()}{this.rigth()}</>)
         }
 
@@ -361,7 +379,7 @@ export default class AtaCreate extends Component {
             return (<>{this.rigth()}</>)
         }
 
-        if (this.state.id === 8) {
+        if (this.state.id === 9) {
             return (<>{this.left()}</>)
         }
     }

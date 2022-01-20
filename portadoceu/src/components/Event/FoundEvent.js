@@ -27,25 +27,21 @@ function FoundEvent(props) {
             .then((response) => {
                 setEvent(response.data)
                 setLoading(false)
-            })
-            .catch(() => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
                 setLoading(false)
                 setVisible(true)
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteEvent(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Evento deletado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -70,13 +66,10 @@ function FoundEvent(props) {
 
         updateEvent(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Evento alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -94,7 +87,7 @@ function FoundEvent(props) {
                     <Dialog visible={visible} onDismiss={hideDialog}>
                         <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                         <Dialog.Content>
-                            <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button

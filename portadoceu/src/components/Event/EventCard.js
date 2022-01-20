@@ -157,16 +157,18 @@ export default class EventCard extends Component {
                 :
                 <View style={styles.container}>
                     <View style={styles.view}>
-                        <Text style={styles.subtitle}>{this.state.name}</Text>
+                        <Text style={styles.title}>{this.state.name}</Text>
                     </View>
+                    <Text style={styles.bold}>
+                        Data
+                    </Text>
                     <Text style={styles.text}>
-                        Data: {this.state.dateEvent}
+                        {this.state.dateEvent}
                     </Text>
 
-                    <Text style={styles.subtitle}>
-                        Comparecimentos:
+                    <Text style={styles.bold}>
+                        Comparecimentos
                     </Text>
-
                     <Text style={styles.text}>
                         {this.state.guests >= 1 ? `Convidados: ${this.state.guests} ` : null}
                         {this.state.ativos >= 1 ? `Ativos: ${this.state.ativos} ` : null}
@@ -177,7 +179,7 @@ export default class EventCard extends Component {
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -212,6 +214,7 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.normal,
         marginTop: 10,
+        textAlign: 'center'
     },
 
     text: {
@@ -270,7 +273,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 
@@ -334,5 +337,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
-    }
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 15
+    },
 })

@@ -16,7 +16,6 @@ function FoundRecruitment(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
@@ -27,28 +26,27 @@ function FoundRecruitment(props) {
             .then((response) => {
                 setRecruitment(response.data)
                 setLoading(false)
-            })
-            .catch(() => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar recrutamentos' })
                 setLoading(false)
                 setVisible(true)
+
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteRecruitment(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'deleteado com sucesso' })
+
+                setMessage({ title: 'Sucesso', message: 'Deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
+
             })
     }
 
@@ -64,55 +62,54 @@ function FoundRecruitment(props) {
 
         updateRecruitment(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'alterado com sucesso' })
+
+                setMessage({ title: 'Sucesso', message: 'Alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
+
             })
     }
 
     return (
         loading === true ?
-        <View style={styles.spinner}>
-            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
-        </View>
-        :
-        <>
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
-                    <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.body}</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button
-                            title="Ok"
-                            type="outline"
-                            onPress={hideDialog}
-                            buttonStyle={styles.dialogButton}
-                        />
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
-            {recruitment.length >= 1 ?
-                <RecruitmentList
-                    recruitment={recruitment}
-                    deleteForId={deleteForId}
-                    newRecruitment={newRecruitment}
-                />
-                :
-                <View style={styles.container}>
-                    <Text style={styles.title}>Não há recrutamentos na data informada</Text>
-                    <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
-                </View>
-            }
-        </>
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+            </View>
+            :
+            <>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                title="Ok"
+                                type="outline"
+                                onPress={hideDialog}
+                                buttonStyle={styles.dialogButton}
+                            />
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                {recruitment.length >= 1 ?
+                    <RecruitmentList
+                        recruitment={recruitment}
+                        deleteForId={deleteForId}
+                        newRecruitment={newRecruitment}
+                    />
+                    :
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Não há recrutamentos na data informada</Text>
+                        <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
+                    </View>
+                }
+            </>
     );
 
 }
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
         borderColor: commonStyles.colors.bodyColor,
         borderWidth: 0,
     },
-    
+
     fest: {
         height: 150,
         width: 160,

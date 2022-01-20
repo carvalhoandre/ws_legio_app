@@ -179,34 +179,49 @@ export default class WorkCard extends Component {
                 </View>
                 :
                 <View style={styles.container}>
-                    <Text style={styles.subtitle}>
-                        Trabalho: {this.state.work}
+                    <Text style={styles.title}>
+                        {this.state.work}
                     </Text>
 
+                    <Text style={styles.bold}>
+                        Contato com
+                    </Text>
                     <Text style={styles.text}>
-                        Contato com:
                         {this.state.yong >= 1 ? ` ${this.state.yong} Jovens. ` : null}
                         {this.state.adult >= 1 ? `${this.state.adult} Adultos. ` : null}
                         {this.state.children >= 1 ? `${this.state.children} Crianças. ` : null}
                         {this.state.elderly >= 1 ? `${this.state.elderly} Idosos. ` : null}
-                        {this.state.total >= 1 ? `total de ${this.state.total} contatos. ` : null}
-
+                    </Text>
+                    <Text style={styles.bold}>
+                        Total de contatos
                     </Text>
                     <Text style={styles.text}>
-                        Dupla: {this.state.legio}
+                     {this.state.total}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Dupla
                     </Text>
                     <Text style={styles.text}>
-                        Observação: {this.state.observation}
+                        {this.state.legio}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Observação
                     </Text>
                     <Text style={styles.text}>
-                        Horas de trabalho: {this.state.hours}
+                        {this.state.observation}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Horas de trabalho
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.hours}
                     </Text>
 
                     <Button
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -241,6 +256,7 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.normal,
         marginTop: 10,
+        textAlign: 'center'
     },
 
     text: {
@@ -299,7 +315,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 
@@ -363,5 +379,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
-    }
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 15
+    },
 })

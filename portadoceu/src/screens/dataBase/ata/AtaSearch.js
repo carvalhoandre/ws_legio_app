@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.subtitle,
         color: commonStyles.colors.titleColor,
         marginBottom: 30
     },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: commonStyles.fontFamily.josefin,
         color: commonStyles.colors.subtitleColor,
-        fontSize: commonStyles.fontSize.small
+        fontSize: commonStyles.fontSize.normal
     },
 
     container: {

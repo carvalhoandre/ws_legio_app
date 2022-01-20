@@ -191,7 +191,7 @@ export default class Work extends Component {
                             title="Salvar"
                             type="outline"
                             buttonStyle={styles.buttonSend}
-                            titleStyle={styles.textButton}
+                            titleStyle={styles.buttonTextSend}
                             disabledTitleStyle={styles.textButton}
                             onPress={this.send}
                             disabled={!validForm}

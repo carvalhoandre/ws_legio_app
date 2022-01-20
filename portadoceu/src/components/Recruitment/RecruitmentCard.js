@@ -26,7 +26,7 @@ export default class RecruitmentCard extends Component {
         return (
             this.state.edit === true ?
                 <View style={styles.container}>
-                     <View style={styles.fieldButton}>
+                    <View style={styles.fieldButton}>
                         <Button
                             title=""
                             type="outline"
@@ -93,12 +93,12 @@ export default class RecruitmentCard extends Component {
                             }
                         />
                     </View>
-                    
+
                     <Button
                         title=""
                         type="outline"
-                        buttonStyle={styles.buttonDelete}
-                        titleStyle={styles.textButton}
+                        buttonStyle={styles.buttonSend}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => { this.deleteForId(this.state.id) }}
                         icon={
                             <Icon name={"trash"} size={20} color={"#FFF"} />
@@ -110,15 +110,24 @@ export default class RecruitmentCard extends Component {
                     <View style={styles.view}>
                         <Text style={styles.title}>{this.state.person}</Text>
                     </View>
+                    <Text style={styles.bold}>
+                        Quantidade
+                    </Text>
                     <Text style={styles.text}>
-                        Quantidade: {this.state.quantity} Comparecimentos: {this.state.attendancing}
+                        {this.state.quantity}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Comparecimentos
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.attendancing}
                     </Text>
 
                     <Button
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -211,7 +220,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 
@@ -275,5 +284,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
-    }
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 15
+    },
 })

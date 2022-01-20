@@ -161,30 +161,48 @@ export default class TreasuryCard extends Component {
                 </View>
                 :
                 <View style={styles.container}>
-                    <Text style={styles.text}>
-                        Saldo Anterior: {this.state.saldoAnterior}
+                    <Text style={styles.bold}>
+                        Saldo Anterior
                     </Text>
                     <Text style={styles.text}>
-                        Coleta do dia {this.state.diaDaColeta}: {this.state.coletaDoDia}
+                        R$ {this.state.saldoAnterior}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Coleta do dia {this.state.diaDaColeta}
                     </Text>
                     <Text style={styles.text}>
-                        Contribuição ao Conselho Superior: {this.state.contribuicao}
+                        R$ {this.state.coletaDoDia}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Contribuição ao Conselho Superior
                     </Text>
                     <Text style={styles.text}>
-                        Despesas: {this.state.despesas}
+                        R$ {this.state.contribuicao}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Despesas
                     </Text>
                     <Text style={styles.text}>
-                        Sub Total: {this.state.subTotal}
+                        R$ {this.state.despesas}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Sub Total
                     </Text>
                     <Text style={styles.text}>
-                        Total em Caixa: {this.state.totalEmCaixa}
+                        R$ {this.state.subTotal}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Total em Caixa
+                    </Text>
+                    <Text style={styles.text}>
+                        R$ {this.state.totalEmCaixa}
                     </Text>
 
                     <Button
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -277,7 +295,7 @@ const styles = StyleSheet.create({
     buttonSend: {
         backgroundColor: commonStyles.colors.firstColor,
         borderColor: commonStyles.colors.titleColor,
-        marginTop: 5,
+        marginTop: 25,
         borderWidth: 0,
     },
 
@@ -341,5 +359,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.subtitle,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.small
-    }
+    },
+
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 5
+    },
 })

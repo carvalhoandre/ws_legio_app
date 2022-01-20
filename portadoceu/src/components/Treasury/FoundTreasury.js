@@ -16,7 +16,6 @@ function FoundTreasury(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
@@ -27,25 +26,21 @@ function FoundTreasury(props) {
             .then((response) => {
                 setTreasury(response.data)
                 setLoading(false)
-            })
-            .catch(() => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar tesouraria' })
                 setLoading(false)
                 setVisible(true)
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteTreasury(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Tesouraria deleteada com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -76,13 +71,10 @@ function FoundTreasury(props) {
 
         updateTreasury(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -100,7 +92,7 @@ function FoundTreasury(props) {
                 <Dialog visible={visible} onDismiss={hideDialog}>
                     <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                     <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                        <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                     </Dialog.Content>
                     <Dialog.Actions>
                         <Button

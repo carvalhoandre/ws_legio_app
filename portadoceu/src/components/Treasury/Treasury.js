@@ -22,6 +22,7 @@ const initialState = {
     visible: false,
     title: '',
     body: '',
+    bodySecond: '',
     date: new Date(),
     mode: 'date',
     show: false
@@ -60,8 +61,10 @@ export default class Treasury extends Component {
             .then(() => {
                 this.setState({ loading: false })
                 this.setState({
-                    body: `Adicionado com sucesso! Sub Total: ${newObj.subTotal}
-                Total em Caixa: ${newObj.totalEmCaixa}`, visible: true, title: "👏👏👏"
+                    body: `Sub Total: ${newObj.subTotal}`,
+                    visible: true,
+                    title: "Adicionado com sucesso! 👏👏👏",
+                    bodySecond: `Total em Caixa: ${newObj.totalEmCaixa}`
                 })
             }, error => {
                 this.setState({ loading: false })
@@ -106,6 +109,7 @@ export default class Treasury extends Component {
                             <Dialog.Title style={styles.titleOption}>{this.state.title}</Dialog.Title>
                             <Dialog.Content>
                                 <Paragraph style={styles.textOption}>{this.state.body}</Paragraph>
+                                <Paragraph style={styles.textOption}>{this.state.bodySecond}</Paragraph>
                             </Dialog.Content>
                             <Dialog.Actions>
                                 <Button

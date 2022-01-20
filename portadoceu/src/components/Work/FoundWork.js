@@ -16,7 +16,6 @@ function FoundWork(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
@@ -27,25 +26,22 @@ function FoundWork(props) {
             .then((response) => {
                 setWork(response.data)
                 setLoading(false)
-            })
-            .catch(() => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar trabalhos' })
                 setLoading(false)
                 setVisible(true)
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteWork(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
+               
                 setMessage({ title: 'Sucesso', message: 'Trabalho deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -77,13 +73,11 @@ function FoundWork(props) {
 
         updateWork(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
+                
+                setMessage({ title: 'Sucesso', message: 'Trabalho alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -101,7 +95,7 @@ function FoundWork(props) {
                 <Dialog visible={visible} onDismiss={hideDialog}>
                     <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                     <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                        <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                     </Dialog.Content>
                     <Dialog.Actions>
                         <Button

@@ -17,8 +17,7 @@ export default function Home() {
                 setLegios(response.data)
                 setLoading(false)
                 setsucess(true)
-            })
-            .catch(() => {
+            }, error => {
                 setsucess(false)
                 setLoading(false)
             })
@@ -59,7 +58,7 @@ export default function Home() {
                             </View>
                         </>
                         :
-                        <View style={"image"}>
+                        <View style={styles.image}>
                             <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
                         </View>
                 }
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     vibes: {
         fontFamily: commonStyles.fontFamily.vibes,
         color: commonStyles.colors.primaryColor,
-        fontSize: 60,
+        fontSize: 50,
         textAlign: 'center',
     },
 
@@ -160,4 +159,10 @@ const styles = StyleSheet.create({
         fontSize: commonStyles.fontSize.normal,
         color: commonStyles.colors.textColor,
     },
+
+    image: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 'auto'
+    }
 })

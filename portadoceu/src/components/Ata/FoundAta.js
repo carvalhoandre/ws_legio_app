@@ -16,7 +16,6 @@ function FoundAta(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
@@ -27,25 +26,21 @@ function FoundAta(props) {
             .then((response) => {
                 setAta(response.data)
                 setLoading(false)
-            })
-            .catch(() => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: 'Erro ao buscar Ata' })
                 setLoading(false)
                 setVisible(true)
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteAta(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Ata deleteada com sucesso' })
                 setVisible(true)
                 setLoading(false)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setVisible(true)
                 setLoading(false)
@@ -80,14 +75,11 @@ function FoundAta(props) {
 
         updateAta(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
-                setMessage({ title: 'Sucesso', message: 'Tesouraria alterada com sucesso' })
+                setMessage({ title: 'Sucesso', body: 'Ata alterada com sucesso' })
                 setVisible(true)
                 setLoading(false)
-            })
-            .catch((error) => {
-                setMessage({ title: 'Error 😵😵😵', message: error.message })
+            }, error => {
+                setMessage({ title: 'Error 😵😵😵', body: error.message })
                 setVisible(true)
                 setLoading(false)
             })
@@ -104,7 +96,7 @@ function FoundAta(props) {
                     <Dialog visible={visible} onDismiss={hideDialog}>
                         <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                         <Dialog.Content>
-                            <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button
