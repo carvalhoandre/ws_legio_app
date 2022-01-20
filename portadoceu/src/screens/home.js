@@ -59,7 +59,7 @@ export default function Home() {
                         </>
                         :
                         <View style={styles.image}>
-                            <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
+                            <Image source={require('../../assets/icons/vexilium.png')} style={styles.vexilium} />
                         </View>
                 }
             </View>
