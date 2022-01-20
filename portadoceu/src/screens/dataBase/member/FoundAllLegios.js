@@ -13,9 +13,7 @@ export default function FoundAllLegios() {
         title: '',
         message: '',
     })
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
-
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
@@ -24,26 +22,23 @@ export default function FoundAllLegios() {
             .then((response) => {
                 setLegio(response.data)
                 setLoading(false)
-            })
-            .catch(error => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error })
                 setLoading(false)
                 setVisible(true)
             })
-    }, [teste])
+    }, [])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteLegio(id)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Legionario deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
+                console.log(error)
                 setLoading(false)
                 setVisible(true)
             })
@@ -61,13 +56,10 @@ export default function FoundAllLegios() {
 
         updateLegio(newObj)
             .then(() => {
-                let or = !teste
-                setTeste(or)
                 setMessage({ title: 'Sucesso', message: 'Cadastro alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
-            })
-            .catch((error) => {
+            }, error => {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
@@ -129,8 +121,8 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         paddingTop: Platform.OS === "ios" ? 0 : 50,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: 15,
+        paddingRight: 15
     },
 
     scrollView: {
@@ -176,7 +168,7 @@ const styles = StyleSheet.create({
 
     title: {
         fontFamily: commonStyles.fontFamily.title,
-        fontSize: commonStyles.fontSize.medium,
+        fontSize: commonStyles.fontSize.subtitle,
         color: commonStyles.colors.titleColor,
         marginBottom: 30
     },
@@ -184,7 +176,7 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: commonStyles.fontFamily.josefin,
         color: commonStyles.colors.subtitleColor,
-        fontSize: commonStyles.fontSize.small
+        fontSize: commonStyles.fontSize.normal
     },
 
     textOption: {

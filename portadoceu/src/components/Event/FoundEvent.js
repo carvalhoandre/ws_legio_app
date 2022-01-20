@@ -7,7 +7,6 @@ import { Button } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { backDate } from '../../config/store/actions/date'
 import commonStyles from '../../styles/commonStyles'
-import { formatDate } from '../../utils/format'
 
 function FoundEvent(props) {
     const [event, setEvent] = useState([]);

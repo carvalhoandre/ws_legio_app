@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Porta do Céu",
-    "slug": "legio",
+    "name": "portadoceu",
+    "slug": "portadoceu",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F9F9F9"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,8 +22,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#F9F9F9"
+      },
+      "package": "com.andrecarvalho.portadoceu"
     },
     "web": {
       "favicon": "./assets/favicon.png"

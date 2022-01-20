@@ -54,7 +54,7 @@ export default class LegioCard extends Component {
                         />
 
                         <TextInput
-                            label="Nome"
+                            label="Aniversário"
                             value={this.state.birthday}
                             underlineColor={"#A6B0BF"}
                             activeOutlineColor={commonStyles.colors.primaryColor}
@@ -154,18 +154,24 @@ export default class LegioCard extends Component {
                     <Text style={styles.text}>
                         {this.state.type}
                     </Text>
-                    <Text style={styles.text}>
-                        Data de Aniversário: {this.state.birthday}
+                    <Text style={styles.bold}>
+                        Data de Aniversário:
                     </Text>
                     <Text style={styles.text}>
-                        Data de Início: {this.state.initial}
+                        {this.state.birthday}
+                    </Text>
+                    <Text style={styles.bold}>
+                        Data de Início:
+                    </Text>
+                    <Text style={styles.text}>
+                        {this.state.initial}
                     </Text>
 
                     <Button
                         title="Editar"
                         type="outline"
                         buttonStyle={styles.buttonSend}
-                        titleStyle={styles.textButton}
+                        titleStyle={styles.buttonTextSend}
                         onPress={() => {
                             let newEdit = !this.state.edit
                             this.setState({ edit: newEdit })
@@ -322,5 +328,11 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily.title,
         color: commonStyles.colors.titleColor,
         fontSize: commonStyles.fontSize.normal
+    },
+    bold: {
+        fontFamily: commonStyles.fontFamily.title,
+        color: commonStyles.colors.textColor,
+        fontSize: commonStyles.fontSize.small,
+        marginTop: 5
     },
 })

@@ -59,7 +59,9 @@ export default function Home() {
                             </View>
                         </>
                         :
-                        <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
+                        <View style={"image"}>
+                            <Image source={require('../../assets/icons/fest.png')} style={styles.fest} />
+                        </View>
                 }
             </View>
         </View>
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         justifyContent: 'center',
-        marginBottom: 50
+        marginBottom: 50,
     },
 
     fest: {

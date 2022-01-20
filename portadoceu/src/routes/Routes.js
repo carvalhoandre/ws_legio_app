@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import commonStyles from '../styles/commonStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { StyleSheet } from "react-native";
 /* screens */
 import Home from '../screens/home'
 import PrayersRoute from './prayersRoute'
@@ -18,7 +16,7 @@ export default class Routes extends Component {
         return (
             <NavigationContainer>
                 <Tab.Navigator
-                    initialRouteName="Database"
+                    initialRouteName="Home"
                     options={{
                         headerShown: false,
                     }}
@@ -83,30 +81,3 @@ export default class Routes extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    iconTabRound: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 6,
-        shadowColor: commonStyles.colors.primaryColor,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-    },
-    title: {
-        fontFamily: commonStyles.fontFamily.WorkSans,
-        fontSize: commonStyles.fontSize.small,
-        textAlign: "center",
-        justifyContent: "center",
-    },
-});
