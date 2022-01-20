@@ -103,6 +103,9 @@ export default class Work extends Component {
                         <Picker.Item label="Visita" value={0} style={styles.textOption} />
                         <Picker.Item label="Rosário" value={1} style={styles.textOption} />
                         <Picker.Item label="Ofício" value={2} style={styles.textOption} />
+                        <Picker.Item label="Ligação" value={3} style={styles.textOption} />
+                        <Picker.Item label="Chamada de Vídeo" value={4} style={styles.textOption} />
+                        <Picker.Item label="Propagação de Devoção" value={5} style={styles.textOption} />
                     </Picker>
 
                     <TextInput
