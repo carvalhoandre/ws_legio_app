@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Porta do Céu",
-    "slug": "porta",
+    "slug": "legioApp",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#F9F9F9"
       },
-      "package": "com.andrecarvalho.porta"
+      "package": "com.andrecarvalho.legioApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
