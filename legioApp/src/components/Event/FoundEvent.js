@@ -16,7 +16,6 @@ function FoundEvent(props) {
         message: '',
     })
     const [data, setData] = useState(props.moment)
-    const [teste, setTeste] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const hideDialog = () => setVisible(false);
@@ -32,7 +31,7 @@ function FoundEvent(props) {
                 setLoading(false)
                 setVisible(true)
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
         setLoading(true)

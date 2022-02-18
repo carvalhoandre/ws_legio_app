@@ -1,342 +1,364 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button, CheckBox } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../../styles/commonStyles'
 
-export default class AtaCard extends Component {
-    constructor(props) {
-        super(props)
-        this.ata = props.ata
-        this.deleteForId = props.deleteForId
-        this.newAta = props.newAta
-        this.state = {
-            id: this.ata.id,
-            date: this.ata.date,
-            inicio: this.ata.inicio,
-            ata: this.ata.ata,
-            participation: this.ata.participation,
-            capituloEspiritual: this.ata.capituloEspiritual,
-            paginaEspiritual: this.ata.paginaEspiritual,
-            titleEspiritual: this.ata.titleEspiritual,
-            allocutionAutor: this.ata.allocutionAutor,
-            allocutionAssunto: this.ata.allocutionAssunto,
-            coleta: this.ata.coleta,
-            paginaEstudo: this.ata.paginaEstudo,
-            paragrafoEstudo: this.ata.paragrafoEstudo,
-            assuntos: this.ata.assuntos,
-            horaFinal: this.ata.horaFinal,
-            edit: false,
-            one: true,
-            two: false,
-            three: false
-        }
-    }
+export default function AtaCard(props) {
+    const ata = props.ata
+    const deleteForId = props.deleteForId
+    const newAta = props.newAta
 
-    render() {
-        return (
-            this.state.edit === true ?
-                <View style={styles.container}>
-                    <View style={styles.fieldButton}>
-                        <Button
-                            title=""
-                            type="outline"
-                            buttonStyle={styles.buttonCancel}
-                            titleStyle={styles.textButton}
-                            onPress={(() => {
-                                let newEdit = !this.state.edit
-                                this.setState({ edit: newEdit })
-                            })}
-                            icon={
-                                <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
-                            }
-                        />
-                    </View>
-                    <CheckBox
-                        containerStyle={styles.option}
-                        textStyle={styles.textOption}
-                        title='Lida, aprovada e assinada'
-                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
-                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
-                        checked={this.state.one}
-                        onPress={() => this.setState({
-                            one: true,
-                            two: false,
-                            three: false,
-                            ata: 'Lida, aprovada e assinada'
-                        })}
-                    />
+    const [obj, setObj] = useState({
+        id: ata.id,
+        date: ata.date,
+        inicio: ata.inicio,
+        ata: ata.ata,
+        participation: ata.participation,
+        capituloEspiritual: ata.capituloEspiritual !== null ? ata.capituloEspiritual : 0,
+        paginaEspiritual: ata.paginaEspiritual !== null ? ata.paginaEspiritual : 0,
+        titleEspiritual: ata.titleEspiritual,
+        allocutionAutor: ata.allocutionAutor,
+        allocutionAssunto: ata.allocutionAssunto,
+        coleta: ata.coleta,
+        paginaEstudo: ata.paginaEstudo !== null ? ata.paginaEstudo : 0,
+        paragrafoEstudo: ata.paragrafoEstudo !== null ? ata.paragrafoEstudo : 0,
+        assuntos: ata.assuntos,
+        horaFinal: ata.horaFinal,
+        edit: false,
+        one: true,
+        two: false,
+        three: false
+    })
 
-                    <CheckBox
-                        containerStyle={styles.option}
-                        textStyle={styles.textOption}
-                        title='Lida, aprovada com ressalvas e assinada'
-                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
-                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
-                        checked={this.state.two}
-                        onPress={() => this.setState({
-                            one: false,
-                            two: true,
-                            three: false,
-                            ata: 'Lida, aprovada com ressalvas e assinada'
-                        })}
-                    />
-
-                    <CheckBox
-                        containerStyle={styles.option}
-                        textStyle={styles.textOption}
-                        title='Não houve leitura da ata'
-                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
-                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
-                        checked={this.state.three}
-                        onPress={() => this.setState({
-                            one: false,
-                            two: false,
-                            three: true,
-                            ata: 'Não houve leitura da ata'
-                        })}
-                    />
-
-                    <TextInput
-                        type="text"
-                        label="Convidados"
-                        value={this.state.participation.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={participation => this.setState({ participation })}
-                    />
-
-                    <Text style={styles.title}>Leitura Espiritual</Text>
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Capitulo"
-                        value={this.state.capituloEspiritual.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={capituloEspiritual => this.setState({ capituloEspiritual })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Página"
-                        value={this.state.paginaEspiritual.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={paginaEspiritual => this.setState({ paginaEspiritual })}
-                    />
-
-                    <TextInput
-                        type="text"
-                        label="Título"
-                        value={this.state.titleEspiritual.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={titleEspiritual => this.setState({ titleEspiritual })}
-                    />
-
-                    <Text style={styles.title}>Alocução</Text>
-                    <TextInput
-                        label="Autor"
-                        value={this.state.allocutionAutor.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={allocutionAutor => this.setState({ allocutionAutor })}
-                    />
-
-                    <TextInput
-                        label="Assunto"
-                        value={this.state.allocutionAssunto.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={allocutionAssunto => this.setState({ allocutionAssunto })}
-                    />
-
-                    <CheckBox
-                        containerStyle={styles.option}
-                        textStyle={styles.textOption}
-                        title='Coleta Secreta'
-                        checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
-                        uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
-                        checked={this.state.coleta}
-                        onPress={(() => {
-                            let colect = !this.state.coleta
-                            this.setState({ coleta: colect })
-                        })}
-                    />
-
-                    <Text style={styles.title}>Estudo do Manual</Text>
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Página"
-                        value={this.state.paginaEstudo}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={paginaEstudo => this.setState({ paginaEstudo })}
-                    />
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Parágrafo"
-                        value={this.state.paragrafoEstudo}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={paragrafoEstudo => this.setState({ paragrafoEstudo })}
-                    />
-
-                    <TextInput
-                        label="Outros Assuntos"
-                        value={this.state.assuntos}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={assuntos => this.setState({ assuntos })}
-                    />
-
-                    <Button
-                        title="Salvar"
-                        type="outline"
-                        buttonStyle={styles.buttonSend}
-                        titleStyle={styles.buttonTextSend}
-                        onPress={(() => {
-                            this.newAta(this.state)
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        })}
-                        icon={
-                            <Icon name={"send-sharp"} size={20} color={"#FFF"} />
-                        }
-                    />
-
+    return (
+        obj.edit === true ?
+            <View style={styles.container}>
+                <View style={styles.fieldButton}>
                     <Button
                         title=""
                         type="outline"
-                        buttonStyle={styles.buttonDelete}
+                        buttonStyle={styles.buttonCancel}
                         titleStyle={styles.textButton}
-                        onPress={() => { this.deleteForId(this.state.id) }}
+                        onPress={(() => {
+                            let newEdit = !obj.edit
+                            setObj({ ...obj, edit: newEdit })
+                        })}
                         icon={
-                            <Icon name={"trash"} size={20} color={"#FFF"} />
+                            <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
                         }
                     />
                 </View>
-                :
-                <View style={styles.container}>
-                    <Text style={styles.bold}>
-                        Inicio:
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.inicio}
-                    </Text>
-                    <Text style={styles.bold}>
-                        {this.state.ata}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Participantes (Conviados)
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.participation}
-                    </Text>
-                    <Text style={styles.subtitle}>Leitura Espiritual</Text>
-                    <Text style={styles.bold}>
-                        Cápitulo
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.capituloEspiritual}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Página
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.paginaEspiritual}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Título
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.titleEspiritual}
-                    </Text>
-                    <Text style={styles.subtitle}>Alocução</Text>
-                    <Text style={styles.bold}>
-                        Autor
-                    </Text>
-                    <Text style={styles.text}>
-                       {this.state.allocutionAutor}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Assunto
-                    </Text>
-                    <Text style={styles.text}>
-                       {this.state.allocutionAssunto}
-                    </Text>
 
-                    <Text style={styles.subtitle}>
-                        Coleta
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.coleta === true ? `Foi passada a coleta secreta` : 'Não foi passada a coleta secreta'}
-                    </Text>
-                    <Text style={styles.subtitle}>Estudo do Manual</Text>
-                    <Text style={styles.bold}>
-                        Página
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.paginaEstudo}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Páragrafo
-                    </Text>
-                    <Text style={styles.text}>
-                       {this.state.paragrafoEstudo}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Assuntos
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.assuntos}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Hora Final
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.horaFinal}
-                    </Text>
+                <TextInput
+                    type="text"
+                    label="Hora de início"
+                    value={obj.inicio}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={inicio => setObj({ ...obj, inicio: inicio })}
+                />
 
-                    <Button
-                        title="Editar"
-                        type="outline"
-                        buttonStyle={styles.buttonSend}
-                        titleStyle={styles.buttonTextSend}
-                        onPress={() => {
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        }}
-                        icon={
-                            <Icon name={"pencil"} size={20} color={"#FFF"} />
-                        }
-                    />
-                </View>
-        )
-    }
+                <CheckBox
+                    containerStyle={styles.option}
+                    textStyle={styles.textOption}
+                    title='Lida, aprovada e assinada'
+                    checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                    uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
+                    checked={obj.one}
+                    onPress={() => setObj({
+                        ...obj,
+                        one: true,
+                        two: false,
+                        three: false,
+                        ata: 'Lida, aprovada e assinada'
+                    })}
+                />
+
+                <CheckBox
+                    containerStyle={styles.option}
+                    textStyle={styles.textOption}
+                    title='Lida, aprovada com ressalvas e assinada'
+                    checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                    uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
+                    checked={obj.two}
+                    onPress={() => setObj({
+                        ...obj,
+                        one: false,
+                        two: true,
+                        three: false,
+                        ata: 'Lida, aprovada com ressalvas e assinada'
+                    })}
+                />
+
+                <CheckBox
+                    containerStyle={styles.option}
+                    textStyle={styles.textOption}
+                    title='Não houve leitura da ata'
+                    checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                    uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
+                    checked={obj.three}
+                    onPress={() => setObj({
+                        ...obj,
+                        one: false,
+                        two: false,
+                        three: true,
+                        ata: 'Não houve leitura da ata'
+                    })}
+                />
+
+                <TextInput
+                    type="text"
+                    label="Convidados"
+                    value={obj.participation}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={participation => setObj({ ...obj, participation })}
+                />
+
+                <Text style={styles.title}>Leitura Espiritual</Text>
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Capitulo"
+                    value={obj.capituloEspiritual.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={capituloEspiritual => setObj({ ...obj, capituloEspiritual })}
+                />
+
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Página"
+                    value={obj.paginaEspiritual.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={paginaEspiritual => setObj({ ...obj, paginaEspiritual })}
+                />
+
+                <TextInput
+                    type="text"
+                    label="Título"
+                    value={obj.titleEspiritual}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={titleEspiritual => setObj({ ...obj, titleEspiritual })}
+                />
+
+                <Text style={styles.title}>Alocução</Text>
+                <TextInput
+                    label="Autor"
+                    value={obj.allocutionAutor}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={allocutionAutor => setObj({ ...obj, allocutionAutor })}
+                />
+
+                <TextInput
+                    label="Assunto"
+                    value={obj.allocutionAssunto}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={allocutionAssunto => setObj({ ...obj, allocutionAssunto })}
+                />
+
+                <CheckBox
+                    containerStyle={styles.option}
+                    textStyle={styles.textOption}
+                    title='Coleta Secreta'
+                    checkedIcon={<Icon name={"checkmark"} size={20} color={commonStyles.colors.primaryColor} />}
+                    uncheckedIcon={<Icon name={"close"} size={20} color={commonStyles.colors.primaryColor} />}
+                    checked={obj.coleta}
+                    onPress={(() => {
+                        let colect = !obj.coleta
+                        setObj({ ...obj, coleta: colect })
+                    })}
+                />
+
+                <Text style={styles.title}>Estudo do Manual</Text>
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Página"
+                    value={obj.paginaEstudo.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={paginaEstudo => setObj({ ...obj, paginaEstudo })}
+                />
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Parágrafo"
+                    value={obj.paragrafoEstudo.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={paragrafoEstudo => setObj({ ...obj, paragrafoEstudo })}
+                />
+
+                <TextInput
+                    label="Outros Assuntos"
+                    value={obj.assuntos}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={assuntos => setObj({ ...obj, assuntos })}
+                />
+
+                <TextInput
+                    type="text"
+                    label="Hora final"
+                    value={obj.horaFinal.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={horaFinal => setObj({ ...obj, horaFinal })}
+                />
+
+                <Button
+                    title="Salvar"
+                    type="outline"
+                    buttonStyle={styles.buttonSend}
+                    titleStyle={styles.buttonTextSend}
+                    onPress={(() => {
+                        newAta(obj)
+                        let newEdit = !obj.edit
+                        setObj({ ...obj, edit: newEdit })
+                    })}
+                    icon={
+                        <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                    }
+                />
+
+                <Button
+                    title=""
+                    type="outline"
+                    buttonStyle={styles.buttonDelete}
+                    titleStyle={styles.textButton}
+                    onPress={() => { deleteForId(obj.id) }}
+                    icon={
+                        <Icon name={"trash"} size={20} color={"#FFF"} />
+                    }
+                />
+            </View>
+            :
+            <View style={styles.container}>
+                <Text style={styles.bold}>
+                    Início:
+                </Text>
+                <Text style={styles.text}>
+                    {obj.inicio}
+                </Text>
+                <Text style={styles.bold}>
+                    {obj.ata}
+                </Text>
+                <Text style={styles.bold}>
+                    Participantes (Conviados)
+                </Text>
+                <Text style={styles.text}>
+                    {obj.participation}
+                </Text>
+                <Text style={styles.subtitle}>Leitura Espiritual</Text>
+                <Text style={styles.bold}>
+                    Cápitulo
+                </Text>
+                <Text style={styles.text}>
+                    {obj.capituloEspiritual}
+                </Text>
+                <Text style={styles.bold}>
+                    Página
+                </Text>
+                <Text style={styles.text}>
+                    {obj.paginaEspiritual}
+                </Text>
+                <Text style={styles.bold}>
+                    Título
+                </Text>
+                <Text style={styles.text}>
+                    {obj.titleEspiritual}
+                </Text>
+                <Text style={styles.subtitle}>Alocução</Text>
+                <Text style={styles.bold}>
+                    Autor
+                </Text>
+                <Text style={styles.text}>
+                    {obj.allocutionAutor}
+                </Text>
+                <Text style={styles.bold}>
+                    Assunto
+                </Text>
+                <Text style={styles.text}>
+                    {obj.allocutionAssunto}
+                </Text>
+
+                <Text style={styles.subtitle}>
+                    Coleta
+                </Text>
+                <Text style={styles.text}>
+                    {obj.coleta === true ? `Foi passada a coleta secreta` : 'Não foi passada a coleta secreta'}
+                </Text>
+                <Text style={styles.subtitle}>Estudo do Manual</Text>
+                <Text style={styles.bold}>
+                    Página
+                </Text>
+                <Text style={styles.text}>
+                    {obj.paginaEstudo}
+                </Text>
+                <Text style={styles.bold}>
+                    Páragrafo
+                </Text>
+                <Text style={styles.text}>
+                    {obj.paragrafoEstudo}
+                </Text>
+                <Text style={styles.bold}>
+                    Assuntos
+                </Text>
+                <Text style={styles.text}>
+                    {obj.assuntos}
+                </Text>
+                <Text style={styles.bold}>
+                    Hora Final
+                </Text>
+                <Text style={styles.text}>
+                    {obj.horaFinal}
+                </Text>
+
+                <Button
+                    title="Editar"
+                    type="outline"
+                    buttonStyle={styles.buttonSend}
+                    titleStyle={styles.buttonTextSend}
+                    onPress={() => {
+                        let newEdit = !obj.edit
+                        setObj({ ...obj, edit: newEdit })
+                    }}
+                    icon={
+                        <Icon name={"pencil"} size={20} color={"#FFF"} />
+                    }
+                />
+            </View>
+    )
 }
 
 const styles = StyleSheet.create({

@@ -17,7 +17,6 @@ function FoundAta(props) {
     })
     const [data, setData] = useState(props.moment)
     const [loading, setLoading] = useState(false)
-
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
@@ -31,7 +30,7 @@ function FoundAta(props) {
                 setLoading(false)
                 setVisible(true)
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
         setLoading(true)
@@ -49,7 +48,6 @@ function FoundAta(props) {
 
     const newAta = (ata) => {
         setLoading(true)
-
         let newCap =  parseInt(ata.capituloEspiritual, 10)
         let newPE =  parseInt(ata.paginaEspiritual, 10)
         let newPA =  parseInt(ata.paginaEstudo, 10)
@@ -75,13 +73,13 @@ function FoundAta(props) {
 
         updateAta(newObj)
             .then(() => {
-                setMessage({ title: 'Sucesso', body: 'Ata alterada com sucesso' })
-                setVisible(true)
+                setMessage({ title: 'Sucesso', message: 'Ata alterada com sucesso' })
                 setLoading(false)
+                setVisible(true)
             }, error => {
-                setMessage({ title: 'Error 😵😵😵', body: error.message })
-                setVisible(true)
+                setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
+                setVisible(true)
             })
     }
 
@@ -122,7 +120,6 @@ function FoundAta(props) {
                 }
             </>
     );
-
 }
 
 const styles = StyleSheet.create({

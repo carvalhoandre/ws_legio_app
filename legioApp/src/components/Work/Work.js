@@ -16,7 +16,7 @@ const initialState = {
     elderly: null,
     hours: null,
     observation: '',
-    legios: '',
+    legio: '',
     loading: false,
     visible: false,
     title: '',
@@ -48,7 +48,7 @@ export default class Work extends Component {
             elderly: newE,
             total: tot,
             hours: newH,
-            legios: this.state.legios,
+            legio: this.state.legio,
             observation: this.state.observation
         }
         createWork(newObj)
@@ -96,9 +96,9 @@ export default class Work extends Component {
                     </Portal>
 
                     <Picker
-                        selectedValue={this.state.person}
+                        selectedValue={this.state.work}
                         style={{ height: 50, width: '100%', marginTop: 10 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
+                        onValueChange={(work, itemIndex) => this.setState({ work: work })}
                     >
                         <Picker.Item label="Visita" value={0} style={styles.textOption} />
                         <Picker.Item label="Rosário" value={1} style={styles.textOption} />
@@ -170,12 +170,12 @@ export default class Work extends Component {
 
                     <TextInput
                         label="Dupla"
-                        value={this.state.legios}
+                        value={this.state.legio}
                         underlineColor={"#A6B0BF"}
                         activeOutlineColor={commonStyles.colors.primaryColor}
                         activeUnderlineColor={commonStyles.colors.primaryColor}
                         style={styles.input}
-                        onChangeText={legios => this.setState({ legios })}
+                        onChangeText={legio => this.setState({ legio })}
                     />
 
                     <TextInput

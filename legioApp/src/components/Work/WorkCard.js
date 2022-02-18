@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button } from 'react-native-elements'
@@ -6,236 +6,231 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../../styles/commonStyles'
 import { Picker } from '@react-native-picker/picker';
 
-export default class WorkCard extends Component {
-    constructor(props) {
-        super(props)
-        this.work = props.work
-        this.deleteForId = props.deleteForId
-        this.newWork = props.newWork
-        this.state = {
-            id: this.work.id,
-            date: this.work.date,
-            work: this.work.work,
-            yong: this.work.yong,
-            adult: this.work.adult,
-            children: this.work.children,
-            elderly: this.work.elderly,
-            total: this.work.total,
-            hours: this.work.hours,
-            observation: this.work.observation,
-            legio: this.work.legio,
-            edit: false,
-        }
-    }
+export default function WorkCard(props) {
+    const work = props.work
+    const deleteForId = props.deleteForId
+    const newWork = props.newWork
 
-    render() {
-        const validations = []
-        const validAdult = (this.state.adult !== null)
-        const validChildren = (this.state.yong !== null)
-        const validYong = (this.state.children !== null)
-        const validElderly = (this.state.elderly !== null)
-        validations.push(validYong, validAdult, validChildren, validElderly)
+    const [obj, setObj] = useState({
+        id: work.id,
+        date: work.date,
+        work: work.work,
+        yong: work.yong,
+        adult: work.adult,
+        children: work.children,
+        elderly: work.elderly,
+        total: work.total,
+        hours: work.hours,
+        observation: work.observation,
+        legio: work.legio,
+        edit: false,
+    })
 
-        const validForm = validations.reduce((t, a) => t && a)
+    const validations = []
+    const validAdult = (obj.adult !== null)
+    const validChildren = (obj.yong !== null)
+    const validYong = (obj.children !== null)
+    const validElderly = (obj.elderly !== null)
+    validations.push(validYong, validAdult, validChildren, validElderly)
+    const validForm = validations.reduce((t, a) => t && a)
 
-        return (
-            this.state.edit === true ?
-                <View style={styles.container}>
-                    <View style={styles.fieldButton}>
-                        <Button
-                            title=""
-                            type="outline"
-                            buttonStyle={styles.buttonCancel}
-                            titleStyle={styles.textButton}
-                            onPress={(() => {
-                                let newEdit = !this.state.edit
-                                this.setState({ edit: newEdit })
-                            })}
-                            icon={
-                                <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
-                            }
-                        />
-                    </View>
-
-                    <Picker
-                        selectedValue={this.state.person}
-                        style={{ height: 50, width: '100%', marginTop: 10 }}
-                        onValueChange={(itemValue, itemIndex) => this.setState({ person: itemValue })}
-                    >
-                        <Picker.Item label="Visita" value={0} style={styles.textOption} />
-                        <Picker.Item label="Rosário" value={1} style={styles.textOption} />
-                        <Picker.Item label="Ofício" value={2} style={styles.textOption} />
-                        <Picker.Item label="Ligação" value={3} style={styles.textOption} />
-                        <Picker.Item label="Chamada de Vídeo" value={4} style={styles.textOption} />
-                        <Picker.Item label="Propagação de Devoção" value={5} style={styles.textOption} />
-                    </Picker>
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Quantidade de Jovens"
-                        value={this.state.yong.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={yong => this.setState({ yong })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Quantidade de adultos"
-                        value={this.state.adult.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={adult => this.setState({ adult })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Quantidade de crianças"
-                        value={this.state.children.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={children => this.setState({ children })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Quantidade de idosos"
-                        value={this.state.elderly.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={elderly => this.setState({ elderly })}
-                    />
-
-                    <TextInput
-                        type="number"
-                        keyboardType="number-pad"
-                        label="Horas de trabalho"
-                        value={this.state.hours.toString()}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={hours => this.setState({ hours })}
-                    />
-
-                    <TextInput
-                        label="Dupla"
-                        value={this.state.legio}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={legio => this.setState({ legio })}
-                    />
-
-                    <TextInput
-                        label="Observação"
-                        multiline={true}
-                        value={this.state.observation}
-                        underlineColor={"#A6B0BF"}
-                        activeOutlineColor={commonStyles.colors.primaryColor}
-                        activeUnderlineColor={commonStyles.colors.primaryColor}
-                        style={styles.input}
-                        onChangeText={observation => this.setState({ observation })}
-                    />
-
-                    <Button
-                        title="Salvar"
-                        type="outline"
-                        buttonStyle={styles.buttonSend}
-                        titleStyle={styles.buttonTextSend}
-                        disabled={!validForm}
-                        disabledTitleStyle={styles.textButton}
-                        disabledStyle={styles.buttonDisabled}
-                        onPress={(() => {
-                            this.newWork(this.state)
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        })}
-                        icon={
-                            <Icon name={"send-sharp"} size={20} color={"#FFF"} />
-                        }
-                    />
-
+    return (
+        obj.edit === true ?
+            <View style={styles.container}>
+                <View style={styles.fieldButton}>
                     <Button
                         title=""
                         type="outline"
-                        buttonStyle={styles.buttonDelete}
+                        buttonStyle={styles.buttonCancel}
                         titleStyle={styles.textButton}
-                        onPress={() => { this.deleteForId(this.state.id) }}
+                        onPress={(() => {
+                            let newEdit = !obj.edit
+                            setObj({ ...obj, edit: newEdit })
+                        })}
                         icon={
-                            <Icon name={"trash"} size={20} color={"#FFF"} />
+                            <Icon name={"close"} size={30} color={commonStyles.colors.primaryHoverColor} />
                         }
                     />
                 </View>
-                :
-                <View style={styles.container}>
-                    <Text style={styles.title}>
-                        {this.state.work}
-                    </Text>
 
-                    <Text style={styles.bold}>
-                        Contato com
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.yong >= 1 ? ` ${this.state.yong} Jovens. ` : null}
-                        {this.state.adult >= 1 ? `${this.state.adult} Adultos. ` : null}
-                        {this.state.children >= 1 ? `${this.state.children} Crianças. ` : null}
-                        {this.state.elderly >= 1 ? `${this.state.elderly} Idosos. ` : null}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Total de contatos
-                    </Text>
-                    <Text style={styles.text}>
-                     {this.state.total}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Dupla
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.legio}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Observação
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.observation}
-                    </Text>
-                    <Text style={styles.bold}>
-                        Horas de trabalho
-                    </Text>
-                    <Text style={styles.text}>
-                        {this.state.hours}
-                    </Text>
+                <Picker
+                    selectedValue={obj.work}
+                    style={{ height: 50, width: '100%', marginTop: 10 }}
+                    onValueChange={(work, itemIndex) => setObj({ ...obj, work: work })}
+                >
+                    <Picker.Item label="Visita" value={0} style={styles.textOption} />
+                    <Picker.Item label="Rosário" value={1} style={styles.textOption} />
+                    <Picker.Item label="Ofício" value={2} style={styles.textOption} />
+                    <Picker.Item label="Ligação" value={3} style={styles.textOption} />
+                    <Picker.Item label="Chamada de Vídeo" value={4} style={styles.textOption} />
+                    <Picker.Item label="Propagação de Devoção" value={5} style={styles.textOption} />
+                </Picker>
 
-                    <Button
-                        title="Editar"
-                        type="outline"
-                        buttonStyle={styles.buttonSend}
-                        titleStyle={styles.buttonTextSend}
-                        onPress={() => {
-                            let newEdit = !this.state.edit
-                            this.setState({ edit: newEdit })
-                        }}
-                        icon={
-                            <Icon name={"pencil"} size={20} color={"#FFF"} />
-                        }
-                    />
-                </View>
-        )
-    }
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Quantidade de Jovens"
+                    value={obj.yong.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={yong => setObj({ ...obj, yong: yong })}
+                />
+
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Quantidade de adultos"
+                    value={obj.adult.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={adult => setObj({ ...obj, adult: adult })}
+                />
+
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Quantidade de crianças"
+                    value={obj.children.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={children => setObjobj({ ...obj, children: children })}
+                />
+
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Quantidade de idosos"
+                    value={obj.elderly.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={elderly => setObj({ ...obj, elderly: elderly })}
+                />
+
+                <TextInput
+                    type="number"
+                    keyboardType="number-pad"
+                    label="Horas de trabalho"
+                    value={obj.hours.toString()}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={hours => setObj({ ...obj, hours })}
+                />
+
+                <TextInput
+                    label="Dupla"
+                    value={obj.legio}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={legio => setObj({ ...obj, legio: legio })}
+                />
+
+                <TextInput
+                    label="Observação"
+                    multiline={true}
+                    value={obj.observation}
+                    underlineColor={"#A6B0BF"}
+                    activeOutlineColor={commonStyles.colors.primaryColor}
+                    activeUnderlineColor={commonStyles.colors.primaryColor}
+                    style={styles.input}
+                    onChangeText={observation => setObj({ ...obj, observation: observation })}
+                />
+
+                <Button
+                    title="Salvar"
+                    type="outline"
+                    buttonStyle={styles.buttonSend}
+                    titleStyle={styles.buttonTextSend}
+                    disabled={!validForm}
+                    disabledTitleStyle={styles.textButton}
+                    disabledStyle={styles.buttonDisabled}
+                    onPress={(() => {
+                        newWork(obj)
+                        let newEdit = !obj.edit
+                        setObj({ edit: newEdit })
+                    })}
+                    icon={
+                        <Icon name={"send-sharp"} size={20} color={"#FFF"} />
+                    }
+                />
+
+                <Button
+                    title=""
+                    type="outline"
+                    buttonStyle={styles.buttonDelete}
+                    titleStyle={styles.textButton}
+                    onPress={() => { deleteForId(obj.id) }}
+                    icon={
+                        <Icon name={"trash"} size={20} color={"#FFF"} />
+                    }
+                />
+            </View>
+            :
+            <View style={styles.container}>
+                <Text style={styles.title}>
+                    {obj.work}
+                </Text>
+
+                <Text style={styles.bold}>
+                    Contato com
+                </Text>
+                <Text style={styles.text}>
+                    {obj.yong >= 1 ? ` ${obj.yong} Jovens. ` : null}
+                    {obj.adult >= 1 ? `${obj.adult} Adultos. ` : null}
+                    {obj.children >= 1 ? `${obj.children} Crianças. ` : null}
+                    {obj.elderly >= 1 ? `${obj.elderly} Idosos. ` : null}
+                </Text>
+                <Text style={styles.bold}>
+                    Total de contatos
+                </Text>
+                <Text style={styles.text}>
+                    {obj.total}
+                </Text>
+                <Text style={styles.bold}>
+                    Dupla
+                </Text>
+                <Text style={styles.text}>
+                    {obj.legio}
+                </Text>
+                <Text style={styles.bold}>
+                    Observação
+                </Text>
+                <Text style={styles.text}>
+                    {obj.observation}
+                </Text>
+                <Text style={styles.bold}>
+                    Horas de trabalho
+                </Text>
+                <Text style={styles.text}>
+                    {obj.hours}
+                </Text>
+
+                <Button
+                    title="Editar"
+                    type="outline"
+                    buttonStyle={styles.buttonSend}
+                    titleStyle={styles.buttonTextSend}
+                    onPress={() => {
+                        let newEdit = !obj.edit
+                        setObj({ ...obj, edit: newEdit })
+                    }}
+                    icon={
+                        <Icon name={"pencil"} size={20} color={"#FFF"} />
+                    }
+                />
+            </View>
+    )
 }
 
 const styles = StyleSheet.create({

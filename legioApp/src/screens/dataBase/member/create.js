@@ -20,8 +20,10 @@ const initialState = {
     auxiliar: false,
     title: '',
     body: '',
-    mode: 'date',
-    show: false
+    modeInitial: 'date',
+    modeBirthday: 'date',
+    showInitial: false,
+    showBirthday: false
 }
 
 export default class CreateMember extends Component {
@@ -59,25 +61,34 @@ export default class CreateMember extends Component {
 
         const validForm = validations.reduce((t, a) => t && a)
 
-        const onChangeB = (event, selectedDate) => {
+        const onChangeBirthday = (event, selectedDate) => {
             const currentDate = selectedDate || this.state.birthday;
-            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ showBirthday: Platform.OS === 'ios' })
             this.setState({ birthday: currentDate })
         };
 
-        const onChangeI = (event, selectedDate) => {
+        const onChangeInitial = (event, selectedDate) => {
             const currentDate = selectedDate || this.state.initial;
-            this.setState({ show: Platform.OS === 'ios' })
+            this.setState({ showInitial: Platform.OS === 'ios' })
             this.setState({ initial: currentDate })
         };
 
-        const showMode = (currentMode) => {
-            this.setState({ show: true })
-            this.setState({ mode: currentMode })
+        const showModeBirthday = (currentMode) => {
+            this.setState({ showBirthday: true })
+            this.setState({ modeBirthday: currentMode })
         };
 
-        const showDatepicker = () => {
-            showMode('date');
+        const showModeInitial = (currentMode) => {
+            this.setState({ showInitial: true })
+            this.setState({ modeInitial: currentMode })
+        };
+
+        const showDatepickerInitial = () => {
+            showModeInitial('date');
+        };
+        
+        const showDatepickerBirthday = () => {
+            showModeBirthday('date');
         };
 
         return (
@@ -129,7 +140,7 @@ export default class CreateMember extends Component {
 
                                 <Text style={styles.text}>Data de aniversário:</Text>
                                 <Button
-                                    onPress={showDatepicker}
+                                    onPress={showDatepickerBirthday}
                                     title={`${formatDateMonth(this.state.birthday)}`}
                                     buttonStyle={styles.button}
                                     titleStyle={styles.buttonText}
@@ -138,13 +149,13 @@ export default class CreateMember extends Component {
                                     }
                                 />
 
-                                {this.state.show && (
+                                {this.state.showBirthday && (
                                     <DateTimePicker
                                         testID="dateTimePicker"
                                         value={this.state.birthday}
-                                        mode={this.state.mode}
+                                        mode={this.state.modeBirthday}
                                         display="default"
-                                        onChange={onChangeB}
+                                        onChange={onChangeBirthday}
                                         dateFormat='shortdate'
                                     />
                                 )}
@@ -198,7 +209,7 @@ export default class CreateMember extends Component {
 
                                 <Text style={styles.text}>Data de "entrada":</Text>
                                 <Button
-                                    onPress={showDatepicker}
+                                    onPress={showDatepickerInitial}
                                     title={`${formatDateMonth(this.state.initial)}`}
                                     buttonStyle={styles.button}
                                     titleStyle={styles.buttonText}
@@ -207,13 +218,13 @@ export default class CreateMember extends Component {
                                     }
                                 />
 
-                                {this.state.show && (
+                                {this.state.showInitial && (
                                     <DateTimePicker
                                         testID="dateTimePicker"
                                         value={this.state.initial}
-                                        mode={this.state.mode}
+                                        mode={this.state.modeInitial}
                                         display="default"
-                                        onChange={onChangeI}
+                                        onChange={onChangeInitial}
                                         dateFormat='shortdate'
                                     />
                                 )}

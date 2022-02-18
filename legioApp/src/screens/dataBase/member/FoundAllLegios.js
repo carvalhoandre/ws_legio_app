@@ -27,7 +27,7 @@ export default function FoundAllLegios() {
                 setLoading(false)
                 setVisible(true)
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
         setLoading(true)
@@ -77,7 +77,7 @@ export default function FoundAllLegios() {
                     <Dialog visible={visible} onDismiss={hideDialog}>
                         <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
                         <Dialog.Content>
-                            <Paragraph style={styles.textOption}>{message.body}</Paragraph>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button

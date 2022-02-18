@@ -97,8 +97,8 @@ export default class RecruitmentCard extends Component {
                     <Button
                         title=""
                         type="outline"
-                        buttonStyle={styles.buttonSend}
-                        titleStyle={styles.buttonTextSend}
+                        buttonStyle={styles.buttonDelete}
+                        titleStyle={styles.textButton}
                         onPress={() => { this.deleteForId(this.state.id) }}
                         icon={
                             <Icon name={"trash"} size={20} color={"#FFF"} />

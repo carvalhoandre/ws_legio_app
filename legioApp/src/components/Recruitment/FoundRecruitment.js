@@ -32,13 +32,12 @@ function FoundRecruitment(props) {
                 setVisible(true)
 
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
         setLoading(true)
         deleteRecruitment(id)
             .then(() => {
-
                 setMessage({ title: 'Sucesso', message: 'Deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
@@ -46,7 +45,6 @@ function FoundRecruitment(props) {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
-
             })
     }
 
@@ -62,7 +60,6 @@ function FoundRecruitment(props) {
 
         updateRecruitment(newObj)
             .then(() => {
-
                 setMessage({ title: 'Sucesso', message: 'Alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
@@ -70,7 +67,6 @@ function FoundRecruitment(props) {
                 setMessage({ title: 'Error 😵😵😵', message: error.message })
                 setLoading(false)
                 setVisible(true)
-
             })
     }
 

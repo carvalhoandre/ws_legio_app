@@ -31,7 +31,7 @@ function FoundTreasury(props) {
                 setLoading(false)
                 setVisible(true)
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
         setLoading(true)

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getWorkForDate, deleteWork, updateWork } from '../../service/api';
-import { StyleSheet, View, Text, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, Image, ActivityIndicator, RefreshControl, SafeAreaView, ScrollView } from 'react-native';
 import { Portal, Dialog, Paragraph } from 'react-native-paper';
 import WorkList from './WorkList';
 import { Button } from 'react-native-elements'
@@ -17,7 +17,6 @@ function FoundWork(props) {
     })
     const [data, setData] = useState(props.moment)
     const [loading, setLoading] = useState(false)
-
     const hideDialog = () => setVisible(false);
 
     useEffect(() => {
@@ -31,13 +30,11 @@ function FoundWork(props) {
                 setLoading(false)
                 setVisible(true)
             })
-    }, [])
+    }, [message])
 
     const deleteForId = (id) => {
-        setLoading(true)
         deleteWork(id)
             .then(() => {
-               
                 setMessage({ title: 'Sucesso', message: 'Trabalho deleteado com sucesso' })
                 setLoading(false)
                 setVisible(true)
@@ -56,7 +53,7 @@ function FoundWork(props) {
         let newE = parseInt(work.elderly, 10)
         let tot = newA + newC + newY + newE
         let newH = parseFloat(work.hours, 10)
-       
+
         let newObj = {
             id: work.id,
             date: work.date,
@@ -73,7 +70,6 @@ function FoundWork(props) {
 
         updateWork(newObj)
             .then(() => {
-                
                 setMessage({ title: 'Sucesso', message: 'Trabalho alterado com sucesso' })
                 setLoading(false)
                 setVisible(true)
@@ -86,51 +82,61 @@ function FoundWork(props) {
 
     return (
         loading === true ?
-        <View style={styles.spinner}>
-            <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
-        </View>
-        :
-        <>
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
-                    <Dialog.Content>
-                        <Paragraph style={styles.textOption}>{message.message}</Paragraph>
-                    </Dialog.Content>
-                    <Dialog.Actions>
-                        <Button
-                            title="Ok"
-                            type="outline"
-                            onPress={hideDialog}
-                            buttonStyle={styles.dialogButton}
-                        />
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
-            {work.length >= 1 ?
-                <WorkList
-                    work={work}
-                    deleteForId={deleteForId}
-                    newWork={newWork}
-                />
-                :
-                <View style={styles.container}>
-                    <Text style={styles.title}>Não há trabalhos na data informada</Text>
-                    <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
-                </View>
-            }
-        </>
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" color={commonStyles.colors.primaryColor} />
+            </View>
+            :
+            <>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog}>
+                        <Dialog.Title style={styles.titleOption}>{message.title}</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph style={styles.textOption}>{message.message}</Paragraph>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button
+                                title="Ok"
+                                type="outline"
+                                onPress={hideDialog}
+                                buttonStyle={styles.dialogButton}
+                            />
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
+                {work.length >= 1 ?
+                    <WorkList
+                        work={work}
+                        deleteForId={deleteForId}
+                        newWork={newWork}
+                    />
+                    :
+                    <View style={styles.containerMessage}>
+                        <Text style={styles.title}>Não há trabalhos na data informada</Text>
+                        <Image source={require('../../../assets/icons/notFound.png')} style={styles.fest} />
+                    </View>
+                }
+            </>
     );
 
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+
+    scrollView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
     buttons: {
         backgroundColor: '#FFF',
         justifyContent: 'flex-start'
     },
 
-    container: {
+    containerMessage: {
         paddingBottom: 20,
         paddingTop: 20,
         paddingLeft: 30,
