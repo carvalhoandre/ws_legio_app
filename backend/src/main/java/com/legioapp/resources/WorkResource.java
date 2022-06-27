@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.legioapp.domain.Work;
+import com.legioapp.dto.WorkDTO;
 import com.legioapp.services.WorkService;
 
 @RestController
@@ -63,5 +64,11 @@ public class WorkResource {
 	public ResponseEntity<List<Work>> findById(@PathVariable String date){
 		List<Work> list = service.findAllByDate(date);
 		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping("/worktype/{workType}")
+	public ResponseEntity<WorkDTO> findByWorkType(@PathVariable Integer workType){
+		WorkDTO obj = service.findAllByWorkType(workType);
+		return ResponseEntity.ok(obj);
 	}
 }

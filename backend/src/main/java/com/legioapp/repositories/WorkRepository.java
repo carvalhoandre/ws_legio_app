@@ -14,4 +14,8 @@ public interface WorkRepository extends JpaRepository<Work, Integer> {
 	@Transactional(readOnly = true)
 	@Query("SELECT obj FROM Work obj WHERE obj.date = :date ORDER BY obj.date ASC")
 	public List<Work> findForDate(@Param("date")String date);
+	
+	@Transactional(readOnly = true)
+	@Query("SELECT obj FROM Work obj WHERE obj.work = :work")
+	public List<Work> findForWork(@Param("work")Integer work);
 }

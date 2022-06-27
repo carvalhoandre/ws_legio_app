@@ -94,4 +94,8 @@ public class AttendanceService {
 		List<Attendance> obj = repo.findForDate(date);
 		return obj;
 	}
+	
+	public Integer findAllByLegio(Integer id) {
+		return 1;
+	}
 }

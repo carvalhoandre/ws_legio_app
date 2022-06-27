@@ -74,4 +74,10 @@ public class AttendanceResource {
 		List<Attendance> list = service.findAllByDate(date);
 		return ResponseEntity.ok(list);
 	}
+	
+	@GetMapping("/legio/{id}")
+	public ResponseEntity<Integer> findByLegio(@PathVariable Integer id){
+		Integer attendance = service.findAllByLegio(id);
+		return ResponseEntity.ok(attendance);
+	}
 }

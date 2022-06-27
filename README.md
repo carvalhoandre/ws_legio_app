@@ -1,4 +1,6 @@
-# APlicativo Legionário
+# Aplicativo Legionário
+ 
+Praesidium Porta do Céu
 
 <p align="auto">
     <img src="https://img.shields.io/badge/JavaScript-black?style=for-the-badge&logo=javascript&logoColor=white">
@@ -224,3 +226,30 @@ While the data transfer between the API and the app is working you must use the 
 In this folder, you have the main objects to apply the composition architecture. Just create a folder for each screen you have in your application, call all the components and static resources you need to render the scene and finally use the corresponding hooks to interact with redux and create behaviors depending on the store.
 
 To keep the structure, extract the styles from the main file and place it in a {namefile.styles.js} do the same for the set of tests needed for each screen with the file {namefile.test.js}
+
+## O nosso padrão de Branches
+
+Branch de produção 
+Padrões de nomeações das branchs:
+
+- <b>Master</b>: Produção de
+- <b>Develop</b>: Ramificação principal
+
+### Type ou categoria do branch. Os types podem ser os seguintes:
+
+- <b>docs</b>: apenas mudanças de documentação;
+- <b>feat</b>: uma nova funcionalidade;
+- <b>fix</b>: a correção de um bug;
+- <b>perf</b>: mudança de código focada em melhorar performance;
+- <b>refactor</b>: mudança de código que não adiciona uma funcionalidade e também não corrigi um bug;
+- <b>style</b>: mudanças no código que não afetam seu significado (espaço em branco, formatação, ponto e vírgula, etc);
+- <b>test</b>: adicionar ou corrigir testes.
+
+### Exemplos de alguns nomes de branches que podem existir em nossa aplicação:
+
+- feat-cadastro-veiculos
+- refactor-edicao-colaboradores
+- fix-busca-checklists
+ 
+## Heroku 
+- git subtree push --prefix backend heroku main

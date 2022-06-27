@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.legioapp.domain.Work;
+import com.legioapp.dto.WorkDTO;
 import com.legioapp.repositories.WorkRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
+
+import java.lang.Math;
 
 @Service
 public class WorkService {
@@ -84,5 +87,43 @@ public class WorkService {
 	public List<Work> findAllByDate(String date) {
 		List<Work> obj = repo.findForDate(date);
 		return obj;
+	}
+	
+	public WorkDTO findAllByWorkType(Integer workType) {
+		List<Work> obj = repo.findForWork(workType);
+		
+		Integer totWorkTot = 0;
+		Integer totYong = 0;
+		Integer totAdult = 0;
+		Integer totChildren= 0;
+		Integer totElderly = 0;
+		Integer totTotal = 0;
+		Integer totHours = 0;
+	
+		for(Work newObj :  obj) {
+			if(newObj.getAdult() > 0) {
+				totAdult = totAdult + newObj.getAdult();
+			}
+			if(newObj.getYong() > 0) {
+				totYong = totYong + newObj.getYong();
+			}
+			if(newObj.getChildren() > 0) {
+				totChildren = totChildren + newObj.getChildren();
+			}
+			if(newObj.getElderly() > 0) {
+				totElderly = totElderly + newObj.getElderly();
+			}
+			if(newObj.getTotal() > 0) {
+				totTotal = totTotal + newObj.getTotal();
+			}
+			if(newObj.getHours() > 0) {
+				totHours = Math.round(totHours + newObj.getHours());
+			}
+			totWorkTot = totWorkTot+1;
+		}
+		
+		WorkDTO newDto = new WorkDTO(totWorkTot, totYong, totAdult, totChildren, totElderly, totTotal, totHours);
+		
+		return newDto;
 	}
 }
