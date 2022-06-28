@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.legioapp.domain.Attendance;
 import com.legioapp.domain.Legio;
+import com.legioapp.domain.enums.AttendanceType;
 import com.legioapp.repositories.AttendanceRepository;
 import com.legioapp.services.exceptions.DataIntegrityException;
 import com.legioapp.services.exceptions.ObjectNotFoundException;
@@ -96,6 +97,17 @@ public class AttendanceService {
 	}
 	
 	public Integer findAllByLegio(Integer id) {
-		return 1;
+		Legio legio = legioService.findAllById(id);
+		List<Attendance> attendance = repo.findForLegio(legio);
+		
+		Integer totAttendace = 0;
+		
+		for(Attendance newObj : attendance) {
+			if(newObj.getAttendance() == AttendanceType.PRESENTE) {
+				totAttendace = totAttendace + 1;
+			}
+		}
+		
+		return totAttendace;
 	}
 }
