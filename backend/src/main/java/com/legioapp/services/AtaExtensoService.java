@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.legioapp.domain.AtaExtenso;
 import com.legioapp.repositories.AtaExtensoRepository;
@@ -19,6 +20,9 @@ public class AtaExtensoService {
 
 	@Autowired
 	private AtaExtensoRepository repo;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public AtaExtenso find(Integer  id) {
 		Optional<AtaExtenso> obj = repo.findById(id);
@@ -84,6 +88,12 @@ public class AtaExtensoService {
 	
 	public List<AtaExtenso> findAllByDate(String date) {
 		List<AtaExtenso> obj = repo.findForDate(date);
+		return obj;
+	}
+	
+	@Transactional
+	public AtaExtenso sendAtaExtensoForEmail(AtaExtenso obj) {
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
 }

@@ -65,4 +65,12 @@ public class AtaExtensoResource {
 		List<AtaExtenso> list = service.findAllByDate(date);
 		return ResponseEntity.ok(list);
 	}
+	
+	@PostMapping("/sendEmail")
+	public ResponseEntity<Void> sendByEmail(@Valid @RequestBody AtaExtenso obj) {
+		obj = service.sendAtaExtensoForEmail(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 }
