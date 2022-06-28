@@ -53,8 +53,9 @@ public class AttendanceResource {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
@@ -66,7 +67,7 @@ public class AttendanceResource {
 	@GetMapping
 	public ResponseEntity<List<Attendance>> findAll(){
 		List<Attendance> list = service.findAll();
-		return ResponseEntity.ok(list);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/date/{date}")
