@@ -19,6 +19,6 @@ public interface LegiosRepository extends JpaRepository<Legio, Integer> {
 	public List<Legio> findForBirthday(@Param("date")String date);
 	
 	@Transactional(readOnly = true)
-	@Query("SELECT obj FROM Legio obj WHERE obj.birthday LIKE :mes")
-	public List<Legio> findBirthdayMonth(@Param("mes")String mes);
+	@Query("SELECT obj FROM Legio obj WHERE obj.birthday LIKE :month")
+	public List<Legio> findBirthdayMonth(@Param("month")String month);
 }

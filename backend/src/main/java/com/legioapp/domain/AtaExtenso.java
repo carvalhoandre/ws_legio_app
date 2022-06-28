@@ -21,6 +21,7 @@ public class AtaExtenso implements Serializable {
 	
 	private String inicio;
 	private String ata;
+	private Boolean instrucaoPermanente;
 	private String participation;
 	private String capituloEspiritual;
 	private String paginaEspiritual;
@@ -40,7 +41,7 @@ public class AtaExtenso implements Serializable {
 		this.id = id;
 	}
 
-	public AtaExtenso(Integer id, String date, String inicio, String ata, String participation,
+	public AtaExtenso(Integer id, String date, String inicio, String ata, Boolean instrucaoPermanente, String participation,
 			String capituloEspiritual, String paginaEspiritual, String titleEspiritual, String allocutionAutor,
 			String allocutionAssunto, Boolean coleta, String paginaEstudo, String paragrafoEstudo, String assuntos,
 			String horaFinal) {
@@ -48,6 +49,7 @@ public class AtaExtenso implements Serializable {
 		this.date = date;
 		this.inicio = inicio;
 		this.ata = ata;
+		this.instrucaoPermanente = instrucaoPermanente;
 		this.participation = participation;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
@@ -59,22 +61,6 @@ public class AtaExtenso implements Serializable {
 		this.paragrafoEstudo = paragrafoEstudo;
 		this.assuntos = assuntos;
 		this.horaFinal = horaFinal;
-	}
-
-	public String getInicio() {
-		return inicio;
-	}
-
-	public void setInicio(String inicio) {
-		this.inicio = inicio;
-	}
-
-	public Boolean getColeta() {
-		return coleta;
-	}
-
-	public void setColeta(Boolean coleta) {
-		this.coleta = coleta;
 	}
 
 	public Integer getId() {
@@ -93,12 +79,36 @@ public class AtaExtenso implements Serializable {
 		this.date = date;
 	}
 
+	public String getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
+	}
+
 	public String getAta() {
 		return ata;
 	}
 
 	public void setAta(String ata) {
 		this.ata = ata;
+	}
+
+	public Boolean getInstrucaoPermanente() {
+		return instrucaoPermanente;
+	}
+
+	public void setInstrucaoPermanente(Boolean instrucaoPermanente) {
+		this.instrucaoPermanente = instrucaoPermanente;
+	}
+
+	public String getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(String participation) {
+		this.participation = participation;
 	}
 
 	public String getCapituloEspiritual() {
@@ -141,6 +151,14 @@ public class AtaExtenso implements Serializable {
 		this.allocutionAssunto = allocutionAssunto;
 	}
 
+	public Boolean getColeta() {
+		return coleta;
+	}
+
+	public void setColeta(Boolean coleta) {
+		this.coleta = coleta;
+	}
+
 	public String getPaginaEstudo() {
 		return paginaEstudo;
 	}
@@ -157,28 +175,20 @@ public class AtaExtenso implements Serializable {
 		this.paragrafoEstudo = paragrafoEstudo;
 	}
 
-	public String getHoraFinal() {
-		return horaFinal;
-	}
-
-	public void setHoraFinal(String horaFinal) {
-		this.horaFinal = horaFinal;
-	}
-
-	public String getParticipation() {
-		return participation;
-	}
-
-	public void setParticipation(String participation) {
-		this.participation = participation;
-	}
-
 	public String getAssuntos() {
 		return assuntos;
 	}
 
 	public void setAssuntos(String assuntos) {
 		this.assuntos = assuntos;
+	}
+
+	public String getHoraFinal() {
+		return horaFinal;
+	}
+
+	public void setHoraFinal(String horaFinal) {
+		this.horaFinal = horaFinal;
 	}
 
 	@Override
