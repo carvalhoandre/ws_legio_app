@@ -92,6 +92,7 @@ public class WorkService {
 	public WorkDTO findAllByWorkType(Integer workType) {
 		List<Work> obj = repo.findForWork(workType);
 		
+		String title = "";
 		Integer totWorkTot = 0;
 		Integer totYong = 0;
 		Integer totAdult = 0;
@@ -101,6 +102,9 @@ public class WorkService {
 		Integer totHours = 0;
 	
 		for(Work newObj :  obj) {
+			if (title == "") {
+				title = newObj.getWork().toString();
+			}
 			if(newObj.getAdult() > 0) {
 				totAdult = totAdult + newObj.getAdult();
 			}
@@ -122,7 +126,7 @@ public class WorkService {
 			totWorkTot = totWorkTot+1;
 		}
 		
-		WorkDTO newDto = new WorkDTO(totWorkTot, totYong, totAdult, totChildren, totElderly, totTotal, totHours);
+		WorkDTO newDto = new WorkDTO(title,totWorkTot, totYong, totAdult, totChildren, totElderly, totTotal, totHours);
 		
 		return newDto;
 	}

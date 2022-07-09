@@ -37,10 +37,10 @@
 		<p>Ata n° <span th:text="${ataExtenso.number}"></span></p>
 
 		<div>
-			<p id="title">Ata número <span th:text="${ataExtenso.numero}"></span></p>
+			<p id="title">Ata número <span th:text="${ataExtenso.numberExtenso}"></span></p>
 
 			<p>
-				Aos <span th:text="${ataExtenso.dataExtenso}"></span>, na comunidade Santa Teresa de Jesus, no bairro Parque Santa Teresa, no munícipio de Carapicuíba, no estado de São Paulo, iniciou sob a proteção de Maria Santíssima com as orações iniciais e o rosário e a tessera, o praesidium “Porta do Céu” iniciou sua reunião semanal.
+				Aos <span th:text="${ataExtenso.dateExtenso}"></span>, na comunidade Santa Teresa de Jesus, no bairro Parque Santa Teresa, no munícipio de Carapicuíba, no estado de São Paulo, iniciou sob a proteção de Maria Santíssima com as orações iniciais e o rosário e a tessera, o praesidium “Porta do Céu” iniciou sua reunião semanal.
 			</p>
 
 			<p>Foram dadas as boas-vindas e estavam participando os seguintes</p>
@@ -74,12 +74,13 @@
 				<span th:text="${ataExtenso.allocutionAutor}"></span> 
 				refletiu sobre 
 				<span th:text="${ataExtenso.allocutionAssunto}"></span>. 
-				Foi passada a coleta secreta e não foram designados trabalhos para semana seguinte. O Estudo Manual foi retirado da página 
+				<span th:text="${ataExtenso.coleta}"></span> e 
+				<span th:text="${ataExtenso.trabalhosDesignados}"></span>. O Estudo Manual foi retirado da página 
 				<span th:text="${ataExtenso.paginaEstudo}"></span>, 
 				parágrafo 
 				<span th:text="${ataExtenso.paragrafoEstudo}"></span> 
 				e foi lido e comentado por todos. Nos assuntos diversos, foi falado sobre 
-				<span th:text="${ataExtenso.event}"></span>. 
+				<span th:text="${ataExtenso.assuntos}"></span>. 
 				Não tendo nada mais a comenta encerramos a reunião às 
 				<span th:text="${ataExtenso.horaFinal}"></span> 
 				horas e trinta e 

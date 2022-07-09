@@ -1,114 +1,103 @@
 package com.legioapp.domain;
 
-import java.io.Serializable;
+public class AtaExtenso {
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "tb_ata_extenso")
-public class AtaExtenso implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	private String date;
-	
-	private String inicio;
-	private String ata;
-	private Boolean instrucaoPermanente;
-	private String participation;
+	private Integer number;
+	private String numberExtenso;
+	private String dateExtenso;
+	private String presentes;
 	private String capituloEspiritual;
 	private String paginaEspiritual;
 	private String titleEspiritual;
+	private String recrutamento;
+	private String ata;
+	private String instrucaoPermanente;
+	private String saldoAnterior;
+	private String diaDaColeta;
+	private String coletaDoDia;
+	private String despesas;
+	private String contribuicao;
+	private String subTotal;
+	private String totalEmCaixa;	
+	private String work;
 	private String allocutionAutor;
 	private String allocutionAssunto;
-	private Boolean coleta;
+	private String coleta;
+	private String trabalhosDesignados;
 	private String paginaEstudo;
 	private String paragrafoEstudo;
 	private String assuntos;
 	private String horaFinal;
+	private String minutoFinal;
 	
 	public AtaExtenso() {
 	}
-	
-	public AtaExtenso(Integer id) {
-		this.id = id;
-	}
 
-	public AtaExtenso(Integer id, String date, String inicio, String ata, Boolean instrucaoPermanente, String participation,
-			String capituloEspiritual, String paginaEspiritual, String titleEspiritual, String allocutionAutor,
-			String allocutionAssunto, Boolean coleta, String paginaEstudo, String paragrafoEstudo, String assuntos,
-			String horaFinal) {
-		this.id = id;
-		this.date = date;
-		this.inicio = inicio;
-		this.ata = ata;
-		this.instrucaoPermanente = instrucaoPermanente;
-		this.participation = participation;
+	public AtaExtenso(Integer number, String numberExtenso, String dateExtenso, String presentes,
+			String capituloEspiritual, String paginaEspiritual, String titleEspiritual, String recrutamento, String ata,
+			String instrucaoPermanente, String saldoAnterior, String diaDaColeta, String coletaDoDia, String despesas,
+			String contribuicao, String subTotal, String totalEmCaixa, String work, String allocutionAutor,
+			String allocutionAssunto, String coleta, String trabalhosDesignados, String paginaEstudo,
+			String paragrafoEstudo, String assuntos, String horaFinal, String minutoFinal) {
+		this.number = number;
+		this.numberExtenso = numberExtenso;
+		this.dateExtenso = dateExtenso;
+		this.presentes = presentes;
 		this.capituloEspiritual = capituloEspiritual;
 		this.paginaEspiritual = paginaEspiritual;
 		this.titleEspiritual = titleEspiritual;
+		this.recrutamento = recrutamento;
+		this.ata = ata;
+		this.instrucaoPermanente = instrucaoPermanente;
+		this.saldoAnterior = saldoAnterior;
+		this.diaDaColeta = diaDaColeta;
+		this.coletaDoDia = coletaDoDia;
+		this.despesas = despesas;
+		this.contribuicao = contribuicao;
+		this.subTotal = subTotal;
+		this.totalEmCaixa = totalEmCaixa;
+		this.work = work;
 		this.allocutionAutor = allocutionAutor;
 		this.allocutionAssunto = allocutionAssunto;
 		this.coleta = coleta;
+		this.trabalhosDesignados = trabalhosDesignados;
 		this.paginaEstudo = paginaEstudo;
 		this.paragrafoEstudo = paragrafoEstudo;
 		this.assuntos = assuntos;
 		this.horaFinal = horaFinal;
+		this.minutoFinal = minutoFinal;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getNumber() {
+		return number;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
-	public String getDate() {
-		return date;
+	public String getNumberExtenso() {
+		return numberExtenso;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setNumberExtenso(String numberExtenso) {
+		this.numberExtenso = numberExtenso;
 	}
 
-	public String getInicio() {
-		return inicio;
+	public String getDateExtenso() {
+		return dateExtenso;
 	}
 
-	public void setInicio(String inicio) {
-		this.inicio = inicio;
+	public void setDateExtenso(String dateExtenso) {
+		this.dateExtenso = dateExtenso;
 	}
 
-	public String getAta() {
-		return ata;
+	public String getPresentes() {
+		return presentes;
 	}
 
-	public void setAta(String ata) {
-		this.ata = ata;
-	}
-
-	public Boolean getInstrucaoPermanente() {
-		return instrucaoPermanente;
-	}
-
-	public void setInstrucaoPermanente(Boolean instrucaoPermanente) {
-		this.instrucaoPermanente = instrucaoPermanente;
-	}
-
-	public String getParticipation() {
-		return participation;
-	}
-
-	public void setParticipation(String participation) {
-		this.participation = participation;
+	public void setPresentes(String presentes) {
+		this.presentes = presentes;
 	}
 
 	public String getCapituloEspiritual() {
@@ -135,6 +124,94 @@ public class AtaExtenso implements Serializable {
 		this.titleEspiritual = titleEspiritual;
 	}
 
+	public String getRecrutamento() {
+		return recrutamento;
+	}
+
+	public void setRecrutamento(String recrutamento) {
+		this.recrutamento = recrutamento;
+	}
+
+	public String getAta() {
+		return ata;
+	}
+
+	public void setAta(String ata) {
+		this.ata = ata;
+	}
+
+	public String getInstrucaoPermanente() {
+		return instrucaoPermanente;
+	}
+
+	public void setInstrucaoPermanente(String instrucaoPermanente) {
+		this.instrucaoPermanente = instrucaoPermanente;
+	}
+
+	public String getSaldoAnterior() {
+		return saldoAnterior;
+	}
+
+	public void setSaldoAnterior(String saldoAnterior) {
+		this.saldoAnterior = saldoAnterior;
+	}
+
+	public String getDiaDaColeta() {
+		return diaDaColeta;
+	}
+
+	public void setDiaDaColeta(String diaDaColeta) {
+		this.diaDaColeta = diaDaColeta;
+	}
+
+	public String getColetaDoDia() {
+		return coletaDoDia;
+	}
+
+	public void setColetaDoDia(String coletaDoDia) {
+		this.coletaDoDia = coletaDoDia;
+	}
+
+	public String getDespesas() {
+		return despesas;
+	}
+
+	public void setDespesas(String despesas) {
+		this.despesas = despesas;
+	}
+
+	public String getContribuicao() {
+		return contribuicao;
+	}
+
+	public void setContribuicao(String contribuicao) {
+		this.contribuicao = contribuicao;
+	}
+
+	public String getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(String subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public String getTotalEmCaixa() {
+		return totalEmCaixa;
+	}
+
+	public void setTotalEmCaixa(String totalEmCaixa) {
+		this.totalEmCaixa = totalEmCaixa;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
 	public String getAllocutionAutor() {
 		return allocutionAutor;
 	}
@@ -151,12 +228,20 @@ public class AtaExtenso implements Serializable {
 		this.allocutionAssunto = allocutionAssunto;
 	}
 
-	public Boolean getColeta() {
+	public String getColeta() {
 		return coleta;
 	}
 
-	public void setColeta(Boolean coleta) {
+	public void setColeta(String coleta) {
 		this.coleta = coleta;
+	}
+
+	public String getTrabalhosDesignados() {
+		return trabalhosDesignados;
+	}
+
+	public void setTrabalhosDesignados(String trabalhosDesignados) {
+		this.trabalhosDesignados = trabalhosDesignados;
 	}
 
 	public String getPaginaEstudo() {
@@ -191,28 +276,11 @@ public class AtaExtenso implements Serializable {
 		this.horaFinal = horaFinal;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public String getMinutoFinal() {
+		return minutoFinal;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AtaExtenso other = (AtaExtenso) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public void setMinutoFinal(String minutoFinal) {
+		this.minutoFinal = minutoFinal;
 	}
 }

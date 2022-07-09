@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,36 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.legioapp.domain.Attendance;
-import com.legioapp.dto.AttendanceDTO;
-import com.legioapp.services.AttendanceService;
+import com.legioapp.domain.Ata;
+import com.legioapp.services.AtaService;
 
 @RestController
-@RequestMapping(value="/attendance")
-public class AttendanceResource {
+@RequestMapping("/ata")
+public class AtaResource {
 
 	@Autowired
-	private AttendanceService service;
-	
+	private AtaService service;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Attendance obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Ata obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PostMapping("/all")
-	public ResponseEntity<Void> insert(@RequestBody Attendance[] obj, ModelMap map) {
-		obj = service.insertForId(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.length).toUri();
-		return ResponseEntity.created(uri).build();
-	}
-	
 	@PostMapping("/update")
-	public ResponseEntity<Void> update(@Valid @RequestBody Attendance obj) {
+	public ResponseEntity<Void> update(@Valid @RequestBody Ata obj) {
 		obj = service.Update(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -60,26 +49,20 @@ public class AttendanceResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Attendance> findById(@PathVariable Integer id){
-		Attendance obj = service.findAllById(id);
+	public ResponseEntity<Ata> findById(@PathVariable Integer id){
+		Ata obj = service.findAllById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Attendance>> findAll(){
-		List<Attendance> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping("/date/{date}")
-	public ResponseEntity<List<Attendance>> findById(@PathVariable String date){
-		List<Attendance> list = service.findAllByDate(date);
+	public ResponseEntity<List<Ata>> findAll(){
+		List<Ata> list = service.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping("/legio/{id}")
-	public ResponseEntity<AttendanceDTO> findByLegio(@PathVariable Integer id){
-		AttendanceDTO attendance = service.findAllByLegio(id);
-		return ResponseEntity.ok(attendance);
+	@GetMapping("/date/{date}")
+	public ResponseEntity<List<Ata>> findById(@PathVariable String date){
+		List<Ata> list = service.findAllByDate(date);
+		return ResponseEntity.ok(list);
 	}
 }

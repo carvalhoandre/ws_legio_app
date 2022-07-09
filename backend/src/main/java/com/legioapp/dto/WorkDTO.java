@@ -2,6 +2,8 @@ package com.legioapp.dto;
 
 public class WorkDTO {
 	
+	private String title; 
+	
 	private Integer workTot;
 	
 	private Integer yong;
@@ -18,8 +20,9 @@ public class WorkDTO {
 	
 	public WorkDTO() {}
 
-	public WorkDTO(Integer workTot, Integer yong, Integer adult, Integer children, Integer elderly, Integer total,
+	public WorkDTO(String title, Integer workTot, Integer yong, Integer adult, Integer children, Integer elderly, Integer total,
 			Integer hours) {
+		this.title = title;
 		this.workTot = workTot;
 		this.yong = yong;
 		this.adult = adult;
@@ -27,6 +30,15 @@ public class WorkDTO {
 		this.elderly = elderly;
 		this.total = total;
 		this.hours = hours;
+	}
+
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Integer getWorkTot() {

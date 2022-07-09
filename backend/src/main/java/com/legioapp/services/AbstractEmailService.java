@@ -28,16 +28,16 @@ public abstract class AbstractEmailService implements EmailService {
 	private JavaMailSender javaMailSender;
 	
 	@Override
-	public void sendOrderConfirmationEmail(AtaExtenso obj) {
-		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
+	public void sendOrderConfirmationEmail(AtaExtenso obj, String email) {
+		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj, email);
 		sendEmail(sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(AtaExtenso obj) {
+	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(AtaExtenso obj, String email) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo("legiomariae@outlook.com.br");
+		sm.setTo(email);
 		sm.setFrom(sender);
-		sm.setSubject("Pré Ata de número: " + obj.getId());
+		sm.setSubject("Pré Ata de número: " + obj.getNumber());
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText(obj.toString());
 		return sm;
@@ -50,13 +50,13 @@ public abstract class AbstractEmailService implements EmailService {
 	}
 	
 	@Override
-	public void sendOrderConfirmationHtmlEmail(AtaExtenso obj) {
+	public void sendOrderConfirmationHtmlEmail(AtaExtenso obj, String email) {
 		try {
 			MimeMessage mm = prepareMimeMessageFromPedido(obj);
 			sendHtmlEmail(mm);
 		}
 		catch(MessagingException e){
-			sendOrderConfirmationEmail(obj);
+			sendOrderConfirmationEmail(obj, email);
 		}
 	}
 	
@@ -67,7 +67,7 @@ public abstract class AbstractEmailService implements EmailService {
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
 		mmh.setText(htmlFromTemplatePedido(obj), true);
 		mmh.setFrom(sender);
-		mmh.setSubject("Pré Ata de número: " + obj.getId());
+		mmh.setSubject("Pré Ata de número: " + obj.getNumber());
 		return mimeMessage;
 	}
 }
